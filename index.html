@@ -125,7 +125,7 @@
         // --- Supabase Config ---
         const supabaseUrl = 'https://ftsrjkngineekilrarrd.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0c3Jqa25naW5lZWtpbHJhcnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjExMjcsImV4cCI6MjA5MTY5NzEyN30.aEAeumrSj8Jc5NmvgpZrqfTCD-hYhdl3_rom5yZRX3k';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         const categoryStyles = {
             "Socialização": { titleBg: "bg-blue-50 border-blue-200 text-blue-900", emojiBg: "bg-blue-100 text-blue-600" },
@@ -259,14 +259,14 @@
 
         async function init() {
             try {
-                const { data: dbData, error } = await supabase.from('portage_data').select('*').eq('id', 1).single();
+                const { data: dbData, error } = await supabaseClient.from('portage_data').select('*').eq('id', 1).single();
                 if (dbData) {
                     formState = (Object.keys(dbData.form_state || {}).length > 0) ? dbData.form_state : { ...defaultFormState };
                     obsState = (Object.keys(dbData.observations || {}).length > 0) ? dbData.observations : { ...defaultObsState };
                 } else {
                     formState = { ...defaultFormState };
                     obsState = { ...defaultObsState };
-                    await supabase.from('portage_data').insert([{ id: 1, form_state: formState, observations: obsState }]);
+                    await supabaseClient.from('portage_data').insert([{ id: 1, form_state: formState, observations: obsState }]);
                 }
             } catch (err) {
                 console.error("Erro ao sincronizar com Supabase:", err);
@@ -287,7 +287,7 @@
             if (!isLoaded) return;
             syncStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse inline-block"></span><span class="text-blue-500">Salvando...</span>';
             
-            await supabase.from('portage_data').update({
+            await supabaseClient.from('portage_data').update({
                 form_state: formState,
                 observations: obsState
             }).eq('id', 1);
