@@ -88,12 +88,14 @@
             </div>
             
             <!-- Day Selector -->
-            <div class="flex justify-between mb-6 bg-slate-100 p-1.5 rounded-2xl">
-                <button onclick="selectDay(1)" id="day-1" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Seg</button>
-                <button onclick="selectDay(2)" id="day-2" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Ter</button>
-                <button onclick="selectDay(3)" id="day-3" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qua</button>
-                <button onclick="selectDay(4)" id="day-4" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qui</button>
-                <button onclick="selectDay(5)" id="day-5" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Sex</button>
+            <div class="flex justify-between mb-6 bg-slate-100 p-1.5 rounded-2xl overflow-x-auto custom-scrollbar">
+                <button onclick="selectDay(0)" id="day-0" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Dom</button>
+                <button onclick="selectDay(1)" id="day-1" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Seg</button>
+                <button onclick="selectDay(2)" id="day-2" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Ter</button>
+                <button onclick="selectDay(3)" id="day-3" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qua</button>
+                <button onclick="selectDay(4)" id="day-4" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qui</button>
+                <button onclick="selectDay(5)" id="day-5" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Sex</button>
+                <button onclick="selectDay(6)" id="day-6" class="flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Sáb</button>
             </div>
 
             <!-- Timeline for selected day -->
@@ -288,7 +290,7 @@
                     if (!obsState.scheduleTemplate) {
                         obsState.scheduleTemplate = {};
                         const source = obsState.customSchedule || defaultSchedule;
-                        for (let d = 1; d <= 5; d++) {
+                        for (let d = 0; d <= 6; d++) {
                             obsState.scheduleTemplate[d] = [];
                             if (source[d]) {
                                 source[d].forEach(ev => {
@@ -413,7 +415,7 @@
         function openScheduleEditor() {
             document.getElementById('schedule-modal').classList.remove('hidden');
             document.getElementById('schedule-modal').classList.add('flex');
-            const dayNames = {1:'Segunda-feira', 2:'Terça-feira', 3:'Quarta-feira', 4:'Quinta-feira', 5:'Sexta-feira'};
+            const dayNames = {0:'Domingo', 1:'Segunda-feira', 2:'Terça-feira', 3:'Quarta-feira', 4:'Quinta-feira', 5:'Sexta-feira', 6:'Sábado'};
             document.getElementById('edit-schedule-day').innerText = dayNames[currentDayNum];
             document.getElementById('repeat-day-label').innerText = dayNames[currentDayNum];
             renderScheduleEditorList();
@@ -601,12 +603,12 @@
 
         function selectDay(dayNum) {
             currentDayNum = dayNum;
-            for(let i=1; i<=5; i++) {
+            for(let i=0; i<=6; i++) {
                 const btn = document.getElementById('day-'+i);
                 if(i === dayNum) {
-                    btn.className = "flex-1 py-1.5 text-xs font-black text-indigo-700 bg-white shadow-sm rounded-xl transition-all scale-105";
+                    btn.className = "flex-1 min-w-[3rem] py-1.5 text-xs font-black text-indigo-700 bg-white shadow-sm rounded-xl transition-all scale-105";
                 } else {
-                    btn.className = "flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all hover:text-slate-700";
+                    btn.className = "flex-1 min-w-[3rem] py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all hover:text-slate-700";
                 }
             }
 
