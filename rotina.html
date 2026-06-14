@@ -180,7 +180,10 @@
                     <input type="checkbox" id="new-ev-repeat" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500" checked>
                     <span class="ml-2 text-xs font-bold text-slate-600">Repetir toda <span id="repeat-day-label">Terça</span></span>
                 </label>
-                <button onclick="addScheduleEvent()" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-colors">Salvar Atividade</button>
+                <div class="flex gap-2">
+                    <button onclick="addScheduleEvent()" id="save-ev-btn" class="flex-grow bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-colors">Salvar Atividade</button>
+                    <button onclick="cancelEdit()" id="cancel-ev-btn" class="hidden bg-slate-200 text-slate-700 px-4 py-2 rounded-lg font-bold hover:bg-slate-300 transition-colors">Cancelar</button>
+                </div>
             </div>
 
             <button onclick="closeScheduleEditor()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
@@ -436,13 +439,63 @@
                         <span class="text-xs font-black text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200 mr-2">${ev.startTime} - ${ev.endTime}</span>
                         <span class="text-sm font-semibold text-slate-700">${ev.title}</span>
                     </div>
-                    <button onclick="removeScheduleEvent('${ev.id}')" class="text-rose-500 hover:text-rose-700 p-1" title="Apagar da Rotina Fixa">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                    </button>
+                    <div class="flex items-center gap-1">
+                        <button onclick="editScheduleEvent('${ev.id}')" class="text-indigo-500 hover:text-indigo-700 p-1" title="Editar Atividade">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        </button>
+                        <button onclick="removeScheduleEvent('${ev.id}')" class="text-rose-500 hover:text-rose-700 p-1" title="Apagar da Rotina Fixa">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
                 </li>
                 `;
             });
             ul.innerHTML = html;
+        }
+
+        let editingEventId = null;
+
+        function editScheduleEvent(id) {
+            // Find event
+            let ev = null;
+            let isRepeat = true;
+            
+            // Check template
+            if (obsState.scheduleTemplate[currentDayNum]) {
+                ev = obsState.scheduleTemplate[currentDayNum].find(e => e.id === id);
+            }
+            
+            // Check overrides if not found
+            if (!ev && obsState.scheduleOverrides[todayKey]) {
+                ev = obsState.scheduleOverrides[todayKey].addedEvents.find(e => e.id === id);
+                if (ev) isRepeat = false;
+            }
+
+            if (ev) {
+                document.getElementById('new-ev-start').value = ev.startTime;
+                document.getElementById('new-ev-end').value = ev.endTime;
+                document.getElementById('new-ev-title').value = ev.title;
+                document.getElementById('new-ev-type').value = ev.type;
+                document.getElementById('new-ev-repeat').checked = isRepeat;
+                
+                editingEventId = id;
+                document.getElementById('save-ev-btn').innerText = "Salvar Alteração";
+                document.getElementById('cancel-ev-btn').classList.remove('hidden');
+                
+                // If called from timeline, open modal
+                if (document.getElementById('schedule-modal').classList.contains('hidden')) {
+                    openScheduleEditor();
+                }
+            }
+        }
+
+        function cancelEdit() {
+            editingEventId = null;
+            document.getElementById('new-ev-start').value = '';
+            document.getElementById('new-ev-end').value = '';
+            document.getElementById('new-ev-title').value = '';
+            document.getElementById('save-ev-btn').innerText = "Salvar Atividade";
+            document.getElementById('cancel-ev-btn').classList.add('hidden');
         }
 
         function addScheduleEvent() {
@@ -453,8 +506,14 @@
             const isRepeat = document.getElementById('new-ev-repeat').checked;
             
             if (startTime && endTime && title) {
+                if (editingEventId) {
+                    // Remove old event first
+                    removeScheduleEvent(editingEventId);
+                    overrideRemoveToday(editingEventId); // Also clear from overrides just in case
+                }
+
                 const newEv = {
-                    id: 'ev_' + Date.now() + Math.random().toString(36).substr(2, 9),
+                    id: editingEventId || ('ev_' + Date.now() + Math.random().toString(36).substr(2, 9)),
                     startTime,
                     endTime,
                     title,
@@ -463,20 +522,22 @@
 
                 if (isRepeat) {
                     if (!obsState.scheduleTemplate[currentDayNum]) obsState.scheduleTemplate[currentDayNum] = [];
-                    obsState.scheduleTemplate[currentDayNum].push(newEv);
+                    // Prevent duplicate if we just edited an override into a template
+                    const existsIdx = obsState.scheduleTemplate[currentDayNum].findIndex(e => e.id === newEv.id);
+                    if(existsIdx > -1) obsState.scheduleTemplate[currentDayNum][existsIdx] = newEv;
+                    else obsState.scheduleTemplate[currentDayNum].push(newEv);
                 } else {
                     if (!obsState.scheduleOverrides[todayKey]) obsState.scheduleOverrides[todayKey] = { canceledIds: [], addedEvents: [] };
-                    obsState.scheduleOverrides[todayKey].addedEvents.push(newEv);
+                    const existsIdx = obsState.scheduleOverrides[todayKey].addedEvents.findIndex(e => e.id === newEv.id);
+                    if(existsIdx > -1) obsState.scheduleOverrides[todayKey].addedEvents[existsIdx] = newEv;
+                    else obsState.scheduleOverrides[todayKey].addedEvents.push(newEv);
                 }
 
-                document.getElementById('new-ev-start').value = '';
-                document.getElementById('new-ev-end').value = '';
-                document.getElementById('new-ev-title').value = '';
+                cancelEdit();
                 renderScheduleEditorList();
                 
-                // Show feedback to user if single event
                 if (!isRepeat) {
-                    alert("Evento único adicionado com sucesso para " + todayKey);
+                    alert("Evento único salvo com sucesso para " + todayKey);
                     closeScheduleEditor();
                 }
             } else {
@@ -595,11 +656,17 @@
                                     <span class="text-sm font-bold ${textCol} uppercase tracking-wide mt-1">${icon} ${ev.title}</span>
                                 </div>
                                 <div class="flex flex-col gap-1 items-end">
-                                    <button onclick="overrideRemoveToday('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors bg-white/50 text-slate-600 hover:bg-rose-100 hover:text-rose-600 border border-transparent shadow-sm flex items-center gap-1" title="Apagar apenas de hoje">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        Remover
-                                    </button>
-                                    <button onclick="toggleAbsence('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors ${isAbsent ? 'bg-slate-200 text-slate-500' : 'bg-white/50 text-slate-600 hover:bg-slate-200'} border border-transparent shadow-sm">
+                                    <div class="flex items-center gap-1">
+                                        <button onclick="editScheduleEvent('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors bg-white/50 text-slate-600 hover:bg-indigo-100 hover:text-indigo-600 border border-transparent shadow-sm flex items-center gap-1" title="Editar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                            Editar
+                                        </button>
+                                        <button onclick="overrideRemoveToday('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors bg-white/50 text-slate-600 hover:bg-rose-100 hover:text-rose-600 border border-transparent shadow-sm flex items-center gap-1" title="Apagar apenas de hoje">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            Remover
+                                        </button>
+                                    </div>
+                                    <button onclick="toggleAbsence('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors ${isAbsent ? 'bg-slate-200 text-slate-500' : 'bg-white/50 text-slate-600 hover:bg-slate-200'} border border-transparent shadow-sm mt-1 w-full text-right">
                                         ${isAbsent ? 'Desfazer Falta' : 'Faltou'}
                                     </button>
                                 </div>
