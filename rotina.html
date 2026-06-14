@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rotina e Agenda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        if (localStorage.getItem('auth') !== 'ester_logged_in') window.location.href = 'login.html';
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="pb-24 bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Top App Bar -->
+    <header class="bg-indigo-600 text-white shadow-md sticky top-0 z-40 no-print" style="padding-top: env(safe-area-inset-top);">
+        <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-black text-white shadow-inner">E</div>
+                <h1 class="font-bold text-lg tracking-tight">Rotina & Agenda</h1>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div id="sync-status" class="flex items-center text-xs font-semibold text-indigo-200 bg-indigo-700/50 px-2 py-1 rounded-full border border-indigo-500/30 shadow-inner">
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-1.5 inline-block"></span>
+                    <span>Offline</span>
+                </div>
+                <button onclick="localStorage.removeItem('auth'); window.location.href='login.html';" class="p-2 -mr-2 text-indigo-100 hover:text-white transition-colors" title="Sair">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-lg w-full mx-auto p-4 space-y-6">
+
+        <!-- Sleep Tracker Widget -->
+        <div class="bg-white p-5 shadow-sm border border-slate-200 rounded-3xl">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                    <span>🌙</span> Qualidade do Sono
+                </h2>
+                <span class="text-xs font-semibold text-slate-400" id="sleep-date">Hoje</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Como a Ester dormiu na noite passada?</p>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="saveSleep('bem')" id="sleep-bem" class="flex flex-col items-center justify-center p-3 rounded-2xl border-2 border-slate-100 transition-all hover:bg-emerald-50 hover:border-emerald-200">
+                    <span class="text-2xl mb-1">🟢</span>
+                    <span class="text-[10px] font-bold text-slate-600">Bem</span>
+                </button>
+                <button onclick="saveSleep('medio')" id="sleep-medio" class="flex flex-col items-center justify-center p-3 rounded-2xl border-2 border-slate-100 transition-all hover:bg-amber-50 hover:border-amber-200">
+                    <span class="text-2xl mb-1">🟡</span>
+                    <span class="text-[10px] font-bold text-slate-600">Acordou</span>
+                </button>
+                <button onclick="saveSleep('mal')" id="sleep-mal" class="flex flex-col items-center justify-center p-3 rounded-2xl border-2 border-slate-100 transition-all hover:bg-rose-50 hover:border-rose-200">
+                    <span class="text-2xl mb-1">🔴</span>
+                    <span class="text-[10px] font-bold text-slate-600">Insônia</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Weekly Schedule -->
+        <div class="bg-white p-5 shadow-sm border border-slate-200 rounded-3xl">
+            <h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span>🗓️</span> Agenda da Semana
+            </h2>
+            
+            <!-- Day Selector -->
+            <div class="flex justify-between mb-6 bg-slate-100 p-1.5 rounded-2xl">
+                <button onclick="selectDay(1)" id="day-1" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Seg</button>
+                <button onclick="selectDay(2)" id="day-2" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Ter</button>
+                <button onclick="selectDay(3)" id="day-3" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qua</button>
+                <button onclick="selectDay(4)" id="day-4" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Qui</button>
+                <button onclick="selectDay(5)" id="day-5" class="flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all">Sex</button>
+            </div>
+
+            <!-- Timeline for selected day -->
+            <div id="schedule-timeline" class="space-y-3 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- Checklist do Dia (Desfralde / Rotina) -->
+        <div class="bg-white p-5 shadow-sm border border-slate-200 rounded-3xl">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                <h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                    <span>✅</span> Checklist do Dia
+                </h2>
+                <button onclick="openChecklistEditor()" class="text-indigo-600 text-xs font-bold bg-indigo-50 px-2 py-1 rounded-md hover:bg-indigo-100 transition-colors">
+                    Editar Itens
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Marque o que aconteceu hoje (Xixi, Cocô, Remédios, etc).</p>
+            
+            <div id="checklist-container" class="space-y-2">
+                <!-- Injected via JS -->
+                <div class="text-center text-slate-400 text-xs py-2">Carregando checklist...</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Editar Checklist -->
+    <div id="checklist-modal" class="fixed inset-0 bg-slate-900/60 z-[110] hidden flex-col justify-end sm:justify-center items-center">
+        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl animate-[slideUp_0.3s_ease-out]">
+            <h3 class="text-lg font-black text-slate-800 mb-1">Editar Checklist</h3>
+            <p class="text-xs text-slate-500 mb-4">Adicione ou remova itens diários (Ex: Xixi no vaso, Tomou remédio).</p>
+            
+            <ul id="edit-checklist-list" class="space-y-2 mb-4 max-h-60 overflow-y-auto custom-scrollbar">
+                <!-- Injected via JS -->
+            </ul>
+
+            <div class="flex gap-2 mb-6">
+                <input type="text" id="new-item-text" class="flex-grow bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl px-3 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Ex: Cocô na calcinha">
+                <button onclick="addChecklistItem()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold hover:bg-indigo-700 transition-colors">+</button>
+            </div>
+
+            <button onclick="closeChecklistEditor()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
+                Concluir
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://ftsrjkngineekilrarrd.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0c3Jqa25naW5lZWtpbHJhcnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjExMjcsImV4cCI6MjA5MTY5NzEyN30.aEAeumrSj8Jc5NmvgpZrqfTCD-hYhdl3_rom5yZRX3k';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let obsState = { sleep: {}, absences: [] };
+        
+        // Base Schedule Database
+        const defaultSchedule = {
+            1: [ // Segunda
+                { time: '08:15', title: 'ABA', type: 'aba' },
+                { time: '09:00', title: 'ABA', type: 'aba' },
+                { time: '09:45', title: 'Música', type: 'musica' },
+                { time: '10:30', title: 'T.O.', type: 'to' },
+                { time: '13:00', title: 'Escola', type: 'escola' }
+            ],
+            2: [ // Terça
+                { time: '13:00', title: 'Escola', type: 'escola' }
+            ],
+            3: [ // Quarta
+                { time: '08:15', title: 'Música', type: 'musica' },
+                { time: '09:00', title: 'T.O.', type: 'to' },
+                { time: '09:45', title: 'ABA', type: 'aba' },
+                { time: '10:30', title: 'ABA', type: 'aba' },
+                { time: '13:00', title: 'Escola', type: 'escola' }
+            ],
+            4: [ // Quinta
+                { time: '08:15', title: 'ABA', type: 'aba' },
+                { time: '09:00', title: 'ABA', type: 'aba' },
+                { time: '09:45', title: 'ABA', type: 'aba' },
+                { time: '13:00', title: 'Escola', type: 'escola' }
+            ],
+            5: [ // Sexta
+                { time: '08:15', title: 'ABA', type: 'aba' },
+                { time: '09:00', title: 'ABA', type: 'aba' },
+                { time: '09:45', title: 'ABA', type: 'aba' },
+                { time: '13:00', title: 'Escola', type: 'escola' }
+            ]
+        };
+
+        const todayKey = new Date().toISOString().split('T')[0];
+        let currentDayNum = new Date().getDay();
+        if (currentDayNum === 0 || currentDayNum === 6) currentDayNum = 1; // Default to Monday if weekend
+
+        const syncStatus = document.getElementById('sync-status');
+        const syncStatusCircle = syncStatus.querySelector('span:first-child');
+        const syncStatusText = syncStatus.querySelector('span:last-child');
+
+        function setStatus(state) {
+            if (state === 'syncing') {
+                syncStatusCircle.className = 'w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5 inline-block animate-pulse';
+                syncStatusText.innerText = 'Salvando';
+            } else if (state === 'synced') {
+                syncStatusCircle.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 inline-block';
+                syncStatusText.innerText = 'Salvo';
+            } else if (state === 'error') {
+                syncStatusCircle.className = 'w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5 inline-block';
+                syncStatusText.innerText = 'Erro';
+            }
+        }
+
+        async function loadData() {
+            document.getElementById('sleep-date').innerText = new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: 'short'});
+            try {
+                const { data, error } = await supabaseClient.from('portage_data').select('observations').eq('id', 1).single();
+                if (error) throw error;
+                if (data && data.observations) {
+                    obsState = data.observations;
+                    if (!obsState.sleep) obsState.sleep = {};
+                    if (!obsState.absences) obsState.absences = [];
+                    if (!obsState.checklist_template) obsState.checklist_template = ['Fez xixi no vaso', 'Fez cocô no vaso', 'Tomou vitamina'];
+                    if (!obsState.checklist_data) obsState.checklist_data = {};
+                }
+                
+                // Set UI for today's sleep
+                updateSleepUI(obsState.sleep[todayKey]);
+                
+                selectDay(currentDayNum);
+                renderChecklist();
+                
+                setStatus('synced');
+            } catch (err) {
+                console.error(err);
+                setStatus('error');
+            }
+        }
+
+        async function saveToSupabase() {
+            setStatus('syncing');
+            try {
+                const { error } = await supabaseClient.from('portage_data').update({ observations: obsState }).eq('id', 1);
+                if (error) throw error;
+                setStatus('synced');
+            } catch (err) {
+                console.error(err);
+                setStatus('error');
+            }
+        }
+
+        // --- CHECKLIST LOGIC ---
+        function renderChecklist() {
+            const container = document.getElementById('checklist-container');
+            let html = '';
+            
+            const todayData = obsState.checklist_data[todayKey] || {};
+            
+            obsState.checklist_template.forEach((item, index) => {
+                const isChecked = !!todayData[item];
+                html += `
+                <label class="flex items-center p-3 rounded-xl border ${isChecked ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50 border-slate-200'} cursor-pointer transition-all hover:shadow-sm">
+                    <input type="checkbox" onchange="toggleChecklistItem('${item}')" class="w-5 h-5 text-indigo-600 rounded-md border-slate-300 focus:ring-indigo-500" ${isChecked ? 'checked' : ''}>
+                    <span class="ml-3 text-sm font-semibold ${isChecked ? 'text-indigo-900 line-through opacity-70' : 'text-slate-700'}">${item}</span>
+                </label>
+                `;
+            });
+            
+            if (obsState.checklist_template.length === 0) {
+                html = '<div class="text-center text-slate-400 text-xs py-2">Nenhuma tarefa. Clique em Editar Itens.</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function toggleChecklistItem(item) {
+            if (!obsState.checklist_data[todayKey]) obsState.checklist_data[todayKey] = {};
+            obsState.checklist_data[todayKey][item] = !obsState.checklist_data[todayKey][item];
+            renderChecklist();
+            saveToSupabase();
+        }
+
+        function openChecklistEditor() {
+            document.getElementById('checklist-modal').classList.remove('hidden');
+            document.getElementById('checklist-modal').classList.add('flex');
+            renderEditorList();
+        }
+
+        function closeChecklistEditor() {
+            document.getElementById('checklist-modal').classList.add('hidden');
+            document.getElementById('checklist-modal').classList.remove('flex');
+            renderChecklist();
+            saveToSupabase();
+        }
+
+        function renderEditorList() {
+            const ul = document.getElementById('edit-checklist-list');
+            let html = '';
+            obsState.checklist_template.forEach((item, index) => {
+                html += `
+                <li class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-200">
+                    <span class="text-sm font-semibold text-slate-700 truncate">${item}</span>
+                    <button onclick="removeChecklistItem(${index})" class="text-rose-500 hover:text-rose-700 p-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                </li>
+                `;
+            });
+            ul.innerHTML = html;
+        }
+
+        function addChecklistItem() {
+            const input = document.getElementById('new-item-text');
+            const text = input.value.trim();
+            if (text && !obsState.checklist_template.includes(text)) {
+                obsState.checklist_template.push(text);
+                input.value = '';
+                renderEditorList();
+            }
+        }
+
+        function removeChecklistItem(index) {
+            obsState.checklist_template.splice(index, 1);
+            renderEditorList();
+        }
+        // --- END CHECKLIST LOGIC ---
+
+        function updateSleepUI(val) {
+            document.getElementById('sleep-bem').className = "flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all hover:bg-emerald-50 " + (val === 'bem' ? "bg-emerald-50 border-emerald-400" : "border-slate-100");
+            document.getElementById('sleep-medio').className = "flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all hover:bg-amber-50 " + (val === 'medio' ? "bg-amber-50 border-amber-400" : "border-slate-100");
+            document.getElementById('sleep-mal').className = "flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all hover:bg-rose-50 " + (val === 'mal' ? "bg-rose-50 border-rose-400" : "border-slate-100");
+        }
+
+        function saveSleep(val) {
+            obsState.sleep[todayKey] = val;
+            updateSleepUI(val);
+            saveToSupabase();
+        }
+
+        function toggleAbsence(day, time) {
+            const code = `${todayKey}-${day}-${time}`;
+            const idx = obsState.absences.indexOf(code);
+            if (idx > -1) {
+                obsState.absences.splice(idx, 1); // remove
+            } else {
+                obsState.absences.push(code); // add
+            }
+            saveToSupabase();
+            selectDay(currentDayNum); // re-render
+        }
+
+        function selectDay(dayNum) {
+            currentDayNum = dayNum;
+            // Update tabs
+            for(let i=1; i<=5; i++) {
+                const btn = document.getElementById('day-'+i);
+                if(i === dayNum) {
+                    btn.className = "flex-1 py-1.5 text-xs font-black text-indigo-700 bg-white shadow-sm rounded-xl transition-all scale-105";
+                } else {
+                    btn.className = "flex-1 py-1.5 text-xs font-bold text-slate-500 rounded-xl transition-all hover:text-slate-700";
+                }
+            }
+
+            // Render timeline
+            const events = defaultSchedule[dayNum] || [];
+            const container = document.getElementById('schedule-timeline');
+            let html = '';
+
+            if (events.length === 0) {
+                html = '<div class="text-center text-slate-400 text-sm py-4">Sem atividades fixas hoje.</div>';
+            } else {
+                events.forEach(ev => {
+                    const code = `${todayKey}-${dayNum}-${ev.time}`;
+                    const isAbsent = obsState.absences.includes(code);
+                    
+                    let bgCol = 'bg-slate-100', textCol = 'text-slate-800', borderCol = 'border-slate-200', icon = '🗓️';
+                    if(ev.type === 'aba') { bgCol = 'bg-amber-100'; textCol = 'text-amber-900'; borderCol = 'border-amber-200'; icon = '🧩'; }
+                    if(ev.type === 'musica') { bgCol = 'bg-slate-200'; textCol = 'text-slate-800'; borderCol = 'border-slate-300'; icon = '🎵'; }
+                    if(ev.type === 'to') { bgCol = 'bg-fuchsia-100'; textCol = 'text-fuchsia-900'; borderCol = 'border-fuchsia-200'; icon = '👐'; }
+                    if(ev.type === 'escola') { bgCol = 'bg-sky-100'; textCol = 'text-sky-900'; borderCol = 'border-sky-200'; icon = '🎒'; }
+
+                    if (isAbsent) {
+                        bgCol = 'bg-slate-50 opacity-50'; textCol = 'text-slate-400 line-through'; borderCol = 'border-slate-200 border-dashed';
+                    }
+
+                    html += `
+                    <div class="relative flex items-center justify-between group">
+                        <div class="flex items-center w-full">
+                            <div class="flex flex-col items-center mr-4 z-10">
+                                <div class="w-2.5 h-2.5 bg-indigo-400 rounded-full border-2 border-white shadow-sm"></div>
+                            </div>
+                            <div class="flex-grow ${bgCol} border ${borderCol} rounded-2xl p-3 shadow-sm transition-all flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-sm font-black text-slate-800 bg-white/50 px-2 py-0.5 rounded-lg border border-white/40 shadow-sm">${ev.time}</span>
+                                    <span class="text-sm font-bold ${textCol} uppercase tracking-wide">${icon} ${ev.title}</span>
+                                </div>
+                                <button onclick="toggleAbsence(${dayNum}, '${ev.time}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors ${isAbsent ? 'bg-slate-200 text-slate-500' : 'bg-white/50 text-slate-600 hover:bg-rose-100 hover:text-rose-600'} border border-transparent shadow-sm">
+                                    ${isAbsent ? 'Desfazer Falta' : 'Faltou'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
