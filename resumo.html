@@ -217,6 +217,31 @@
             </div>
         </div>
 
+        <!-- Inteligência Artificial / Análise ABC -->
+        <div class="bg-indigo-50 p-6 shadow-sm border border-indigo-100 rounded-2xl" id="abc-analysis-container">
+            <h3 class="text-lg font-black text-indigo-900 mb-4 border-b border-indigo-200 pb-2 flex items-center gap-2">
+                <span>🧠</span> Análise ABC Avançada (Padrões de Crise)
+            </h3>
+            <div id="abc-loading" class="text-center text-indigo-400 py-10">Processando registros do Diário...</div>
+            <div id="abc-empty" class="text-center text-indigo-400 py-10 hidden">Nenhum registro de crise (ABC) encontrado no Diário.</div>
+            
+            <div id="abc-charts-wrapper" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+                <div>
+                    <h4 class="text-sm font-bold text-indigo-800 text-center mb-2">Horários das Crises</h4>
+                    <div class="relative h-64 w-full">
+                        <canvas id="abcTimeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-indigo-800 text-center mb-2">Principais Motivos (Frequência)</h4>
+                    <div class="relative h-64 w-full">
+                        <canvas id="abcTriggerChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <p id="abc-insight" class="text-sm text-indigo-700 mt-4 bg-white p-3 rounded-xl border border-indigo-100 font-medium hidden"></p>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -354,6 +379,89 @@
             }
         }
 
+        async function loadABC() {
+            try {
+                const { data, error } = await supabaseClient.from('portage_data').select('observations').eq('id', 1).single();
+                document.getElementById('abc-loading').classList.add('hidden');
+                if (error || !data || !data.observations || !data.observations.logs) {
+                    document.getElementById('abc-empty').classList.remove('hidden');
+                    return;
+                }
+                
+                const logs = data.observations.logs;
+                const abcLogs = logs.filter(l => l.type === 'crise' && l.abc);
+                
+                if(abcLogs.length === 0) {
+                    document.getElementById('abc-empty').classList.remove('hidden');
+                    return;
+                }
+
+                document.getElementById('abc-charts-wrapper').classList.remove('hidden');
+                document.getElementById('abc-insight').classList.remove('hidden');
+
+                // Process Time
+                let morning=0, afternoon=0, night=0;
+                let triggers = {};
+                
+                abcLogs.forEach(l => {
+                    const h = new Date(l.date).getHours();
+                    if(h >= 6 && h < 12) morning++;
+                    else if(h >= 12 && h < 18) afternoon++;
+                    else night++;
+                    
+                    if(l.abc.int === 'Média (Birra)' || l.abc.int === 'Forte (Autoagressão)') {
+                        let trig = l.abc.a.toLowerCase().trim();
+                        if(trig.length > 30) trig = trig.substring(0, 30) + '...';
+                        triggers[trig] = (triggers[trig] || 0) + 1;
+                    }
+                });
+
+                new Chart(document.getElementById('abcTimeChart').getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Manhã (6h-12h)', 'Tarde (12h-18h)', 'Noite (18h-6h)'],
+                        datasets: [{
+                            data: [morning, afternoon, night],
+                            backgroundColor: ['#fde047', '#fb923c', '#312e81']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+
+                const sortedTriggers = Object.keys(triggers).sort((a,b) => triggers[b] - triggers[a]).slice(0, 5);
+                const triggerData = sortedTriggers.map(t => triggers[t]);
+
+                new Chart(document.getElementById('abcTriggerChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: sortedTriggers.length > 0 ? sortedTriggers : ['Nenhum'],
+                        datasets: [{
+                            label: 'Ocorrências',
+                            data: triggerData.length > 0 ? triggerData : [0],
+                            backgroundColor: '#f43f5e',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } }, x: { grid: { display: false } } }
+                    }
+                });
+
+                let maxPeriod = 'Noite';
+                let maxCount = night;
+                if(morning > afternoon && morning > night) { maxPeriod = 'Manhã'; maxCount = morning; }
+                else if(afternoon > morning && afternoon > night) { maxPeriod = 'Tarde'; maxCount = afternoon; }
+                
+                const perc = Math.round((maxCount / abcLogs.length) * 100);
+                document.getElementById('abc-insight').innerHTML = `<strong>💡 Insight Automático:</strong> ${perc}% das crises registradas ocorreram no período da <strong>${maxPeriod}</strong>. Fique atento aos gatilhos mais frequentes listados acima.`;
+
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
         async function exportToWhatsApp() {
             try {
                 const btn = document.getElementById('btn-export-wa');
@@ -365,30 +473,50 @@
                 
                 const obsState = data.observations;
                 
-                // Compilar últimos 7 dias
                 let crisesCount = 0;
                 let sleepWell = 0;
                 let absentCount = 0;
+                let dttCount = 0;
+                let clinicalHours = '';
+                
                 const today = new Date();
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(today.getDate() - 7);
+
+                if (obsState.logs) {
+                    crisesCount = obsState.logs.filter(l => {
+                        const d = new Date(l.date);
+                        return l.type === 'crise' && d >= sevenDaysAgo;
+                    }).length;
+                }
+                
                 for(let i=0; i<7; i++) {
                     const d = new Date(today);
                     d.setDate(d.getDate() - i);
                     const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-                    
-                    if (obsState.logs && obsState.logs[key]) {
-                        const crises = obsState.logs[key].filter(l => l.type === 'crisis').length;
-                        crisesCount += crises;
-                    }
                     if (obsState.sleep && obsState.sleep[key] === 'bem') sleepWell++;
+                    if (obsState.dtt && obsState.dtt[key]) dttCount += obsState.dtt[key].length;
                 }
                 
-                // Check absences
                 if (obsState.absences) {
-                    // Contar faltas gerais na semana
-                    absentCount = obsState.absences.length; // Simplificado
+                    absentCount = obsState.absences.length; 
+                }
+                
+                const day = today.getDay();
+                const diff = today.getDate() - day + (day == 0 ? -6:1);
+                const monday = new Date(new Date(today).setDate(diff));
+                const weekKey = monday.getFullYear() + '-' + String(monday.getMonth()+1).padStart(2,'0') + '-' + String(monday.getDate()).padStart(2,'0');
+                
+                if(obsState.clinical && obsState.clinical[weekKey]) {
+                    const clin = obsState.clinical[weekKey];
+                    let lines = [];
+                    for(const [type, info] of Object.entries(clin)) {
+                        lines.push(`- ${type}: ${info.done}h / ${info.goal}h`);
+                    }
+                    clinicalHours = '\n\n*Carga Horária Clínica (Esta semana):*\n' + lines.join('\n');
                 }
 
-                const text = `*Resumo Clínico da Ester* 🌟\nData: ${today.toLocaleDateString('pt-BR')}\n\n*Comportamento e Rotina (Últimos 7 dias):*\n🚨 Crises de comportamento (ABC): ${crisesCount}\n😴 Noites bem dormidas: ${sleepWell} de 7\n\n*Acompanhamento Geral:*\nA rotina da semana está sendo cumprida conforme a agenda clínica, com o desfralde sendo monitorado diariamente no Checklist do aplicativo.\n\n_Gerado automaticamente pelo aplicativo Diário da Ester_`;
+                const text = `*Resumo Clínico da Ester* 🌟\nData: ${today.toLocaleDateString('pt-BR')}\n\n*Comportamento e Rotina (Últimos 7 dias):*\n🚨 Crises de comportamento (ABC): ${crisesCount}\n🎯 Tentativas DTT (ABA): ${dttCount} treinos registrados\n😴 Noites bem dormidas: ${sleepWell} de 7${clinicalHours}\n\n_Gerado automaticamente pelo aplicativo Diário da Ester_`;
                 
                 const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
                 btn.innerHTML = originalHtml;
@@ -401,6 +529,7 @@
         }
 
         loadEvolution();
+        loadABC();
     </script>
 
     

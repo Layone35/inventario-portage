@@ -104,6 +104,18 @@
             </div>
         </div>
 
+        <!-- Metas Clínicas da Semana (Carga Horária) -->
+        <div class="bg-indigo-600 p-5 shadow-sm rounded-3xl text-white">
+            <h2 class="text-sm font-bold uppercase tracking-widest flex items-center gap-2 mb-2">
+                <span>⏱️</span> Carga Horária Clínica
+            </h2>
+            <p class="text-xs text-indigo-200 mb-4">Acompanhamento das horas de terapia cumpridas nesta semana.</p>
+            
+            <div class="space-y-4" id="clinical-hours-container">
+                <div class="text-center text-indigo-300 text-xs py-2">Carregando metas...</div>
+            </div>
+        </div>
+
         <!-- Checklist do Dia (Desfralde / Rotina) -->
         <div class="bg-white p-5 shadow-sm border border-slate-200 rounded-3xl">
             <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
@@ -189,8 +201,7 @@
                     <button onclick="cancelEdit()" id="cancel-ev-btn" class="hidden bg-slate-200 text-slate-700 px-4 py-2 rounded-lg font-bold hover:bg-slate-300 transition-colors">Cancelar</button>
                 </div>
             </div>
-
-            <button onclick="closeScheduleEditor()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
+            <button onclick="closeScheduleEditor()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors mt-4">
                 Concluir
             </button>
         </div>
@@ -677,11 +688,73 @@
                             </div>
                         </div>
                     </div>
-                    `;
-                });
+            container.innerHTML = html;
+        }
+
+        function getWeekKey() {
+            const d = new Date();
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day == 0 ? -6:1);
+            const monday = new Date(d.setDate(diff));
+            return monday.getFullYear() + '-' + String(monday.getMonth()+1).padStart(2,'0') + '-' + String(monday.getDate()).padStart(2,'0');
+        }
+
+        function renderClinical() {
+            const container = document.getElementById('clinical-hours-container');
+            const weekKey = getWeekKey();
+            if(!obsState.clinical) obsState.clinical = {};
+            if(!obsState.clinical[weekKey]) {
+                obsState.clinical[weekKey] = {
+                    'ABA': { goal: 10, done: 0, c1: 'text-amber-200', c2: 'bg-amber-400', c3: 'bg-amber-500', c4: 'hover:bg-amber-400' },
+                    'Fono': { goal: 2, done: 0, c1: 'text-emerald-200', c2: 'bg-emerald-400', c3: 'bg-emerald-500', c4: 'hover:bg-emerald-400' },
+                    'T.O.': { goal: 2, done: 0, c1: 'text-fuchsia-200', c2: 'bg-fuchsia-400', c3: 'bg-fuchsia-500', c4: 'hover:bg-fuchsia-400' },
+                    'Música': { goal: 2, done: 0, c1: 'text-sky-200', c2: 'bg-sky-400', c3: 'bg-sky-500', c4: 'hover:bg-sky-400' }
+                };
+            }
+            const data = obsState.clinical[weekKey];
+            let html = '';
+            for(const [type, info] of Object.entries(data)) {
+                const perc = Math.min(100, Math.round((info.done / info.goal) * 100));
+                html += `
+                <div>
+                    <div class="flex justify-between items-end mb-1">
+                        <span class="text-[10px] font-bold text-white uppercase tracking-widest">${type}</span>
+                        <span class="text-xs font-bold ${info.c1}">${info.done}h / ${info.goal}h</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-full bg-white/20 rounded-full h-2">
+                            <div class="${info.c2} h-2 rounded-full transition-all" style="width: ${perc}%"></div>
+                        </div>
+                        <div class="flex gap-1 shrink-0">
+                            <button onclick="updateClinical('${type}', -1)" class="w-6 h-6 rounded-md bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition-colors">-</button>
+                            <button onclick="updateClinical('${type}', 1)" class="w-6 h-6 rounded-md ${info.c3} ${info.c4} text-white font-bold flex items-center justify-center transition-colors shadow-sm">+</button>
+                        </div>
+                    </div>
+                </div>
+                `;
             }
             container.innerHTML = html;
         }
+
+        async function updateClinical(type, delta) {
+            const weekKey = getWeekKey();
+            const curr = obsState.clinical[weekKey][type].done;
+            let newVal = curr + delta;
+            if(newVal < 0) newVal = 0;
+            obsState.clinical[weekKey][type].done = newVal;
+            renderClinical();
+            
+            try {
+                await supabaseClient.from('portage_data').update({ observations: obsState }).eq('id', 1);
+            } catch(e) { console.error(e); }
+        }
+
+        // --- Hooking to loadData ---
+        const originalLoadData = loadData;
+        loadData = async function() {
+            await originalLoadData();
+            renderClinical();
+        };
 
         loadData();
     </script>
