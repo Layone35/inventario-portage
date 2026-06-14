@@ -154,10 +154,19 @@
             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
                 <h4 class="text-xs font-bold text-slate-700 mb-3 uppercase tracking-wider">Adicionar Nova Atividade</h4>
                 <div class="grid grid-cols-2 gap-2 mb-2">
-                    <input type="time" id="new-ev-time" class="bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500">
-                    <input type="text" id="new-ev-title" class="bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500" placeholder="Ex: Pediatra">
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1">Início</label>
+                        <input type="time" id="new-ev-start" class="w-full bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1">Fim</label>
+                        <input type="time" id="new-ev-end" class="w-full bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500">
+                    </div>
                 </div>
-                <div class="flex gap-2">
+                <div class="mb-2">
+                    <input type="text" id="new-ev-title" class="w-full bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500" placeholder="Ex: Pediatra, Natação...">
+                </div>
+                <div class="flex gap-2 mb-3">
                     <select id="new-ev-type" class="bg-white border border-slate-200 text-slate-900 text-sm rounded-lg px-2 py-1.5 focus:ring-indigo-500 flex-grow">
                         <option value="aba">ABA</option>
                         <option value="escola">Escola</option>
@@ -166,8 +175,12 @@
                         <option value="fono">Fonoaudiologia</option>
                         <option value="medico">Médico / Outros</option>
                     </select>
-                    <button onclick="addScheduleEvent()" class="bg-indigo-600 text-white px-4 py-1.5 rounded-lg font-bold hover:bg-indigo-700 transition-colors">Adicionar</button>
                 </div>
+                <label class="flex items-center mb-3">
+                    <input type="checkbox" id="new-ev-repeat" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500" checked>
+                    <span class="ml-2 text-xs font-bold text-slate-600">Repetir toda <span id="repeat-day-label">Terça</span></span>
+                </label>
+                <button onclick="addScheduleEvent()" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-colors">Salvar Atividade</button>
             </div>
 
             <button onclick="closeScheduleEditor()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">
@@ -371,6 +384,7 @@
             document.getElementById('schedule-modal').classList.add('flex');
             const dayNames = {1:'Segunda-feira', 2:'Terça-feira', 3:'Quarta-feira', 4:'Quinta-feira', 5:'Sexta-feira'};
             document.getElementById('edit-schedule-day').innerText = dayNames[currentDayNum];
+            document.getElementById('repeat-day-label').innerText = dayNames[currentDayNum];
             renderScheduleEditorList();
         }
 
@@ -384,19 +398,19 @@
         function renderScheduleEditorList() {
             const ul = document.getElementById('edit-schedule-list');
             let html = '';
-            const events = obsState.customSchedule[currentDayNum] || [];
+            const events = obsState.scheduleTemplate[currentDayNum] || [];
             
             // Sort events by time
-            events.sort((a, b) => a.time.localeCompare(b.time));
+            events.sort((a, b) => a.startTime.localeCompare(b.startTime));
             
             events.forEach((ev, index) => {
                 html += `
                 <li class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200">
                     <div>
-                        <span class="text-xs font-black text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200 mr-2">${ev.time}</span>
+                        <span class="text-xs font-black text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200 mr-2">${ev.startTime} - ${ev.endTime}</span>
                         <span class="text-sm font-semibold text-slate-700">${ev.title}</span>
                     </div>
-                    <button onclick="removeScheduleEvent(${index})" class="text-rose-500 hover:text-rose-700 p-1">
+                    <button onclick="removeScheduleEvent('${ev.id}')" class="text-rose-500 hover:text-rose-700 p-1" title="Apagar da Rotina Fixa">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                 </li>
@@ -406,22 +420,69 @@
         }
 
         function addScheduleEvent() {
-            const time = document.getElementById('new-ev-time').value;
+            const startTime = document.getElementById('new-ev-start').value;
+            const endTime = document.getElementById('new-ev-end').value;
             const title = document.getElementById('new-ev-title').value.trim();
             const type = document.getElementById('new-ev-type').value;
+            const isRepeat = document.getElementById('new-ev-repeat').checked;
             
-            if (time && title) {
-                if (!obsState.customSchedule[currentDayNum]) obsState.customSchedule[currentDayNum] = [];
-                obsState.customSchedule[currentDayNum].push({ time, title, type });
-                document.getElementById('new-ev-time').value = '';
+            if (startTime && endTime && title) {
+                const newEv = {
+                    id: 'ev_' + Date.now() + Math.random().toString(36).substr(2, 9),
+                    startTime,
+                    endTime,
+                    title,
+                    type
+                };
+
+                if (isRepeat) {
+                    if (!obsState.scheduleTemplate[currentDayNum]) obsState.scheduleTemplate[currentDayNum] = [];
+                    obsState.scheduleTemplate[currentDayNum].push(newEv);
+                } else {
+                    if (!obsState.scheduleOverrides[todayKey]) obsState.scheduleOverrides[todayKey] = { canceledIds: [], addedEvents: [] };
+                    obsState.scheduleOverrides[todayKey].addedEvents.push(newEv);
+                }
+
+                document.getElementById('new-ev-start').value = '';
+                document.getElementById('new-ev-end').value = '';
                 document.getElementById('new-ev-title').value = '';
+                renderScheduleEditorList();
+                
+                // Show feedback to user if single event
+                if (!isRepeat) {
+                    alert("Evento único adicionado com sucesso para " + todayKey);
+                    closeScheduleEditor();
+                }
+            } else {
+                alert("Preencha todos os campos.");
+            }
+        }
+
+        function removeScheduleEvent(id) {
+            const events = obsState.scheduleTemplate[currentDayNum];
+            const idx = events.findIndex(ev => ev.id === id);
+            if (idx > -1) {
+                events.splice(idx, 1);
                 renderScheduleEditorList();
             }
         }
 
-        function removeScheduleEvent(index) {
-            obsState.customSchedule[currentDayNum].splice(index, 1);
-            renderScheduleEditorList();
+        // --- OVERRIDE DAILY ACTIONS ---
+        function overrideRemoveToday(id) {
+            if (!obsState.scheduleOverrides[todayKey]) obsState.scheduleOverrides[todayKey] = { canceledIds: [], addedEvents: [] };
+            
+            // Check if it's an added event
+            const addedIdx = obsState.scheduleOverrides[todayKey].addedEvents.findIndex(ev => ev.id === id);
+            if (addedIdx > -1) {
+                obsState.scheduleOverrides[todayKey].addedEvents.splice(addedIdx, 1);
+            } else {
+                // It's a template event
+                if (!obsState.scheduleOverrides[todayKey].canceledIds.includes(id)) {
+                    obsState.scheduleOverrides[todayKey].canceledIds.push(id);
+                }
+            }
+            saveToSupabase();
+            selectDay(currentDayNum);
         }
 
         // --- MISC LOGIC ---
@@ -437,8 +498,8 @@
             saveToSupabase();
         }
 
-        function toggleAbsence(day, time) {
-            const code = `${todayKey}-${day}-${time}`;
+        function toggleAbsence(id) {
+            const code = `${todayKey}-absence-${id}`;
             const idx = obsState.absences.indexOf(code);
             if (idx > -1) {
                 obsState.absences.splice(idx, 1); // remove
@@ -460,19 +521,26 @@
                 }
             }
 
-            const events = obsState.customSchedule ? (obsState.customSchedule[dayNum] || []) : (defaultSchedule[dayNum] || []);
+            const templateEvents = obsState.scheduleTemplate ? (obsState.scheduleTemplate[dayNum] || []) : [];
+            const overrides = obsState.scheduleOverrides[todayKey] || { canceledIds: [], addedEvents: [] };
+            
+            // Merge template and overrides
+            let events = templateEvents.filter(ev => !overrides.canceledIds.includes(ev.id));
+            events = events.concat(overrides.addedEvents);
+
             // Sort correctly for display
-            events.sort((a, b) => a.time.localeCompare(b.time));
+            events.sort((a, b) => a.startTime.localeCompare(b.startTime));
             
             const container = document.getElementById('schedule-timeline');
             let html = '';
 
             if (events.length === 0) {
-                html = '<div class="text-center text-slate-400 text-sm py-4">Sem atividades fixas hoje.</div>';
+                html = '<div class="text-center text-slate-400 text-sm py-4">Nenhuma atividade hoje.</div>';
             } else {
                 events.forEach(ev => {
-                    const code = `${todayKey}-${dayNum}-${ev.time}`;
+                    const code = `${todayKey}-absence-${ev.id}`;
                     const isAbsent = obsState.absences.includes(code);
+                    const isSingleEvent = overrides.addedEvents.some(e => e.id === ev.id);
                     
                     let bgCol = 'bg-slate-100', textCol = 'text-slate-800', borderCol = 'border-slate-200', icon = '🗓️';
                     if(ev.type === 'aba') { bgCol = 'bg-amber-100'; textCol = 'text-amber-900'; borderCol = 'border-amber-200'; icon = '🧩'; }
@@ -493,13 +561,22 @@
                                 <div class="w-2.5 h-2.5 bg-indigo-400 rounded-full border-2 border-white shadow-sm"></div>
                             </div>
                             <div class="flex-grow ${bgCol} border ${borderCol} rounded-2xl p-3 shadow-sm transition-all flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-sm font-black text-slate-800 bg-white/50 px-2 py-0.5 rounded-lg border border-white/40 shadow-sm">${ev.time}</span>
-                                    <span class="text-sm font-bold ${textCol} uppercase tracking-wide">${icon} ${ev.title}</span>
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] font-black text-slate-800 bg-white/60 px-1.5 py-0.5 rounded-md border border-white/40 shadow-sm">${ev.startTime} - ${ev.endTime}</span>
+                                        ${isSingleEvent ? '<span class="text-[9px] bg-indigo-600 text-white px-1.5 py-0.5 rounded font-bold uppercase tracking-widest">Extra</span>' : ''}
+                                    </div>
+                                    <span class="text-sm font-bold ${textCol} uppercase tracking-wide mt-1">${icon} ${ev.title}</span>
                                 </div>
-                                <button onclick="toggleAbsence(${dayNum}, '${ev.time}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors ${isAbsent ? 'bg-slate-200 text-slate-500' : 'bg-white/50 text-slate-600 hover:bg-rose-100 hover:text-rose-600'} border border-transparent shadow-sm">
-                                    ${isAbsent ? 'Desfazer Falta' : 'Faltou'}
-                                </button>
+                                <div class="flex flex-col gap-1 items-end">
+                                    <button onclick="overrideRemoveToday('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors bg-white/50 text-slate-600 hover:bg-rose-100 hover:text-rose-600 border border-transparent shadow-sm flex items-center gap-1" title="Apagar apenas de hoje">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        Remover
+                                    </button>
+                                    <button onclick="toggleAbsence('${ev.id}')" class="text-[10px] font-bold px-2 py-1 rounded-md transition-colors ${isAbsent ? 'bg-slate-200 text-slate-500' : 'bg-white/50 text-slate-600 hover:bg-slate-200'} border border-transparent shadow-sm">
+                                        ${isAbsent ? 'Desfazer Falta' : 'Faltou'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
