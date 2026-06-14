@@ -1,6 +1,6 @@
 {
-  "name": "Ester - App Clínico",
-  "short_name": "Ester App",
+  "name": "Diário da Ester",
+  "short_name": "Diário da Ester",
   "description": "Prontuário clínico, Inventário Portage, SPM e Diário de Bordo da Ester.",
   "start_url": "/login.html",
   "display": "standalone",
