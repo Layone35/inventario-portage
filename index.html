@@ -120,7 +120,7 @@
         <div class="text-center mb-8 border-b border-slate-100 pb-6">
             <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight">Inventário Portage</h1>
             <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mt-1">Guia de Avaliação e Registro (2 a 3 Anos)</p>
-            <p class="text-slate-400 text-xs mt-2">Extraído integralmente do documento clínico "Questionário TO 3 Anos.pdf"</p>
+            <p class="text-slate-400 text-xs mt-2">Preenchimento automático aplicado com os dados fornecidos.</p>
         </div>
 
         <!-- Ficha de Identificação do Paciente -->
@@ -161,17 +161,13 @@
                 <div class="w-full bg-slate-100 rounded-full h-2">
                     <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <div class="text-[10px] text-slate-400 mt-1 text-right" id="progress-count">0 de 78 itens avaliados</div>
+                <div class="text-[10px] text-slate-400 mt-1 text-right" id="progress-count">0 de 0 itens avaliados</div>
             </div>
         </div>
 
         <!-- Conteúdo Dinâmico (Tabelas) -->
         <div id="content" class="space-y-12"></div>
 
-        <!-- Rodapé do Documento -->
-        <div class="text-center text-xs text-slate-400 mt-12 border-t border-slate-100 pt-6">
-            Documento gerado com base <strong>exclusiva e integral</strong> no PDF "Questionário TO 3 Anos.pdf".
-        </div>
     </div>
 
     <!-- Barra de Ações Flutuante (Somente Tela) -->
@@ -191,63 +187,113 @@
     </div>
 
     <script>
-        // Mapeamento explícito de cores para que o JIT do Tailwind compile perfeitamente os estilos
         const categoryStyles = {
-            "Socialização": {
-                titleBg: "bg-blue-50 border-blue-200 text-blue-900",
-                emojiBg: "bg-blue-100 text-blue-600"
-            },
-            "Linguagem": {
-                titleBg: "bg-purple-50 border-purple-200 text-purple-900",
-                emojiBg: "bg-purple-100 text-purple-600"
-            },
-            "Cognição": {
-                titleBg: "bg-amber-50 border-amber-200 text-amber-900",
-                emojiBg: "bg-amber-100 text-amber-600"
-            },
-            "Autocuidados": {
-                titleBg: "bg-teal-50 border-teal-200 text-teal-900",
-                emojiBg: "bg-teal-100 text-teal-600"
-            },
-            "Desenvolvimento motor": {
-                titleBg: "bg-rose-50 border-rose-200 text-rose-900",
-                emojiBg: "bg-rose-100 text-rose-600"
-            }
+            "Socialização": { titleBg: "bg-blue-50 border-blue-200 text-blue-900", emojiBg: "bg-blue-100 text-blue-600" },
+            "Linguagem": { titleBg: "bg-purple-50 border-purple-200 text-purple-900", emojiBg: "bg-purple-100 text-purple-600" },
+            "Cognição": { titleBg: "bg-amber-50 border-amber-200 text-amber-900", emojiBg: "bg-amber-100 text-amber-600" },
+            "Autocuidados": { titleBg: "bg-teal-50 border-teal-200 text-teal-900", emojiBg: "bg-teal-100 text-teal-600" },
+            "Desenvolvimento motor": { titleBg: "bg-rose-50 border-rose-200 text-rose-900", emojiBg: "bg-rose-100 text-rose-600" }
         };
 
         const emojis = { 
-            "Socialização": "🤝", 
-            "Linguagem": "🗣️", 
-            "Cognição": "🧠", 
-            "Autocuidados": "🛁", 
-            "Desenvolvimento motor": "🏃♂️" 
+            "Socialização": "🤝", "Linguagem": "🗣️", "Cognição": "🧠", "Autocuidados": "🛁", "Desenvolvimento motor": "🏃♀️" 
         };
         
-        // Base de dados contendo apenas as perguntas da faixa de 2 a 3 anos
         const data = {
             "Socialização": {
                 "2 a 3 anos": [
-                    "Brinca com 2 ou 3 crianças da sua idade.", "Compartilha um objeto ou alimento com outra criança.", "Cumprimenta colegas ou adultos quando lembrado.", "Avisa que quer ir ao banheiro durante o dia a tempo.", "Diz seu sexo quando solicitado.", "Pendura o casaco em um gancho da sua altura.", "Obedece sequência de duas ordens relacionadas.", "Obedece às ordens dos pais pelo menos das vezes.", "Busca/leva um objeto ou pessoa, quando solicitado.", "Presta atenção a história ou música por 5 a 10 min.", "Diz por favor ou obrigado quando lembrado.", "Espera a sua vez.", "Cumpre regras de um jogo com ajuda.", "Permanece em seu próprio quintal ou jardim.", "Relata experiências imediatas.", "Contribui para a conversa de donuts.", "Repete rimas, canções ou dança para os outros.", "Faz uma tarefa sozinha por 20 a 30 minutos.", "Pede desculpas sem ser lembrado 75 das vezes.", "Pede permissão para usar objetos dos outros em 75 das vezes.", "Demonstra entender sentimentos, expressando-os.", "Responde perguntas simples envolvendo como.", "Nomeia 3 cores sendo requisitado.", "Diz como são usados objetos comuns.", "Expressa ações futuras empregando os verbos ir, ter e querer.", "Utiliza adequadamente masculino e feminino na fala.", "Emprega formas regulares no passado.", "Vira trincos ou maçanetas em portas.", "Salta no mesmo local com ambos os pés.", "Anda de costas.", "Desce escadas sem ajuda.", "Atira uma bola a um adulto a 1 metro de distância.", "Constrói uma torre de 5 a 6 blocos."
+                    { text: "Brinca com 2 ou 3 crianças da sua idade.", answer: "n", obs: "" },
+                    { text: "Compartilha um objeto ou alimento com outra criança.", answer: "n", obs: "" },
+                    { text: "Cumprimenta colegas ou adultos quando lembrado.", answer: "n", obs: "O tchau é estereotipado" },
+                    { text: "Avisa que quer ir ao banheiro durante o dia a tempo.", answer: "n", obs: "" },
+                    { text: "Diz seu sexo quando solicitado.", answer: "n", obs: "" },
+                    { text: "Pendura o casaco em um gancho da sua altura.", answer: "t", obs: "" },
+                    { text: "Obedece sequência de duas ordens relacionadas.", answer: "n", obs: "" },
+                    { text: "Obedece às ordens dos pais pelo menos 50% das vezes.", answer: "n", obs: "" },
+                    { text: "Busca/leva um objeto ou pessoa, quando solicitado.", answer: "n", obs: "" },
+                    { text: "Presta atenção a história ou música por 5 a 10 min.", answer: "s", obs: "Devido ao hiperfoco" },
+                    { text: "Diz por favor ou obrigado quando lembrado.", answer: "n", obs: "" },
+                    { text: "Espera a sua vez.", answer: "n", obs: "" },
+                    { text: "Cumpre regras de um jogo com ajuda.", answer: "n", obs: "" },
+                    { text: "Permanece em seu próprio quintal ou jardim.", answer: "n", obs: "Foge/sem noção de perigo" },
+                    { text: "Relata experiências imediatas.", answer: "n", obs: "" },
+                    { text: "Contribui para a conversa de adultos.", answer: "n", obs: "" },
+                    { text: "Repete rimas, canções ou dança para os outros.", answer: "s", obs: "Imita coreografias" },
+                    { text: "Faz uma tarefa sozinha por 20 a 30 minutos.", answer: "s", obs: "Se for do interesse dela, como blocos" },
+                    { text: "Pede desculpas sem ser lembrado 75% das vezes.", answer: "n", obs: "" },
+                    { text: "Pede permissão para usar objetos dos outros.", answer: "n", obs: "" },
+                    { text: "Demonstra entender sentimentos, expressando-os.", answer: "n", obs: "" },
+                    { text: "Responde perguntas simples envolvendo como.", answer: "n", obs: "" },
+                    { text: "Nomeia 3 cores sendo requisitado.", answer: "s", obs: "" },
+                    { text: "Diz como são usados objetos comuns.", answer: "n", obs: "" },
+                    { text: "Expressa ações futuras (ir, ter, querer).", answer: "n", obs: "" },
+                    { text: "Utiliza adequadamente masculino e feminino na fala.", answer: "n", obs: "" },
+                    { text: "Emprega formas regulares no passado.", answer: "n", obs: "" }
                 ]
-            }, 
+            },
             "Linguagem": {
                 "2 a 3 anos": [
-                    "Combina substantivos ou adjetivos e substantivos in frases de 2 palavras.", "Combina substantivo e verbo em frases de 2 palavras.", "Usa uma palavra para indicar que quer ir ao banheiro.", "Combina verbo ou substantivo com \"lá\" e \"aqui\" em frases de 2 palavras.", "Combina 2 palavras para expressar posse.", "Emprega \"não\" na fala.", "Responde perguntas de sim e não.", "Nomeia 3 partes do corpo em uma boneca ou outra pessoa.", "Nomeia 4 objetos comuns em figuras.", "Suga líquido do copo ou caneca usando canudinho.", "Desenha uma linha vertical imitando um adulto.", "Desenha uma linha horizontal imitando um adulto.", "Copia um círculo.", "Emparelha objetos com a mesma textura.", "Aponta o pequeno e o grande quando solicitado.", "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", "Responde a perguntas tipo \"O que está fazendo?\" para atividades habituais.", "Empilha 3 blocos, dada a ordem.", "Coloca objetos dentro, em cima e em baixo de um recipiente, dada a ordem."
+                    { text: "Combina substantivos ou adjetivos e substantivos em frases de 2 palavras.", answer: "n", obs: "" },
+                    { text: "Combina substantivo e verbo em frases de 2 palavras.", answer: "n", obs: "" },
+                    { text: "Usa uma palavra para indicar que quer ir ao banheiro.", answer: "n", obs: "" },
+                    { text: "Combina verbo ou substantivo com “lá” e “aqui” em frases de 2 palavras.", answer: "n", obs: "" },
+                    { text: "Combina 2 palavras para expressar posse.", answer: "n", obs: "" },
+                    { text: "Emprega “não” na fala.", answer: "n", obs: "A negação dela é comportamental, jogando-se no chão" },
+                    { text: "Responde perguntas de sim e não.", answer: "n", obs: "" },
+                    { text: "Nomeia 3 partes do corpo em uma boneca ou outra pessoa.", answer: "n", obs: "" },
+                    { text: "Nomeia 4 objetos comuns em figuras.", answer: "n", obs: "" },
+                    { text: "Suga líquido do copo ou caneca usando canudinho.", answer: "s", obs: "" },
+                    { text: "Desenha uma linha vertical imitando um adulto.", answer: "t", obs: "" },
+                    { text: "Desenha uma linha horizontal imitando um adulto.", answer: "t", obs: "" },
+                    { text: "Copia um círculo.", answer: "t", obs: "" },
+                    { text: "Emparelha objetos com a mesma textura.", answer: "s", obs: "" },
+                    { text: "Aponta o pequeno e o grande quando solicitado.", answer: "n", obs: "" },
+                    { text: "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", answer: "n", obs: "" },
+                    { text: "Responde a perguntas tipo “O que ... está fazendo?”.", answer: "n", obs: "" },
+                    { text: "Empilha 3 blocos, dada a ordem.", answer: "s", obs: "" },
+                    { text: "Coloca objetos dentro, em cima e em baixo de um recipiente, dada a ordem.", answer: "s", obs: "" }
                 ]
-            }, 
+            },
             "Cognição": {
                 "2 a 3 anos": [
-                    "Completa um quebra-cabeça de encaixe de 3 peças.", "Imita um adulto em uma tarefa simples.", "Usa preensão de pinça para pegar objetos.", "Desenha um círculo imitando um adulto.", "Aponta o pequeno e o grande quando solicitado.", "Empilha 3 cores.", "Encaixa pinos de 2,5 cm em uma prancha de encaixe.", "Constrói uma torre de 3 blocos."
+                    { text: "Completa um quebra-cabeça de encaixe de 3 peças.", answer: "s", obs: "" },
+                    { text: "Imita um adulto em uma tarefa simples.", answer: "t", obs: "" },
+                    { text: "Usa preensão de pinça para pegar objetos.", answer: "s", obs: "" },
+                    { text: "Desenha um círculo imitando um adulto.", answer: "t", obs: "" },
+                    { text: "Aponta o pequeno e o grande quando solicitado.", answer: "n", obs: "" },
+                    { text: "Empilha 3 cores.", answer: "s", obs: "" },
+                    { text: "Encaixa pinos de 2,5 cm em uma prancha de encaixe.", answer: "s", obs: "" },
+                    { text: "Constrói uma torre de 3 blocos.", answer: "s", obs: "" }
                 ]
-            }, 
+            },
             "Autocuidados": {
                 "2 a 3 anos": [
-                    "Alimenta-se sozinho usando colher ou caneca, derrubando pouco alimento.", "Enxuga as mãos sem ajuda ao lhe darem uma toalha.", "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", "Controla sua baba.", "Urina ou defeca quando colocado no piniquinho pelo menos 3 vezes por semana.", "Enxuga o nariz quando lembrado.", "Veste-se e despe-se sozinho, exceto quanto a botões e fechos em 75 das vezes.", "Lava as mãos e o rosto com sabonete."
+                    { text: "Alimenta-se sozinho usando colher ou caneca, derrubando pouco alimento.", answer: "s", obs: "" },
+                    { text: "Enxuga as mãos sem ajuda ao lhe darem uma toalha.", answer: "t", obs: "" },
+                    { text: "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", answer: "n", obs: "O laudo indica que suja a fralda e tira para mostrar depois" },
+                    { text: "Controla sua baba.", answer: "s", obs: "" },
+                    { text: "Urina ou defeca quando colocado no piniquinho pelo menos 3 vezes por semana.", answer: "n", obs: "" },
+                    { text: "Enxuga o nariz quando lembrado.", answer: "n", obs: "" },
+                    { text: "Veste-se e despe-se sozinho (sem botões) em 75% das vezes.", answer: "t", obs: "" },
+                    { text: "Lava as mãos e o rosto com sabonete.", answer: "t", obs: "" }
                 ]
-            }, 
+            },
             "Desenvolvimento motor": {
                 "2 a 3 anos": [
-                    "Enfia 4 contas grandes em um cordão em 2 minutos.", "Vira trincos ou maçanetas em portas.", "Salta no mesmo local com ambos os pés.", "Anda de costas.", "Desce escadas sem ajuda.", "Atira uma bola a um adulto a 1 metro de distância.", "Constrói uma torre de 5 a 6 blocos.", "Faz bolas de argila, barro ou massinha.", "Segura o lápis entre o polegar e o indicador, apoiando-o sobre o dedo médio.", "Dá cambalhota para frente com ajuda."
+                    { text: "Enfia 4 contas grandes em um cordão em 2 minutos.", answer: "s", obs: "" },
+                    { text: "Vira trincos ou maçanetas em portas.", answer: "s", obs: "" },
+                    { text: "Salta no mesmo local com ambos os pés.", answer: "s", obs: "" },
+                    { text: "Anda de costas.", answer: "s", obs: "" },
+                    { text: "Desce escadas sem ajuda.", answer: "s", obs: "" },
+                    { text: "Atira uma bola a um adulto a 1 metro de distância.", answer: "t", obs: "Falta intenção social de devolver" },
+                    { text: "Constrói uma torre de 5 a 6 blocos.", answer: "s", obs: "" },
+                    { text: "Vira páginas de um livro, uma por vez.", answer: "s", obs: "" },
+                    { text: "Desembrulha um pequeno objeto.", answer: "s", obs: "" },
+                    { text: "Dobra um papel ao meio, imitando um adulto.", answer: "t", obs: "" },
+                    { text: "Faz bolas de argila, barro ou massinha.", answer: "s", obs: "" },
+                    { text: "Segura o lápis entre o polegar e o indicador, apoiando-o sobre o dedo médio.", answer: "s", obs: "" },
+                    { text: "Dá cambalhota para frente com ajuda.", answer: "s", obs: "" },
+                    { text: "Dá marteladas para encaixar 5 pinos em seus orifícios.", answer: "s", obs: "" }
                 ]
             }
         };
@@ -255,16 +301,14 @@
         const container = document.getElementById('content');
         let totalItems = 0;
         let itemIndex = 0;
+        const formState = {};
 
-        // Contar total de itens (agora será apenas os da faixa de 2 a 3 anos)
+        // Contar total de itens
         for (const category in data) {
             for (const age in data[category]) {
                 totalItems += data[category][age].length;
             }
         }
-        
-        // Inicializa o texto dinamicamente para evitar ficar com um número fixo errado
-        document.getElementById('progress-count').textContent = `0 de ${totalItems} itens avaliados`;
 
         // Renderizar tabelas
         for (const [category, ages] of Object.entries(data)) {
@@ -273,13 +317,11 @@
             
             let html = `
             <div class="category-section">
-                <!-- Cabeçalho da Categoria -->
                 <div class="flex items-center space-x-3 p-3 rounded-lg border mb-4 ${styles.titleBg} transition-all duration-300">
                     <span class="w-10 h-10 rounded-lg flex items-center justify-center text-xl shadow-sm ${styles.emojiBg}">${emoji}</span>
                     <h2 class="text-base sm:text-lg font-bold uppercase tracking-wider">${category}</h2>
                 </div>
                 
-                <!-- Tabela de Habilidades -->
                 <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm mb-8">
                     <table class="w-full text-xs text-left border-collapse">
                         <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 font-semibold">
@@ -296,7 +338,6 @@
             `;
             
             for (const [age, items] of Object.entries(ages)) {
-                // Linha divisória de Faixa Etária (evita o bug de rowspan ao quebrar páginas)
                 html += `
                 <tr class="bg-slate-50 font-bold border-y border-slate-200 print:bg-slate-100">
                     <td colspan="6" class="p-2.5 text-slate-700 text-[11px] uppercase tracking-wider pl-4">
@@ -305,30 +346,39 @@
                 </tr>
                 `;
                 
-                items.forEach((item) => {
+                items.forEach((itemObj) => {
                     itemIndex++;
+                    const text = itemObj.text;
+                    const ans = itemObj.answer;
+                    const obs = itemObj.obs;
+
+                    if (ans) {
+                        formState[itemIndex] = ans;
+                    }
+
+                    const checkS = ans === 's' ? 'checked-s' : '';
+                    const checkN = ans === 'n' ? 'checked-n' : '';
+                    const checkT = ans === 't' ? 'checked-t' : '';
+                    
+                    const textS = ans === 's' ? 'S' : '';
+                    const textN = ans === 'n' ? 'N' : '';
+                    const textT = ans === 't' ? 'T' : '';
+
                     html += `
                     <tr class="hover:bg-slate-50/50 transition-colors duration-150">
-                        <!-- Número do item -->
                         <td class="p-2 text-center text-slate-400 font-medium border-r border-slate-100 bg-slate-50/30 w-8 select-none">${itemIndex}</td>
-                        
-                        <!-- Texto da habilidade -->
-                        <td class="p-3 text-slate-800 font-medium leading-relaxed pr-4">${item}</td>
-                        
-                        <!-- Checkboxes Interativos -->
+                        <td class="p-3 text-slate-800 font-medium leading-relaxed pr-4">${text}</td>
                         <td class="p-2.5 sm:p-1 text-center align-middle border-x border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 's', ${itemIndex})">
-                            <div class="checkbox-box" data-item="${itemIndex}" data-val="s"></div>
+                            <div class="checkbox-box ${checkS}" data-item="${itemIndex}" data-val="s">${textS}</div>
                         </td>
                         <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 'n', ${itemIndex})">
-                            <div class="checkbox-box" data-item="${itemIndex}" data-val="n"></div>
+                            <div class="checkbox-box ${checkN}" data-item="${itemIndex}" data-val="n">${textN}</div>
                         </td>
                         <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 't', ${itemIndex})">
-                            <div class="checkbox-box" data-item="${itemIndex}" data-val="t"></div>
+                            <div class="checkbox-box ${checkT}" data-item="${itemIndex}" data-val="t">${textT}</div>
                         </td>
-                        
-                        <!-- Coluna de Observações -->
                         <td class="p-1 border-slate-100">
-                            <textarea rows="1" class="w-full bg-transparent border-0 focus:ring-0 focus:outline-none p-1.5 resize-none text-[11px] text-slate-700 placeholder-slate-300 print:placeholder-transparent" placeholder="Anotações..."></textarea>
+                            <textarea rows="1" class="w-full bg-transparent border-0 focus:ring-0 focus:outline-none p-1.5 resize-none text-[11px] text-slate-700 placeholder-slate-300 print:placeholder-transparent" placeholder="Anotações...">${obs}</textarea>
                         </td>
                     </tr>`;
                 });
@@ -337,48 +387,44 @@
             container.innerHTML += html;
         }
 
-        // Auto-expandir as caixas de observações se o usuário digitar texto
+        // Auto-expandir as caixas de observações
         document.querySelectorAll('textarea').forEach(textarea => {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = this.scrollHeight + 'px';
-            });
+            const adjustHeight = () => {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            };
+            textarea.addEventListener('input', adjustHeight);
+            
             // Ajustar altura inicial se houver texto
-            textarea.style.height = 'auto';
+            if(textarea.value.trim() !== '') {
+                // Necessário um pequeno timeout para o navegador renderizar antes de calcular o scrollHeight real
+                setTimeout(adjustHeight, 10);
+            }
         });
 
-        // Estado do formulário
-        const formState = {};
-
         function toggleCheck(cell, value, itemNum) {
-            // Pegar todos os checkboxes da mesma linha (mesmo itemNum)
             const rowCheckboxes = document.querySelectorAll(`.checkbox-box[data-item="${itemNum}"]`);
             const targetBox = cell.querySelector('.checkbox-box');
-            
             const isAlreadyChecked = targetBox.classList.contains(`checked-${value}`);
 
-            // Resetar todos os checkboxes desta linha
             rowCheckboxes.forEach(box => {
                 box.classList.remove('checked-s', 'checked-n', 'checked-t');
                 box.textContent = '';
             });
 
             if (!isAlreadyChecked) {
-                // Marcar o selecionado
                 targetBox.classList.add(`checked-${value}`);
                 targetBox.textContent = value.toUpperCase();
                 formState[itemNum] = value;
             } else {
-                // Desmarcar se clicou no mesmo
                 delete formState[itemNum];
             }
-
             updateProgress();
         }
 
         function updateProgress() {
             const answeredCount = Object.keys(formState).length;
-            const percent = Math.round((answeredCount / totalItems) * 100);
+            const percent = totalItems > 0 ? Math.round((answeredCount / totalItems) * 100) : 0;
             
             document.getElementById('progress-bar').style.width = `${percent}%`;
             document.getElementById('progress-percent').textContent = `${percent}%`;
@@ -398,7 +444,6 @@
                     t.style.height = 'auto';
                 });
                 
-                // Limpar estado
                 for (const key in formState) {
                     delete formState[key];
                 }
@@ -406,6 +451,9 @@
                 updateProgress();
             }
         }
+
+        // Inicializa contagem
+        updateProgress();
     </script>
 </body>
 </html>
