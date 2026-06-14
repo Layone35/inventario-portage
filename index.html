@@ -110,11 +110,38 @@
 
     </div>
 
+    <!-- Results Modal -->
+    <div id="results-modal" class="no-print fixed inset-0 bg-slate-900/60 z-[100] hidden items-center justify-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 border border-slate-200">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800">Resultados da Avaliação</h2>
+                    <p class="text-xs text-slate-500 mt-1">Idade de Desenvolvimento estimada pelo Inventário Portage</p>
+                </div>
+                <button onclick="closeResultsModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6" id="results-content">
+                <!-- Injected via JS -->
+            </div>
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button onclick="closeResultsModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="no-print fixed bottom-6 right-6 flex items-center space-x-3 bg-white p-3 rounded-full shadow-2xl border border-slate-100 z-50">
         <div id="sync-status" class="text-xs font-semibold text-slate-400 mr-2 flex items-center">
             <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-1 inline-block"></span>
             <span>Nuvem atualizada</span>
         </div>
+        <button onclick="showResultsModal()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <span>Ver Resultados</span>
+        </button>
         <button onclick="saveToSupabase()" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center space-x-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -385,6 +412,107 @@
             document.getElementById('progress-bar').style.width = `${percent}%`;
             document.getElementById('progress-percent').textContent = `${percent}%`;
             document.getElementById('progress-count').textContent = `${answered} de ${total} itens (nesta faixa etária)`;
+        }
+
+        // --- Results Logic ---
+        function calculateResults() {
+            const results = {};
+            let totalAgeYears = 0;
+            let categoryCount = 0;
+
+            for (const [category, ages] of Object.entries(data)) {
+                let categoryAgeYears = 0;
+                
+                for (const [ageGroup, items] of Object.entries(ages)) {
+                    if (!items || items.length === 0) continue;
+                    
+                    let points = 0;
+                    const expected = items.length;
+                    
+                    items.forEach((_, index) => {
+                        const key = `${category}|${ageGroup}|${index}`;
+                        const ans = formState[key];
+                        if (ans === 's') points += 1;
+                        if (ans === 't') points += 0.5;
+                    });
+                    
+                    // Formula: (Points / Expected) * 1 year = age gained in this block
+                    categoryAgeYears += (points / expected);
+                }
+                
+                results[category] = categoryAgeYears;
+                totalAgeYears += categoryAgeYears;
+                categoryCount++;
+            }
+            
+            const overallAge = categoryCount > 0 ? (totalAgeYears / categoryCount) : 0;
+            return { details: results, overall: overallAge };
+        }
+
+        function formatAge(years) {
+            const wholeYears = Math.floor(years);
+            const months = Math.round((years - wholeYears) * 12);
+            if (wholeYears === 0 && months === 0) return "0 meses";
+            if (wholeYears === 0) return `${months} meses`;
+            if (months === 0) return `${wholeYears} ano${wholeYears > 1 ? 's' : ''}`;
+            return `${wholeYears} ano${wholeYears > 1 ? 's' : ''} e ${months} mês(es)`;
+        }
+
+        function showResultsModal() {
+            const results = calculateResults();
+            const modal = document.getElementById('results-modal');
+            const content = document.getElementById('results-content');
+            
+            let html = `
+                <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl text-center mb-6 shadow-sm">
+                    <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mb-1">Idade de Desenvolvimento Global</p>
+                    <h3 class="text-4xl font-black text-indigo-900">${formatAge(results.overall)}</h3>
+                    <p class="text-xs text-indigo-500 mt-2">Média de todas as áreas avaliadas.</p>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="font-bold text-slate-700 uppercase text-xs tracking-wider border-b border-slate-100 pb-2">Resultados por Área</h4>
+            `;
+            
+            for (const [category, age] of Object.entries(results.details)) {
+                const styles = categoryStyles[category] || { emojiBg: "bg-gray-100 text-gray-600" };
+                const emoji = emojis[category] || "📋";
+                const percentFull = Math.min((age / 6) * 100, 100); // Visual bar out of 6 years
+                
+                html += `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 hover:bg-slate-50 rounded-lg border border-transparent hover:border-slate-100 transition-colors">
+                    <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-sm ${styles.emojiBg}">${emoji}</span>
+                        <span class="font-bold text-slate-700 text-sm">${category}</span>
+                    </div>
+                    <div class="flex flex-col sm:items-end w-full sm:w-1/2">
+                        <span class="font-bold text-slate-800 text-base">${formatAge(age)}</span>
+                        <div class="w-full bg-slate-100 rounded-full h-1.5 mt-1 hidden sm:block">
+                            <div class="bg-slate-400 h-1.5 rounded-full" style="width: ${percentFull}%"></div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            html += `</div>`;
+            
+            content.innerHTML = html;
+            
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.firstElementChild.classList.remove('scale-95');
+        }
+
+        function closeResultsModal() {
+            const modal = document.getElementById('results-modal');
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }, 300);
         }
 
         function clearForm() {
