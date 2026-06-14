@@ -1,0 +1,2937 @@
+{
+    "Socialização": {
+        "0 a 1 anos": [
+            {
+                "text": "Observa uma pessoa movimentando-se em seu campo visual.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sorri em resposta à atenção do adulto",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vocaliza em resposta à atenção",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Olha para sua própria mão, sorrindo ou vocalizando",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde a seu círculo familiar, sorrindo, vocalizando ou parando de chorar",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sorri em resposta à expressão facial dos outros.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sorri e vocaliza ao ver sua imagem no espelho",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Acaricia ou toca no rosto de adultos (puxa cabelo, nariz, óculos, etc.).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende a mão em direção a um objeto oferecido.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende os braços em direção a pessoas familiares",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende a mão e toca sua imagem refletida no espelho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segura e examina por 1 minuto um objeto que lhe foi dado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sacode ou aperta um objeto colocado em sua mão, produzindo sons involuntários.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca sozinho por 10 minutos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Procura contato visual quando alguém lhe dá atenção por 2 a 3 minutos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca sozinho sem reclamar por 15 a 20 minutos, próximo de um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vocaliza para obter atenção",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Imita adulto em brincadeiras de esconde-esconde",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Bate palmas, imitando um adulto",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Acena a mão, imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Ergue os braços para expressar “grande”, imitando um adulto",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Oferece algo, mas nem sempre entrega.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Abraça, acaricia e beija familiares.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde ao próprio nome, olhando ou estendendo o braço para ser pego.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aperta ou sacode um brinquedo para produzir sons, em imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Manipula brinquedo ou objeto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende um brinquedo ou objeto a um adulto e o entrega.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Imita movimentos de outras crianças ao brincar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "1 a 2 anos": [
+            {
+                "text": "Imita um adulto em uma tarefa simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca ao lado de outra criança, cada uma realizando tarefas diferentes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Toma parte em uma brincadeira com outra criança por 2 a 5 minutos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aceita a ausência dos pais, embora possa reclamar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Explora ativamente seu meio ambiente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Realiza atividade manipulativa com outra pessoa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Abraça e carrega uma boneca ou brinquedo macio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Repete ações que produzem risos e atenção.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dá um livro para que um adulto o leia ou para que ambos o compartilhem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Puxa uma pessoa a mostrar-lhe algo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Retira a mão ou diz \"não\" quando está próximo de um objeto não permitido e alguém o lembra disto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Quando colocado em sua cadeira ou trocador espera ser atendido.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca com 2 ou 3 crianças da sua idade.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Compartilha um objeto ou alimento com outra criança.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Cumprimenta colegas ou adultos quando lembrado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "2 a 3 anos": [
+            {
+                "text": "Obedece às ordens dos pais pelo menos ½ das vezes.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Busca / leva um objeto ou pessoa, quando solicitado.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Presta atenção à estória ou música por 5 a 10 min.",
+                "answer": "n",
+                "obs": "O tchau é estereotipado"
+            },
+            {
+                "text": "Diz \"Por favor\" ou \"Obrigado\" quando lembrado.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Tenta ajudar os pais a executarem tarefas realizando parte da mesma",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Brinca de usar roupas de adultos.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Faz uma escolha quando indagado.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Demonstra entender sentimentos, expressando-os.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "n",
+                "obs": ""
+            }
+        ],
+        "3 a 4 anos": [
+            {
+                "text": "Canta e dança ao ouvir músicas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segue regras de um jogo imitando ações de outras crianças.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Cumprimenta pessoas familiares sem ser lembrado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Seguem regras em jogos de grupos dirigidos por adultos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pede permissão para brincar com um brinquedo que está sendo usado por outra criança",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz \"Por favor\" e \"Obrigado\" sem ser lembrado ½ das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Atende ao telefone, chamando um adulto e falando com pessoas familiares.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Espera a sua vez.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segue regras em jogos dirigidos por uma criança mais velha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Obedece às ordens de um adulto 75% das vezes. (3 vezes a cada 4 tentativas)",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Permanece em seu próprio quintal ou jardim",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca perto de outras crianças conversando com elas enquanto trabalha em um projeto próprio (30 min.).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "4 a 5 anos": [
+            {
+                "text": "Pede ajuda quando está tendo dificuldades.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Contribui para a conversa de adultos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Repete rimas, canções ou dança para os outros.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz uma tarefa sozinha por 20 a 30 minutos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pede desculpas sem ser lembrado 75% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Espera sua vez em brincadeiras que envolvam de 8 a 9 crianças.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca com 2 a 3 crianças por 20 min. em uma atividade que envolva cooperação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Quando em público, apresenta um comportamento socialmente aceitável.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pede permissão para usar objetos dos outros em 75% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "5 a 6 anos": [
+            {
+                "text": "Manifesta seus sentimentos",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Brinca com 4 a 5 crianças em atividade de cooperação por 20 minutos, sem supervisão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Explica aos outros as regras do jogo ou atividade.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Imita papéis de adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Colabora para a conversa durante as refeições.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segue regras de jogo que envolva raciocínio verbal.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conforta colegas quando estes estão tristes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escolhe seus próprios amigos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Planeja e constrói, usando ferramentas simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estabelece metas para si próprio e executa atividade para atingi-las.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dramatiza trechos de histórias, desempenhando um papel ou utilizando fantoches.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Algumas dicas sobre o Portage",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": " Devem ser selecionados do Portage aqueles objetivos que sejam prioritários para o aluno, ou seja, os não alcançados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Os objetivos em cuja avaliação o aluno obteve A.V. (às vezes), devem ser trabalhados para reforço até que sejam alcançados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Os objetivos já alcançados deverão ser sempre reforçados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Selecionar dois objetivos de cada área, no mínimo, para desenvolver com o aluno. A medida que cada objetivo for alcançado, o mesmo deverá ser substituído por outro da mesma área, na mesma folha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": " O professor não deve restringir-se apenas aos objetivos do Portage. Deve haver dinamismo para trabalhar as dificuldades que forem surgindo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sempre considere a individualidade de cada aluno. Ninguém é igual a ninguém.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sempre considere utilizar o interesse do aluno para tornar as atividades mais relevantes para ele. Seja criativo.",
+                "answer": "",
+                "obs": ""
+            }
+        ]
+    },
+    "Linguagem": {
+        "0 a 1 anos": [
+            {
+                "text": "Repete sons emitidos por outras pessoas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Repete a mesma sílaba 2 a 3 vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde a gestos com gestos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Obedece a uma ordem simples, quando acompanhada de gestos indicativos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Interrompe a atividade quando lhe dizem \"Não\" 75% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde a perguntas simples com respostas não verbais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Combina 2 sílabas diferentes quando tenta verbalizar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Imita padrões de entonação da voz de outras pessoas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa uma palavra funcionalmente para indicar objetos ou pessoas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vocaliza em resposta à fala de outras pessoas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "1 a 2 anos": [
+            {
+                "text": "Diz 5 palavras diferentes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pede \"mais\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz \"acabou\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Obedece a 3 ordens diferentes que não são acompanhadas de gestos indicativos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Consegue \"dar\" ou \"mostrar\" quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para 12 objetos quando nomeados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para 3 a 5 figuras em um livro.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para 3 partes de seu próprio corpo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz seu nome ou apelido quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde à pergunta \"O que é isto?\"",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Combina palavras e gestos para expressar desejos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 5 membros da família, incluindo animais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 4 brinquedos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Produz sons de animais, ou os nomeia pelo som",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pede alimentos conhecidos pelo nome, quando mostrados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz perguntas variando a entonação da voz",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 3 partes do corpo em uma boneca ou outra pessoa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde a perguntas de sim / não.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "2 a 3 anos": [
+            {
+                "text": "Combina substantivos ou adjetivos e substantivos em frases de 2 palavras.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Combina substantivo e verbo em frases de 2 palavras",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Usa uma palavra para indicar que quer ir ao banheiro",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Combina verbo ou substantivo com \"lá\" e \"aqui\" em frases de 2 palavras.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Combina 2 palavras para expressar posse.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Emprega \"não\" na fala",
+                "answer": "n",
+                "obs": "A negação dela é comportamental, jogando-se no chão"
+            },
+            {
+                "text": "Responde à pergunta \"O que .... está fazendo?\" para atividade habituais.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Responde a perguntas tipo \"Onde está objeto?\"",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia sons ambientais familiares.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Dá mais de um objeto quando se usa a forma plural na solicitação.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Ao falar, refere-se a si próprio pelo nome.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para figuras de objetos comuns descritos pelo uso (até 10) (\"O que se usa pra comer? = colher\")",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Mostra a idade pelos dedos.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Diz seu sexo quando solicitado.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Obedece à seqüência de duas ordens relacionadas.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Usa a forma do verbo no gerúndio.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Emprega formas regulares no plural.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Emprega algumas formas irregulares de verbos no passado de forma sistemática.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Faz perguntas do tipo \"O que é isso?\"",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Controla o volume da voz 90% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa \"este / esta\" e \"aquele / aquela\" na fala.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega \"é\" e \"está\" em frases simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz \"eu\", \"mim\", \"meu\" ao invés do próprio nome.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta objetos e diz que eles não são outras coisas",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde à pergunta \"Quem?\" dando um nome",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega as formas possessivas dos substantivos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa artigos ao falar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa substantivos que indicam grupo ou categoria.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa os verbos \"ser\", \"estar\" e \"ter\" no presente com poucos erros.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz se os objetos estão abertos ou fechados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "3 a 4 anos": [
+            {
+                "text": "Expressa diminutivos e aumentativos quando fala.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Presta atenção por 5 minutos a uma estória lida",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Obedece à sequência de 2 ordens não relacionadas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz seu nome completo quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde perguntas simples envolvendo \"Como\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega verbos regulares, no passado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Relata experiências imediatas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz como são usados objetos comuns.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Expressa ações futuras empregando os verbos \"ir\", \"ter\" e \"querer\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Utiliza adequadamente masculino e feminino na fala.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa formas imperativas de verbos ao pedir favores.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta 2 fatos na ordem de ocorrência.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "4 a 5 anos": [
+            {
+                "text": "Obedece a uma sequência envolvendo 3 ordens.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Demonstra compreensão de verbos reflexivos, usando-os ocasionalmente (ex. ele se machucou).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Consegue identificar objetos / figuras que formem par, sob solicitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega o futuro ao falar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa orações compostas por coordenação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Consegue identificar a parte de cima e de baixo de objetos, quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega ocasionalmente o condicional ao falar (poderia, pudesse, iria, seria, faria).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Consegue identificar absurdos em figuras.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emprega as seguintes palavras: irmã(o), avó, avô.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Completa frases com antônimos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Relata uma estória conhecida sem ajuda de figuras.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em uma figura, nomeia o objeto que não pertence a uma determinada categoria.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz se duas palavras rimam ou não.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa frases complexas, compostas por subordinação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz se um som é forte ou fraco.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "5 a 6 anos": [
+            {
+                "text": "Consegue indicar alguns, muitos e vários elementos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz seu endereço.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz o número de seu telefone.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para o conjunto que tem mais, menos ou poucos elementos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta piadas simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Relata experiências diárias.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Descreve um local ou movimento: através ou entre, longe de, de / desde..., para, por cima de, até.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde à pergunta \"Porque\" com uma explicação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Ordena e conta uma estória de 2 a 5 episódios na sequência correta.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Define palavras.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde adequadamente a pergunta \"Qual o contrário de ...\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Responde a pergunta \"O que acontece se...\".",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa \"ontem\" e “amanhã’, corretamente”.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pergunta o significado de perguntas novas ou conhecidas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ]
+    },
+    "Cognição": {
+        "0 a 1 anos": [
+            {
+                "text": "Remove um pano do rosto que obscureça sua visão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Procura com o olhar um objeto que foi tirado de seu campo visual.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Remove um objeto de um recipiente colocando a mão dentro do mesmo",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca um objeto em um recipiente imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca um objeto em um recipiente quando recebe instruções.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Balança um brinquedo que produz som, pendurado em um barbante.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca três objetos em um recipiente e o esvazia.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Transfere um objeto de uma mão à outra para apanhar outro objeto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Deixa cair e apanha um brinquedo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Descobre um objeto escondido sob um recipiente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Empurra 3 blocos como se fosse um comboio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Remove um círculo de uma prancha, por imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca um pino redondo em uma prancha de pinos, quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Executa gestos simples quando requisitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "1 a 2 anos": [
+            {
+                "text": "Retira 6 objetos de um recipiente, um por vez.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para uma parte do corpo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Empilha 3 blocos, dada a ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha objetos semelhantes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz rabiscos no papel.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para si quando perguntam \"Cadê o Fulano?\"",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca 5 pinos redondos, dada a ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha objetos com a figura do mesmo nome.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para a figura nomeada.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vira as páginas de um livro (2/3 por vez) para encontrar a figura nomeada.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "2 a 3 anos": [
+            {
+                "text": "Encontra determinado livro quando solicitado.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Completa um quebra-cabeça de encaixe de 3 peças.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 4 objetos comuns em figuras.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Desenha uma linha vertical imitando um adulto.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Desenha uma linha horizontal imitando um adulto.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Copia um círculo.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha objetos com a mesma textura.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Aponta o \"pequeno\" e o \"grande\" quando solicitado.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Desenha (+) imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha 3 cores.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca objetos dentro, em cima e em baixo de um recipiente, dada a ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia objetos quando ouve o barulho que fazem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Monta um brinquedo de encaixe de 4 peças.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia ações em figuras (\"O que ... está fazendo?\").",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha forma geométrica com a figura da mesma.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Empilha 5 ou mais argolas em uma vara na ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "3 a 4 anos": [
+            {
+                "text": "Nomeia objetos como sendo grandes ou pequenos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para 10 partes do corpo quando requisitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para menino e menina, dada a ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz se um objeto é pesado ou leve.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Une 2 partes de uma figura para formar o todo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Descreve 2 eventos ou personagens de uma estória familiar ou programa de televisão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Repete brincadeiras (rimas ou canções) que envolvam movimentos coordenados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha 3 ou mais objetos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para objetos compridos ou curtos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Associa objetos correspondentes. Ex: meia/sapato.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta até 3 imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Agrupa objetos em categorias.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Traça um (V) em imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Traça uma linha diagonal dado o exemplo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta até 10 objetos, imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Constrói uma ponte com 3 blocos por imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha uma sequência ou padrão (tamanho, cor) de blocos ou contas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Copia uma série de (V) interligados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Acrescenta perna ou braço em um desenho incompleto da figura humana.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Completa um quebra-cabeças de 6 peças.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Indica se os objetos são iguais ou diferentes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desenha um quadrado imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 3 cores sendo requisitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 3 formas geométricas (quadrado, triângulo e círculo).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "4 a 5 anos": [
+            {
+                "text": "Apanha de 1 a 5 objetos quando solicitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 5 texturas diferentes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Copia um triângulo ao ser requisitado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorda-se de 4 objetos que haviam sido vistos em uma figura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz o momento do dia associado a cada atividade.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Repete rimas familiares.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz se um objeto é mais pesado ou mais leve (objetos com diferença de 0,5 quilo).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz o que está faltando quando um objeto é retirado de um grupo de 3 objetos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 8 cores.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Identifica o valor de 3 moedas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha símbolos (letras e números).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz a cor de objetos nomeados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Relata 5 principais fatos de uma história contada 3x.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desenha figura humana (cabeça, tronco e 4 membros)",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Canta 5 estrofes de uma canção.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Constrói uma pirâmide de 10 blocos por imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia objetos como sendo compridos ou curtos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca objetos \"atrás\", \"ao lado\" ou \"junto\" a outros.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz conjuntos iguais de 10 objetos, segundo modelo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia ou aponta para a parte ausente da figura",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta de 1 a 20.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Identifica o objeto que está colocado no meio, em primeiro e em último lugar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "5 a 6 anos": [
+            {
+                "text": "Conta até 20 objetos e responde adequadamente à pergunta: \"Quantos ... você contou?\"",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 10 numerais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Identifica qual a sua esquerda e qual a sua direita",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz as vogais em ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escreve seu nome com letras de forma",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia 5 letras do alfabeto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Ordena objetos em sequência de comprimento e largura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia as letras maiúsculas do alfabeto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca numerais de 1 a 10 na sequência correta.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Identifica a posição de objetos em 1º, 2º e 3º lugar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Nomeia as letras minúsculas do alfabeto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Emparelha letras maiúsculas com minúsculas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para numerais de 1 a 25.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Copia um losango.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Completa um labirinto simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz os dias da semana na ordem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Soma e subtrai combinações de até 3 elementos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Diz o mês e o dia de seu aniversário.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Lê 10 palavras impressas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Prediz o que vai ocorrer.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aponta para objetos inteiros e partidos ao meio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conta de memória de 1 a 100 (pedir que pare no 40, e continue no 80, caso não erre até o 40).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ]
+    },
+    "Autocuidados": {
+        "0 a 1 anos": [
+            {
+                "text": "Suga e deglute líquidos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Toma mingau / sopinha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende as mãos em direção a mamadeira, tentando pegá-la",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Come alimentos liquidificados dados pelos pais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segura a mamadeira sem ajuda enquanto bebe.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Leva a mamadeira até a boca ou a recusa, empurrando-a",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Come alimentos amassados dados pelos pais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Bebe em uma caneca, segurada pelos pais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Come alimentos semissólidos dados pelos pais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Alimenta-se sozinho usando os dedos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segura a caneca com ambas as mãos e bebe.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Leva a colher cheia de comida até a boca com ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estica braços e pernas ao ser vestido.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "1 a 2 anos": [
+            {
+                "text": "Come com colher de modo independente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Segura a caneca com uma só mão e bebe.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca a mão na água e dá tapinhas no rosto com as mãos molhadas, imitando alguém.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Senta-se em um piniquinho ou sanitário infantil por 5 min",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca um chapéu na cabeça e o remove.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Tira as meias.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Empurra os braços pelas mangas e os pés pelas pernas da calça.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Tira os sapatos quando os cordões estiverem desamarrados",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Tira o casaco quando desabotoado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Tira a calça quando desabotoada.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Puxa um fecho grande para cima e para baixo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Utiliza palavras ou gestos indicando necessidade de ir ao banheiro.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "2 a 3 anos": [
+            {
+                "text": "Alimenta-se sozinho usando colher ou caneca, derrubando um pouco de comida ou derramando pouco líquido.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Quando recebe uma toalha enxuga as mãos e o rosto com ajuda",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Suga líquido do copo ou caneca usando canudinho.",
+                "answer": "n",
+                "obs": "O laudo indica que suja a fralda e tira para mostrar depois"
+            },
+            {
+                "text": "Dá garfadas.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Mastiga e engole apenas substâncias comestíveis.",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Enxuga as mãos sem ajuda ao lhe darem uma toalha",
+                "answer": "n",
+                "obs": ""
+            },
+            {
+                "text": "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Controla sua baba.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Urina ou defeca quando colocado no piniquinho pelo menos 3 vezes por semana.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Calça os sapatos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escova os dentes imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Retira roupas simples que foram desabotoadas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa o banheiro para defecar (falha apenas 1x por semana).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Obtém água de uma torneira sem ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Lava as mãos e o rosto com um sabonete.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Avisa que quer ir ao banheiro durante o dia a tempo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pendura o casaco em um gancho da sua altura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Permanece seco ao dormir durante o dia.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Evita riscos, por ex: pontas em móveis e escadas sem corrimão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa guardanapo quando recomendado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Espeta o garfo na comida, levando-a a boca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Despeja líquido de uma peq. jarra para o copo sem ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desprende roupas presas com o feixe de pressão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Lava seus braços e pernas ao lhe darem banho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca meias.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Veste casaco, malha ou camisa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Identifica a parte dianteira da roupa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "3 a 4 anos": [
+            {
+                "text": "Alimenta-se sozinho por toda a refeição.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Veste-se só, precisando de ajuda apenas quanto há malhas ou camisetas com golas fechadas ou botões e fechos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Enxuga o nariz quando lembrado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Acorda seco 2 manhãs por semana",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Se menino, urina no sanitário, em pé",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Veste-se e despe-se sozinho, exceto quanto à botões e fechos em 75% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Fecha a roupa com fechos de pressão ou de gancho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Assoa o nariz quando lembrado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Evita perigos corriqueiros, por ex: caco de vidro.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pendura roupa no cabide e põe no armário quando pedem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escova os dentes quando recebe instrução.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca luvas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desabotoa botões grandes",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Abotoa botões grandes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Calça botas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "4 a 5 anos": [
+            {
+                "text": "Limpa o que derramou por conta própria.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Evita veneno e todas as substâncias prejudiciais.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desabotoa sua roupa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Abotoa sua roupa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Retira prato e talheres da mesa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Encaixa fecho em sua terminação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Lava as mãos e o rosto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa talher apropriado para alimentar-se.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Acorda de noite para ir ao banheiro, ou acorda seco.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Limpa e assua o nariz em 75% das vezes sem ser lembrado",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Toma banho só, precisando de ajuda apenas para lavar as costas, pescoço e orelhas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa faca para espalhar manteiga no pão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aperta e afrouxa cintos ou fivelas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Veste-se sozinho, mas não dá laços.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Serve-se à mesa enquanto seguram a travessa de comida.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Ajuda a pôr a mesa corretamente quando recebe instruções.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escova os dentes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vai ao banheiro a tempo, retira a roupa, usa papel higiênico, dá descarga e veste-se sem ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Penteia ou escova cabelos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pendura roupas em cabides.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda pela vizinhança sem constante supervisão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Enfia cordões em sapatos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Amarra ou dá laços nos cordões dos sapatos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "5 a 6 anos": [
+            {
+                "text": "É responsável por uma tarefa semanal e a executa ao ser lembrado",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Seleciona roupas apropriadas ao clima e ocasião.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pára no passeio, olha para ambos os lados, e atravessa a rua sem precisar ser lembrado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Serve-se à mesa e passa aos demais a panela de comida.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Prepara sua própria caneca de café com leite.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "É responsável por uma tarefa diária em casa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Ajusta a temperatura da água para o banho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Prepara seu próprio lanche.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda sozinho até a distância de 2 quadras de casa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Corta alimentos tenros com faca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Encontra o banheiro em local público, corretamente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Abre a embalagem de leite.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apanha uma bandeja com comida, levando-a e pondo sobre a mesa.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Amarra os cordões em casacos com capuz.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Aperta o cinto de segurança do automóvel.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ]
+    },
+    "Desenvolvimento motor": {
+        "0 a 1 anos": [
+            {
+                "text": "Alcança um objeto colocado à sua frente (15 a 20 cm.).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apanha um objeto colocado à sua frente (8 cm.).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estende os braços em direção a um objeto à sua frente e o apanha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Alcança um objeto preferido.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca objetos na boca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Eleva a cabeça e o tronco apoiando-se nos braços, ao estar deitado de barriga para baixo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Levanta a cabeça e o tronco apoiando-se em um só braço.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Toca e explora objetos com a boca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em DV (decúbito ventral, de bruços), vira de lado e mantém esta posição ½ das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em DV, vira de costas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em DV, move-se para frente o equivalente à sua altura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em DD (decúbito dorsal), rola para o lado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Em DD, vira de barriga para baixo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz esforço para sentar-se, segurando nos dedos do adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vira a cabeça com facilidade quando o corpo está apoiado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Mantém-se sentado por 2 minutos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Solta um objeto para apanhar outro.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apanha e deixa cair um objeto propositalmente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Fica em pé com o máximo de apoio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estando em pé com apoio, pula para cima e para baixo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Engatinha para apanhar um objeto (distante a sua altura).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Senta-se apoiando-se sozinho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estando sentado, vira de gatinhas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estando em DV consegue sentar-se.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Senta-se sem o apoio das mãos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Atira objetos ao acaso.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Balança para frente e para trás quando de gatinhas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Transfere objetos de uma mão para outra quando sentado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Retém em uma das mãos 2 cubos de 2,5 cm.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Fica de joelhos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Fica em pé, apoiando-se em algo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa preensão de pinça para pegar objetos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Engatinha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estando de gatinhas, estende uma das mãos para o alto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Fica em pé com o mínimo de apoio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Lambe a comida ao redor da boca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Mantém-se em pé sozinho por um minuto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Derruba um objeto que está dentro de um recipiente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Vira várias páginas de um livro ao mesmo tempo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escava com uma colher ou pá.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca pequenos objetos dentro do recipiente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estando de pé, abaixa-se e senta.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Bate palmas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda com um mínimo de apoio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dá alguns passos sem apoio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "1 a 2 anos": [
+            {
+                "text": "Sobe escadas engatinhando.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca-se em pé, estando sentado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Rola uma bola imitando um adulto.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sobe em uma cadeira de adulto, vira-se e senta.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Coloca 4 aros em uma pequena estaca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Retira pinos de 2,5 cm de uma prancha ou tabuleiro.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Encaixa pinos de 2,5 cm em uma prancha de encaixe.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Constrói uma torre de 3 blocos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Faz traços no papel com lápis ou lápis de cera.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda sozinho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desce escadas sentado, colocando primeiro os pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Senta-se em uma cadeirinha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Agacha-se e volta a ficar em pé.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Empurra e puxa brinquedos ao andar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa cadeira ou cavalo de balanço.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sobe escadas com ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dobra o corpo sem cair para apanhar objetos no chão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Imita um movimento circular.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "2 a 3 anos": [
+            {
+                "text": "Enfia 4 contas grandes em um cordão em 2 minutos.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Vira trincos ou maçanetas em portas.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Salta no mesmo local com ambos os pés.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Anda de costas.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Desce escadas sem ajuda.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Atira uma bola a um adulto à 1 ½ de distância.",
+                "answer": "t",
+                "obs": "Falta intenção social de devolver"
+            },
+            {
+                "text": "Constrói uma torre de 5 a 6 blocos.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Vira páginas de um livro, uma por vez.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Desembrulha um pequeno objeto.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Dobra um papel ao meio, imitando um adulto.",
+                "answer": "t",
+                "obs": ""
+            },
+            {
+                "text": "Desmancha e reconstrói brinquedos de encaixe por pressão.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Desenrosca brinquedos que se encaixam por roscas.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Chuta uma bola grande que está imóvel.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Faz bolas de argila, barro ou massinha.",
+                "answer": "s",
+                "obs": ""
+            },
+            {
+                "text": "Segura o lápis entre o polegar e o indicador, apoiando-o sobre o dedo médio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dá cambalhota para frente com ajuda.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dá marteladas para encaixar 5 pinos em seus orifícios.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "3 a 4 anos": [
+            {
+                "text": "Faz um quebra cabeça de 3 peças.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Corta algo em pedaços com tesoura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pula de uma altura de 20 cm",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Chuta uma bola grande quando enviada para si.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda na ponta dos pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Corre 10 passos coordenando e alternando o movimento dos braços e pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pedala com triciclo a distância de 1 metro e ½.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Balança em um balanço quando este está em movimento.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sobe em um escorregador de 1,20m a 1,80m e escorrega.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dá cambalhotas para frente.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sobe escadas alternando os pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Marcha (anda de forma ritmada).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apara a bola com ambas as mãos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desenha figuras seguindo contornos ou pontilhados.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorta ao longo de uma linha reta 20 cm, afastando-se pouco da linha.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "4 a 5 anos": [
+            {
+                "text": "Fica em um só pé sem apoio por 4 a 8 segundos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Muda de direção ao correr.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda sobre uma viga ou tábua, mantendo o equilíbrio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pula para frente 10 vezes sem cair.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Salta sobre uma corda suspensa a 5 cm do solo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pula de costas 6 vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Rebate e apanha uma bola grande.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Une 2 a 3 pedaços de massa de modelar.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorta em torno de linhas curvas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Encaixa objetos de rosca.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desce escadas alternando os pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pedala um triciclo fazendo curvas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Salta em um só pé 5 vezes consecutivas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorta um círculo em 5 cm.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Desenha figuras simples facilmente identificáveis (por ex: casa).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorta e cola formas simples.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ],
+        "5 a 6 anos": [
+            {
+                "text": "Escreve letras de imprensa maiúsculas, isoladas e grandes em qualquer lugar do papel.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda sobre uma tábua para trás, para frente e para os lados, mantendo o equilíbrio.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Caminha saltitando.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Balança em um balanço iniciando e mantendo o movimento.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Estica os dedos tocando o polegar em cada um deles.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Copia letras maiúsculas.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Sobe em escadas de mão ou de escorregador de 3 m.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Bate em um prego com martelo.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Rebate a bola à medida que anda com direção.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Consegue colorir sem sair da margem em 95% das vezes.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Recorta figuras sem sair mais que 6 mm da margem.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Usa apontador de lápis.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Copia desenhos complexos (escola, navio).",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Rasga figuras simples de um papel.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dobra um papel quadrado 2x em diagonal por imitação.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apanha uma bola leve com uma só mão.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pula corda sozinho.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Golpeia uma bola com um bastão ou pedaço de pau.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Apanha um objeto no chão enquanto corre.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Patina uma distância de 3 m, ou usa skate.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda de bicicleta.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escorrega descendo um monte de areia ou terra.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Anda ou brinca em piscina tendo água até a cintura.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Conduz um patinete dando impulso com um só pé.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Salta e gira em um só pé.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Escreve seu nome com letras de forma em caderno pautado.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Salta de uma altura de 30 cm. e cai na ponta dos pés.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Pára em um só pé sem apoio com olhos fechados por 10 segundos.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Dependura-se por 10 segundos em uma barra horizontal.",
+                "answer": "",
+                "obs": ""
+            },
+            {
+                "text": "Total de Acertos",
+                "answer": "",
+                "obs": ""
+            }
+        ]
+    }
+}

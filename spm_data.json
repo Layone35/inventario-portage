@@ -1,0 +1,302 @@
+[
+    {
+        "text": "Brinca com o amigos de forma cooperativa.",
+        "answer": "o"
+    },
+    {
+        "text": "Compartilha coisas quando lhe é pedido.",
+        "answer": "o"
+    },
+    {
+        "text": "Participa de jogos em grupo sem interromper a atividade.",
+        "answer": "n"
+    },
+    {
+        "text": "Participa e interage apropriadamente nos períodos das refeições.",
+        "answer": "s"
+    },
+    {
+        "text": "Participa adequadamente de passeios familiares, como jantar fora ou ir a um museu ou shopping.",
+        "answer": "s"
+    },
+    {
+        "text": "Participa adequadamente de reuniões de família, como feriados, casamentos e aniversários.",
+        "answer": "s"
+    },
+    {
+        "text": "Participa de forma adequada em atividades com amigos, como festas e brincadeiras e brinquedos de playground.",
+        "answer": "s"
+    },
+    {
+        "text": "Ajuda nas atividades familiares como carregar sacolas de compras e buscar seus irmãos na escola.",
+        "answer": "s"
+    },
+    {
+        "text": "Parece  incomodado com a claridade, especialmente luzes claras(pisca, aperta os olhos, chora, fecha os olhos)",
+        "answer": "n"
+    },
+    {
+        "text": "Tem dificuldade para encontrar um objeto quando ele está junto com outras coisas.",
+        "answer": "o"
+    },
+    {
+        "text": "Tem dificuldade em reconhecer se os objetos são semelhantes ou diferentes com base em suas cores, formas ou tamanho.",
+        "answer": "n"
+    },
+    {
+        "text": "Gosta de observar objetos rodando ou em movimnto, mais do que a maioria das crianças da sua idade.",
+        "answer": "n"
+    },
+    {
+        "text": "Anda entre objetos ou pessoas como se elas não estivessem ali.",
+        "answer": "n"
+    },
+    {
+        "text": "Gosta de ligar e desligar interruptores de luz repentidamente.",
+        "answer": "s"
+    },
+    {
+        "text": "Gosta de olhar objetos em movimento com o canto do seu olho.",
+        "answer": "o"
+    },
+    {
+        "text": "Tem dificuldade de prestar atenção se está em um lugar com muitas coisas para olhar.",
+        "answer": "f"
+    },
+    {
+        "text": "Fica incomodado em locais com muitos estímulos visuais, como um quarto muito bagunçado ou uma loja cheia de itens.",
+        "answer": "n"
+    },
+    {
+        "text": "Distrai-se facilmente ao olhar as coisas ao seu redor quando estácaminhando.",
+        "answer": "o"
+    },
+    {
+        "text": "Tem dificuldade em completar tarefas simples, quando há muitas coisas para olhar.",
+        "answer": "o"
+    },
+    {
+        "text": "Parece incomodado com sons normais de uma casa, como aspirador de pó, secador de cabelo ou barulho de descarga.",
+        "answer": "o"
+    },
+    {
+        "text": "Responde negativamente a ruídos altos, fugindo, chorando ou tampando os ouvidos com as mãos.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece não ouvir certos sons.",
+        "answer": "n"
+    },
+    {
+        "text": "Mostra-se pertubado ou extremamente interessado com sons que normalmente não são ouvidos por outras pessoas.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece se distrair facilmente com ruídos do ambiente, tais como cortador de grama, ar condicionado, geladeira , etc",
+        "answer": "n"
+    },
+    {
+        "text": "Gosta de fazer certos barulhos repetidamente, como apertar a descarga de banheiro muitas vezes.",
+        "answer": "n"
+    },
+    {
+        "text": "Mostra angústia com sons estridentes, como apito,chocalho, flauta e trompete.",
+        "answer": "n"
+    },
+    {
+        "text": "Demonstra incomodo em locais com muitos estímulos auditivos, como festa ou em locais lotados.",
+        "answer": "n"
+    },
+    {
+        "text": "Assusta-se facilmente ao ouvir um som alto inesperado.",
+        "answer": "o"
+    },
+    {
+        "text": "Afasta-se ao ser tocado.",
+        "answer": "f"
+    },
+    {
+        "text": "Prefere tocar a ser tocado.",
+        "answer": "f"
+    },
+    {
+        "text": "Estressa-se ao cortar as unhas.",
+        "answer": "s"
+    },
+    {
+        "text": "Sente-se incomodado ao tocarem seu rosto.",
+        "answer": "o"
+    },
+    {
+        "text": "Evita brincar com pintura a dedo, areia,argila, barro,  cola ou outras coisas que sujem",
+        "answer": "n"
+    },
+    {
+        "text": "Apresenta alta tolerância a dor.",
+        "answer": "o"
+    },
+    {
+        "text": "Não gosta de escovar os dentes mais do que as outras crianças da mesma idade.",
+        "answer": "f"
+    },
+    {
+        "text": "Parece ter prazer com sensações dolorosas, como cair no chão ou bater o seu próprio corpo.",
+        "answer": "n"
+    },
+    {
+        "text": "Não gosta de pentear, escovar e arrumar o cabelo.",
+        "answer": "f"
+    },
+    {
+        "text": "Não gosta de cortar o cabelo.",
+        "answer": ""
+    },
+    {
+        "text": "Evita alimentos com certas texturas",
+        "answer": "n"
+    },
+    {
+        "text": "Vomita ou tem ânsia de vômito ao ingerir alimentos com determinadas texturas.",
+        "answer": "n"
+    },
+    {
+        "text": "Não gosta quando tentam limpar ou lavar seu rosto.",
+        "answer": "f"
+    },
+    {
+        "text": "Baba mais que outras crianças da sua idade.",
+        "answer": "n"
+    },
+    {
+        "text": "Gosta de ingerir produtos não alimentares com colas, tintas, etc.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece ignorar ou não perceber odores fortes, aos quais outras crianças reagiriam.",
+        "answer": ""
+    },
+    {
+        "text": "Prefere sabores de certos alimentos a ponto de recusar comer outros alimentos oferecidos.",
+        "answer": "n"
+    },
+    {
+        "text": "Recusa usar creme dental na escova.",
+        "answer": "n"
+    },
+    {
+        "text": "Segura objetos tão firmememnte que fica difícil usar o objeto.",
+        "answer": "o"
+    },
+    {
+        "text": "Parece buscar atividades como puxar, empurrar, arrastar, levantar e saltar.",
+        "answer": "f"
+    },
+    {
+        "text": "Mostra-se inseguro ao abaixar ou levantar o corpo durante o movimento como sentar-se ou ficar em pé em cima de um objeto.",
+        "answer": "n"
+    },
+    {
+        "text": "Segura objetos tão frouxamente que fica difícil usar o objeto.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece exercer demasiada pressão sobre as tarefas, como caminhada, bater porta ou pressionar muito forte ao usar lápis ou giz de cera.",
+        "answer": "n"
+    },
+    {
+        "text": "Salta muito.",
+        "answer": "o"
+    },
+    {
+        "text": "Tende a acariciar animais com muita força.",
+        "answer": "o"
+    },
+    {
+        "text": "Bate ou empurra outras crianças.",
+        "answer": "n"
+    },
+    {
+        "text": "Mastiga brinquedos, roupas ou outros objetos masi que as outras crianças da mesma idade.",
+        "answer": "n"
+    },
+    {
+        "text": "Demonstra medo exagerado com movimento, como subir e descer escadas,ou brincar em  em balanços, gira gira etc.",
+        "answer": "n"
+    },
+    {
+        "text": "Evita atividades de equilíbrio, como andar em freios e em solos desnivelados.",
+        "answer": "n"
+    },
+    {
+        "text": "Cai da cadeira ao tenatr endireitar-se.",
+        "answer": "n"
+    },
+    {
+        "text": "Falha ao tentar se segurar quando está caindo.",
+        "answer": "o"
+    },
+    {
+        "text": "Parece não ficar tonto quando os outro normalmente ficariam.",
+        "answer": "o"
+    },
+    {
+        "text": "Costuma brincar de rodar o próprio corpo mais do que outras crianças da mesma idade.",
+        "answer": "n"
+    },
+    {
+        "text": "Mostra desespero quando a cabeça está inclinada em posição não vertical.",
+        "answer": "n"
+    },
+    {
+        "text": "Apresenta coordenação motora ruim eparece uma criança desajeitada.",
+        "answer": "n"
+    },
+    {
+        "text": "Ao tentar se levantar apoia-se em pessoas ou mobiliários.",
+        "answer": "o"
+    },
+    {
+        "text": "Balança seu corpo quando se acorda e se senta.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece ter medo de descer escadas ou ladeiras.",
+        "answer": "n"
+    },
+    {
+        "text": "Tem dificuldade para descobrir como carregar vários objetios ao mesmo tempo.",
+        "answer": "n"
+    },
+    {
+        "text": "Parece confuso sobre como arrumar os materiais e pertences em seus lugares corretos.",
+        "answer": "f"
+    },
+    {
+        "text": "Fica confuso com a sequência adequada de ações rotineiras como vestir-se ou ir para cama.",
+        "answer": "o"
+    },
+    {
+        "text": "Não consegue completar tarefas com várias etapas.",
+        "answer": "o"
+    },
+    {
+        "text": "Apresenta dificuldade para imitar ações demonstradas, tais como jogos de movimento ou cançoçes com gestos.",
+        "answer": "n"
+    },
+    {
+        "text": "Não consegue copiar outra criança ou um adulto na construção com blocos",
+        "answer": "n"
+    },
+    {
+        "text": "Tem didifuldade em apresentar ideias novas durante as atividades lúdicas",
+        "answer": "o"
+    },
+    {
+        "text": "Tende a desempenhar as mesmas atividades várias vezes ao invés de mudar para novas atividades quando dada a oportunidade.",
+        "answer": "o"
+    },
+    {
+        "text": "Tem problemas quando sobe ou desce da cadeirinha do carro.",
+        "answer": "o"
+    }
+]

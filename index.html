@@ -7,54 +7,32 @@
     <meta name="theme-color" content="#4f46e5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Inventário Portage Completo - Registro de Avaliação</title>
+    <title>Diário de Bordo - Ester</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         if (localStorage.getItem('auth') !== 'ester_logged_in') {
             window.location.href = 'login.html';
         }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
         tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        @media print {
-            body { background-color: white !important; color: #111827 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .no-print { display: none !important; }
-            .print-container { box-shadow: none !important; border: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
-            .category-section { page-break-before: always; }
-            .category-section:first-of-type { page-break-before: avoid; }
-            tr { page-break-inside: avoid !important; }
-            thead { display: table-header-group !important; }
-            @page { size: A4; margin: 15mm 12mm 15mm 12mm; }
-            input::placeholder, textarea::placeholder { color: transparent !important; }
-            input { border-bottom: 1px solid #9ca3af !important; }
-        }
-        .checkbox-cell { cursor: pointer; transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; }
-        .checkbox-cell:hover { background-color: #f3f4f6; }
-        .checkbox-cell:active { background-color: #e5e7eb; }
-        .checkbox-box { width: 1.35rem; height: 1.35rem; border: 1.5px solid #4b5563; border-radius: 0.25rem; display: inline-flex; align-items: center; justify-content: center; background-color: white; font-weight: bold; font-size: 0.75rem; color: #1f2937; transition: all 0.15s ease; }
-        .checkbox-box.checked-s { background-color: #10b981; border-color: #059669; color: white; }
-        .checkbox-box.checked-n { background-color: #ef4444; border-color: #dc2626; color: white; }
-        .checkbox-box.checked-t { background-color: #f59e0b; border-color: #d97706; color: white; }
-        #loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(4px); transition: opacity 0.3s; }
-        .spinner { border: 4px solid #e2e8f0; border-top: 4px solid #4f46e5; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-print-color-adjust: exact; print-color-adjust: exact; appearance: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
     </style>
 </head>
-<body class="pb-24 bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="pb-24 bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
     <!-- Top App Bar (PWA) -->
     <header class="bg-indigo-600 text-white shadow-md sticky top-0 z-40 no-print" style="padding-top: env(safe-area-inset-top);">
         <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-black text-white shadow-inner">E</div>
-                <h1 class="font-bold text-lg tracking-tight">Inventário Portage</h1>
+                <h1 class="font-bold text-lg tracking-tight">Diário de Bordo</h1>
             </div>
             <div class="flex items-center space-x-3">
 
@@ -73,587 +51,236 @@
 
     
 
-    <!-- Loading Overlay -->
-    <div id="loading-overlay">
-        <div class="spinner mb-4"></div>
-        <p class="text-indigo-700 font-semibold">Sincronizando com a nuvem...</p>
-    </div>
-
-    <div class="print-container max-w-5xl mx-auto bg-white p-6 sm:p-10 shadow-xl border border-slate-200 rounded-b-2xl relative mt-4 mb-20">
+    <main class="flex-grow max-w-3xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         
-        <div class="text-center mb-8 border-b border-slate-100 pb-6">
-            <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight">Inventário Portage</h1>
-            <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mt-1">Guia de Avaliação e Registro (Completo)</p>
-            <div class="flex justify-center items-center mt-2 space-x-2 text-xs font-semibold">
-                <span class="flex items-center text-emerald-600 bg-emerald-50 px-2 py-1 rounded border border-emerald-200">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
-                    Sincronização em Nuvem Ativada
-                </span>
-            </div>
-        </div>
+        
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8 bg-slate-50 p-6 rounded-xl border border-slate-150 text-sm">
-            <div class="flex items-center space-x-2">
-                <span class="font-bold text-slate-600 w-28 shrink-0">Paciente:</span>
-                <span class="text-slate-800 font-semibold border-b border-dashed border-slate-300 pb-0.5 w-full">ESTER BERNARDINO PEREIRA</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="font-bold text-slate-600 w-28 shrink-0">Data de Nasc.:</span>
-                <span class="text-slate-800 font-semibold border-b border-dashed border-slate-300 pb-0.5 w-full">13/08/2023</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="font-bold text-slate-600 w-28 shrink-0">Avaliador(a):</span>
-                <input type="text" class="bg-transparent border-b border-slate-300 focus:border-indigo-500 focus:outline-none pb-0.5 w-full text-slate-800 font-medium placeholder-slate-400" placeholder="Nome do profissional...">
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="font-bold text-slate-600 w-28 shrink-0">Data de Avaliação:</span>
-                <input type="text" class="bg-transparent border-b border-slate-300 focus:border-indigo-500 focus:outline-none pb-0.5 w-full text-slate-800 font-medium placeholder-slate-400" placeholder="DD/MM/AAAA">
-            </div>
-        </div>
-
-        <div class="no-print mb-8">
-            <label for="age-selector" class="block text-sm font-bold text-slate-700 mb-2">Selecione a Faixa Etária:</label>
-            <select id="age-selector" onchange="changeAgeGroup(this.value)" class="block w-full sm:w-1/2 p-3 text-base text-slate-900 border border-slate-300 rounded-lg bg-slate-50 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm font-semibold transition-all">
-                <!-- Will be populated by JS -->
-            </select>
-        </div>
-
-        <div class="flex flex-col lg:flex-row justify-between items-stretch lg:items-center bg-slate-50 p-5 border border-slate-200 rounded-xl text-sm mb-8 gap-4">
-            <div>
-                <span class="font-bold text-slate-700 block mb-2 lg:mb-1">Legenda de Avaliação:</span>
-                <div class="flex flex-wrap gap-4 text-xs">
-                    <span class="flex items-center"><div class="checkbox-box checked-s w-4 h-4 mr-1.5 shadow-sm">S</div> <strong>SIM</strong> (Realiza)</span>
-                    <span class="flex items-center"><div class="checkbox-box checked-n w-4 h-4 mr-1.5 shadow-sm">N</div> <strong>NÃO</strong> (Não realiza)</span>
-                    <span class="flex items-center"><div class="checkbox-box checked-t w-4 h-4 mr-1.5 shadow-sm">T</div> <strong>TALVEZ</strong> (Em aquisição)</span>
+        <!-- Formulário de Nova Entrada -->
+        <div class="bg-white p-5 sm:p-6 shadow-sm border border-slate-200 rounded-2xl">
+            <h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest mb-4">Nova Anotação</h2>
+            
+            <form id="logForm" class="space-y-4">
+                <textarea id="logText" rows="3" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors resize-none" placeholder="Escreva o que aconteceu hoje... (ex: Conseguiu pedir água apontando; Não deixou tocar no cabelo)" required></textarea>
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex flex-wrap gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="logType" value="conquista" class="peer sr-only" required>
+                            <div class="px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-200 bg-emerald-50 text-emerald-700 peer-checked:bg-emerald-600 peer-checked:text-white transition-all shadow-sm">🟢 Conquista</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="logType" value="desafio" class="peer sr-only">
+                            <div class="px-3 py-1.5 rounded-full text-xs font-bold border border-rose-200 bg-rose-50 text-rose-700 peer-checked:bg-rose-600 peer-checked:text-white transition-all shadow-sm">🔴 Desafio / Piora</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="logType" value="observacao" class="peer sr-only" checked>
+                            <div class="px-3 py-1.5 rounded-full text-xs font-bold border border-amber-200 bg-amber-50 text-amber-700 peer-checked:bg-amber-500 peer-checked:text-white transition-all shadow-sm">🟡 Observação</div>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition-all disabled:opacity-50" id="saveBtn">
+                        Adicionar ao Diário
+                    </button>
                 </div>
-            </div>
-            <div class="no-print flex flex-col justify-center bg-white border border-slate-200 px-4 py-3 rounded-lg shadow-sm min-w-[200px]">
-                <div class="flex justify-between items-center mb-1 text-xs font-semibold text-slate-600">
-                    <span>Progresso (Faixa Atual):</span>
-                    <span id="progress-percent">0%</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-2">
-                    <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-                <div class="text-[10px] text-slate-400 mt-1 text-right" id="progress-count">Calculando...</div>
+            </form>
+        </div>
+
+        <!-- Timeline -->
+        <div class="bg-white p-5 sm:p-6 shadow-sm border border-slate-200 rounded-2xl">
+            <h2 class="text-sm font-bold text-slate-700 uppercase tracking-widest mb-6 border-b border-slate-100 pb-2">Linha do Tempo</h2>
+            
+            <div id="timeline-container" class="space-y-6 pl-2 border-l-2 border-slate-100 ml-3">
+                <!-- Logs will be injected here -->
+                <div class="text-slate-400 text-sm italic ml-4">Carregando anotações...</div>
             </div>
         </div>
 
-        <div id="content" class="space-y-12"></div>
+    </main>
 
-    </div>
+    <script>
+        const SUPABASE_URL = 'https://ftsrjkngineekilrarrd.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0c3Jqa25naW5lZWtpbHJhcnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjExMjcsImV4cCI6MjA5MTY5NzEyN30.aEAeumrSj8Jc5NmvgpZrqfTCD-hYhdl3_rom5yZRX3k';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    <!-- Results Modal -->
-    <div id="results-modal" class="no-print fixed inset-0 bg-slate-900/60 z-[100] hidden items-center justify-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 border border-slate-200">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
-                <div>
-                    <h2 class="text-2xl font-extrabold text-slate-800">Resultados da Avaliação</h2>
-                    <p class="text-xs text-slate-500 mt-1">Idade de Desenvolvimento estimada pelo Inventário Portage</p>
+        let obsState = { logs: [] };
+
+        const syncStatus = document.getElementById('sync-status');
+        const syncStatusCircle = syncStatus.querySelector('span:first-child');
+        const syncStatusText = syncStatus.querySelector('span:last-child');
+
+        function setStatus(state) {
+            if (state === 'syncing') {
+                syncStatusCircle.className = 'w-2 h-2 rounded-full mr-2 inline-block animate-pulse bg-amber-400';
+                syncStatusText.innerText = 'Salvando...';
+            } else if (state === 'synced') {
+                syncStatusCircle.className = 'w-2 h-2 rounded-full mr-2 inline-block bg-emerald-500';
+                syncStatusText.innerText = 'Salvo na Nuvem';
+            } else if (state === 'error') {
+                syncStatusCircle.className = 'w-2 h-2 rounded-full mr-2 inline-block bg-rose-500';
+                syncStatusText.innerText = 'Erro de Conexão';
+            }
+        }
+
+        async function loadData() {
+            try {
+                const { data, error } = await supabaseClient.from('portage_data').select('observations').eq('id', 1).single();
+                if (error) throw error;
+                
+                if (data && data.observations) {
+                    obsState = data.observations;
+                    if (!obsState.logs) obsState.logs = [];
+                }
+                
+                renderTimeline();
+                setStatus('synced');
+            } catch (err) {
+                console.error(err);
+                setStatus('error');
+            }
+        }
+
+        async function saveLog(text, type) {
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            setStatus('syncing');
+
+            const newLog = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                text: text,
+                type: type
+            };
+
+            obsState.logs.push(newLog);
+
+            try {
+                const { error } = await supabaseClient.from('portage_data').update({
+                    observations: obsState
+                }).eq('id', 1);
+
+                if (error) throw error;
+                
+                document.getElementById('logText').value = '';
+                renderTimeline();
+                setStatus('synced');
+            } catch (err) {
+                console.error(err);
+                obsState.logs.pop(); // rollback
+                setStatus('error');
+                alert("Erro ao salvar a anotação na nuvem.");
+            } finally {
+                saveBtn.disabled = false;
+            }
+        }
+
+        async function deleteLog(id) {
+            if(!confirm("Deseja realmente apagar esta anotação?")) return;
+            
+            setStatus('syncing');
+            const index = obsState.logs.findIndex(l => l.id === id);
+            if(index === -1) return;
+            
+            const removed = obsState.logs.splice(index, 1)[0];
+            
+            try {
+                const { error } = await supabaseClient.from('portage_data').update({
+                    observations: obsState
+                }).eq('id', 1);
+                if (error) throw error;
+                renderTimeline();
+                setStatus('synced');
+            } catch (err) {
+                console.error(err);
+                obsState.logs.splice(index, 0, removed); // rollback
+                setStatus('error');
+                alert("Erro ao apagar a anotação.");
+            }
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            const logs = obsState.logs || [];
+            
+            if (logs.length === 0) {
+                container.innerHTML = '<div class="text-slate-400 text-sm ml-4 py-4">Nenhuma anotação no diário ainda. Escreva sua primeira observação acima!</div>';
+                return;
+            }
+
+            // Sort newest first
+            const sortedLogs = logs.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            let html = '';
+            sortedLogs.forEach(log => {
+                const dateObj = new Date(log.date);
+                const timeStr = dateObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                const dateStr = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+                
+                let iconStr = '';
+                let colorClass = '';
+                
+                if (log.type === 'conquista') {
+                    iconStr = '🟢';
+                    colorClass = 'bg-emerald-50 border-emerald-200 text-emerald-900';
+                } else if (log.type === 'desafio') {
+                    iconStr = '🔴';
+                    colorClass = 'bg-rose-50 border-rose-200 text-rose-900';
+                } else {
+                    iconStr = '🟡';
+                    colorClass = 'bg-amber-50 border-amber-200 text-amber-900';
+                }
+
+                html += `
+                <div class="relative pl-6 pb-6">
+                    <!-- Timeline dot -->
+                    <div class="absolute w-3 h-3 bg-slate-300 rounded-full -left-[7px] top-2 border-2 border-white"></div>
+                    
+                    <div class="rounded-xl border p-4 shadow-sm ${colorClass} relative group transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xs font-bold opacity-60 uppercase tracking-wider">${iconStr} ${dateStr} às ${timeStr}</span>
+                            <button onclick="deleteLog(${log.id})" class="text-slate-400 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity" title="Apagar anotação">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                        <p class="text-sm font-medium mt-2 whitespace-pre-wrap">${log.text}</p>
+                    </div>
                 </div>
-                <button onclick="closeResultsModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <div class="p-6 space-y-6" id="results-content">
-                <!-- Injected via JS -->
-            </div>
-            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-                <button onclick="saveHistory()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                    Salvar no Histórico
-                </button>
-                <button onclick="closeResultsModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">Fechar</button>
-            </div>
-        </div>
-    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
 
-    <!-- History List Modal -->
-    <div id="history-modal" class="no-print fixed inset-0 bg-slate-900/60 z-[100] hidden items-center justify-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 border border-slate-200">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
-                <div>
-                    <h2 class="text-2xl font-extrabold text-slate-800">Histórico de Avaliações</h2>
-                    <p class="text-xs text-slate-500 mt-1">Fotos do seu progresso ao longo do tempo</p>
-                </div>
-                <button onclick="closeHistoryModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <div class="p-6 space-y-4" id="history-content">
-                <!-- Injected via JS -->
-            </div>
-            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
-                <button onclick="closeHistoryModal()" class="bg-slate-600 hover:bg-slate-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">Fechar</button>
-            </div>
-        </div>
-    </div>
+        document.getElementById('logForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('logText').value;
+            const type = document.querySelector('input[name="logType"]:checked').value;
+            saveLog(text, type);
+        });
+
+        loadData();
+    </script>
 
     
 
-    <script>
-        // --- Supabase Config ---
-        const supabaseUrl = 'https://ftsrjkngineekilrarrd.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0c3Jqa25naW5lZWtpbHJhcnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjExMjcsImV4cCI6MjA5MTY5NzEyN30.aEAeumrSj8Jc5NmvgpZrqfTCD-hYhdl3_rom5yZRX3k';
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-        const categoryStyles = {
-            "Socialização": { titleBg: "bg-blue-50 border-blue-200 text-blue-900", emojiBg: "bg-blue-100 text-blue-600" },
-            "Linguagem": { titleBg: "bg-purple-50 border-purple-200 text-purple-900", emojiBg: "bg-purple-100 text-purple-600" },
-            "Cognição": { titleBg: "bg-amber-50 border-amber-200 text-amber-900", emojiBg: "bg-amber-100 text-amber-600" },
-            "Autocuidados": { titleBg: "bg-teal-50 border-teal-200 text-teal-900", emojiBg: "bg-teal-100 text-teal-600" },
-            "Desenvolvimento motor": { titleBg: "bg-rose-50 border-rose-200 text-rose-900", emojiBg: "bg-rose-100 text-rose-600" }
-        };
-
-        const emojis = { "Socialização": "🤝", "Linguagem": "🗣️", "Cognição": "🧠", "Autocuidados": "🛁", "Desenvolvimento motor": "🏃‍♀️" };
-        
-        const data = {"Socialização": {"0 a 1 anos": [{"text": "Observa uma pessoa movimentando-se em seu campo visual.", "answer": "", "obs": ""}, {"text": "Sorri em resposta à atenção do adulto", "answer": "", "obs": ""}, {"text": "Vocaliza em resposta à atenção", "answer": "", "obs": ""}, {"text": "Olha para sua própria mão, sorrindo ou vocalizando", "answer": "", "obs": ""}, {"text": "Responde a seu círculo familiar, sorrindo, vocalizando ou parando de chorar", "answer": "", "obs": ""}, {"text": "Sorri em resposta à expressão facial dos outros.", "answer": "", "obs": ""}, {"text": "Sorri e vocaliza ao ver sua imagem no espelho", "answer": "", "obs": ""}, {"text": "Acaricia ou toca no rosto de adultos (puxa cabelo, nariz, óculos, etc.).", "answer": "", "obs": ""}, {"text": "Estende a mão em direção a um objeto oferecido.", "answer": "", "obs": ""}, {"text": "Estende os braços em direção a pessoas familiares", "answer": "", "obs": ""}, {"text": "Estende a mão e toca sua imagem refletida no espelho.", "answer": "", "obs": ""}, {"text": "Segura e examina por 1 minuto um objeto que lhe foi dado.", "answer": "", "obs": ""}, {"text": "Sacode ou aperta um objeto colocado em sua mão, produzindo sons involuntários.", "answer": "", "obs": ""}, {"text": "Brinca sozinho por 10 minutos.", "answer": "", "obs": ""}, {"text": "Procura contato visual quando alguém lhe dá atenção por 2 a 3 minutos.", "answer": "", "obs": ""}, {"text": "Brinca sozinho sem reclamar por 15 a 20 minutos, próximo de um adulto.", "answer": "", "obs": ""}, {"text": "Vocaliza para obter atenção", "answer": "", "obs": ""}, {"text": "Imita adulto em brincadeiras de esconde-esconde", "answer": "", "obs": ""}, {"text": "Bate palmas, imitando um adulto", "answer": "", "obs": ""}, {"text": "Acena a mão, imitando um adulto.", "answer": "", "obs": ""}, {"text": "Ergue os braços para expressar “grande”, imitando um adulto", "answer": "", "obs": ""}, {"text": "Oferece algo, mas nem sempre entrega.", "answer": "", "obs": ""}, {"text": "Abraça, acaricia e beija familiares.", "answer": "", "obs": ""}, {"text": "Responde ao próprio nome, olhando ou estendendo o braço para ser pego.", "answer": "", "obs": ""}, {"text": "Aperta ou sacode um brinquedo para produzir sons, em imitação.", "answer": "", "obs": ""}, {"text": "Manipula brinquedo ou objeto.", "answer": "", "obs": ""}, {"text": "Estende um brinquedo ou objeto a um adulto e o entrega.", "answer": "", "obs": ""}, {"text": "Imita movimentos de outras crianças ao brincar.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "1 a 2 anos": [{"text": "Imita um adulto em uma tarefa simples.", "answer": "", "obs": ""}, {"text": "Brinca ao lado de outra criança, cada uma realizando tarefas diferentes.", "answer": "", "obs": ""}, {"text": "Toma parte em uma brincadeira com outra criança por 2 a 5 minutos.", "answer": "", "obs": ""}, {"text": "Aceita a ausência dos pais, embora possa reclamar.", "answer": "", "obs": ""}, {"text": "Explora ativamente seu meio ambiente.", "answer": "", "obs": ""}, {"text": "Realiza atividade manipulativa com outra pessoa.", "answer": "", "obs": ""}, {"text": "Abraça e carrega uma boneca ou brinquedo macio.", "answer": "", "obs": ""}, {"text": "Repete ações que produzem risos e atenção.", "answer": "", "obs": ""}, {"text": "Dá um livro para que um adulto o leia ou para que ambos o compartilhem.", "answer": "", "obs": ""}, {"text": "Puxa uma pessoa a mostrar-lhe algo.", "answer": "", "obs": ""}, {"text": "Retira a mão ou diz \"não\" quando está próximo de um objeto não permitido e alguém o lembra disto.", "answer": "", "obs": ""}, {"text": "Quando colocado em sua cadeira ou trocador espera ser atendido.", "answer": "", "obs": ""}, {"text": "Brinca com 2 ou 3 crianças da sua idade.", "answer": "", "obs": ""}, {"text": "Compartilha um objeto ou alimento com outra criança.", "answer": "", "obs": ""}, {"text": "Cumprimenta colegas ou adultos quando lembrado.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "2 a 3 anos": [{"text": "Obedece às ordens dos pais pelo menos ½ das vezes.", "answer": "n", "obs": ""}, {"text": "Busca / leva um objeto ou pessoa, quando solicitado.", "answer": "n", "obs": ""}, {"text": "Presta atenção à estória ou música por 5 a 10 min.", "answer": "n", "obs": "O tchau é estereotipado"}, {"text": "Diz \"Por favor\" ou \"Obrigado\" quando lembrado.", "answer": "n", "obs": ""}, {"text": "Tenta ajudar os pais a executarem tarefas realizando parte da mesma", "answer": "n", "obs": ""}, {"text": "Brinca de usar roupas de adultos.", "answer": "t", "obs": ""}, {"text": "Faz uma escolha quando indagado.", "answer": "n", "obs": ""}, {"text": "Demonstra entender sentimentos, expressando-os.", "answer": "n", "obs": ""}, {"text": "Total de Acertos", "answer": "n", "obs": ""}], "3 a 4 anos": [{"text": "Canta e dança ao ouvir músicas.", "answer": "", "obs": ""}, {"text": "Segue regras de um jogo imitando ações de outras crianças.", "answer": "", "obs": ""}, {"text": "Cumprimenta pessoas familiares sem ser lembrado.", "answer": "", "obs": ""}, {"text": "Seguem regras em jogos de grupos dirigidos por adultos.", "answer": "", "obs": ""}, {"text": "Pede permissão para brincar com um brinquedo que está sendo usado por outra criança", "answer": "", "obs": ""}, {"text": "Diz \"Por favor\" e \"Obrigado\" sem ser lembrado ½ das vezes.", "answer": "", "obs": ""}, {"text": "Atende ao telefone, chamando um adulto e falando com pessoas familiares.", "answer": "", "obs": ""}, {"text": "Espera a sua vez.", "answer": "", "obs": ""}, {"text": "Segue regras em jogos dirigidos por uma criança mais velha.", "answer": "", "obs": ""}, {"text": "Obedece às ordens de um adulto 75% das vezes. (3 vezes a cada 4 tentativas)", "answer": "", "obs": ""}, {"text": "Permanece em seu próprio quintal ou jardim", "answer": "", "obs": ""}, {"text": "Brinca perto de outras crianças conversando com elas enquanto trabalha em um projeto próprio (30 min.).", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "4 a 5 anos": [{"text": "Pede ajuda quando está tendo dificuldades.", "answer": "", "obs": ""}, {"text": "Contribui para a conversa de adultos.", "answer": "", "obs": ""}, {"text": "Repete rimas, canções ou dança para os outros.", "answer": "", "obs": ""}, {"text": "Faz uma tarefa sozinha por 20 a 30 minutos.", "answer": "", "obs": ""}, {"text": "Pede desculpas sem ser lembrado 75% das vezes.", "answer": "", "obs": ""}, {"text": "Espera sua vez em brincadeiras que envolvam de 8 a 9 crianças.", "answer": "", "obs": ""}, {"text": "Brinca com 2 a 3 crianças por 20 min. em uma atividade que envolva cooperação.", "answer": "", "obs": ""}, {"text": "Quando em público, apresenta um comportamento socialmente aceitável.", "answer": "", "obs": ""}, {"text": "Pede permissão para usar objetos dos outros em 75% das vezes.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "5 a 6 anos": [{"text": "Manifesta seus sentimentos", "answer": "", "obs": ""}, {"text": "Brinca com 4 a 5 crianças em atividade de cooperação por 20 minutos, sem supervisão.", "answer": "", "obs": ""}, {"text": "Explica aos outros as regras do jogo ou atividade.", "answer": "", "obs": ""}, {"text": "Imita papéis de adulto.", "answer": "", "obs": ""}, {"text": "Colabora para a conversa durante as refeições.", "answer": "", "obs": ""}, {"text": "Segue regras de jogo que envolva raciocínio verbal.", "answer": "", "obs": ""}, {"text": "Conforta colegas quando estes estão tristes.", "answer": "", "obs": ""}, {"text": "Escolhe seus próprios amigos.", "answer": "", "obs": ""}, {"text": "Planeja e constrói, usando ferramentas simples.", "answer": "", "obs": ""}, {"text": "Estabelece metas para si próprio e executa atividade para atingi-las.", "answer": "", "obs": ""}, {"text": "Dramatiza trechos de histórias, desempenhando um papel ou utilizando fantoches.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}, {"text": "Algumas dicas sobre o Portage", "answer": "", "obs": ""}, {"text": " Devem ser selecionados do Portage aqueles objetivos que sejam prioritários para o aluno, ou seja, os não alcançados.", "answer": "", "obs": ""}, {"text": "Os objetivos em cuja avaliação o aluno obteve A.V. (às vezes), devem ser trabalhados para reforço até que sejam alcançados.", "answer": "", "obs": ""}, {"text": "Os objetivos já alcançados deverão ser sempre reforçados.", "answer": "", "obs": ""}, {"text": "Selecionar dois objetivos de cada área, no mínimo, para desenvolver com o aluno. A medida que cada objetivo for alcançado, o mesmo deverá ser substituído por outro da mesma área, na mesma folha.", "answer": "", "obs": ""}, {"text": " O professor não deve restringir-se apenas aos objetivos do Portage. Deve haver dinamismo para trabalhar as dificuldades que forem surgindo.", "answer": "", "obs": ""}, {"text": "Sempre considere a individualidade de cada aluno. Ninguém é igual a ninguém.", "answer": "", "obs": ""}, {"text": "Sempre considere utilizar o interesse do aluno para tornar as atividades mais relevantes para ele. Seja criativo.", "answer": "", "obs": ""}]}, "Linguagem": {"0 a 1 anos": [{"text": "Repete sons emitidos por outras pessoas.", "answer": "", "obs": ""}, {"text": "Repete a mesma sílaba 2 a 3 vezes.", "answer": "", "obs": ""}, {"text": "Responde a gestos com gestos.", "answer": "", "obs": ""}, {"text": "Obedece a uma ordem simples, quando acompanhada de gestos indicativos.", "answer": "", "obs": ""}, {"text": "Interrompe a atividade quando lhe dizem \"Não\" 75% das vezes.", "answer": "", "obs": ""}, {"text": "Responde a perguntas simples com respostas não verbais.", "answer": "", "obs": ""}, {"text": "Combina 2 sílabas diferentes quando tenta verbalizar.", "answer": "", "obs": ""}, {"text": "Imita padrões de entonação da voz de outras pessoas.", "answer": "", "obs": ""}, {"text": "Usa uma palavra funcionalmente para indicar objetos ou pessoas.", "answer": "", "obs": ""}, {"text": "Vocaliza em resposta à fala de outras pessoas.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "1 a 2 anos": [{"text": "Diz 5 palavras diferentes.", "answer": "", "obs": ""}, {"text": "Pede \"mais\".", "answer": "", "obs": ""}, {"text": "Diz \"acabou\".", "answer": "", "obs": ""}, {"text": "Obedece a 3 ordens diferentes que não são acompanhadas de gestos indicativos.", "answer": "", "obs": ""}, {"text": "Consegue \"dar\" ou \"mostrar\" quando solicitado.", "answer": "", "obs": ""}, {"text": "Aponta para 12 objetos quando nomeados.", "answer": "", "obs": ""}, {"text": "Aponta para 3 a 5 figuras em um livro.", "answer": "", "obs": ""}, {"text": "Aponta para 3 partes de seu próprio corpo.", "answer": "", "obs": ""}, {"text": "Diz seu nome ou apelido quando solicitado.", "answer": "", "obs": ""}, {"text": "Responde à pergunta \"O que é isto?\"", "answer": "", "obs": ""}, {"text": "Combina palavras e gestos para expressar desejos.", "answer": "", "obs": ""}, {"text": "Nomeia 5 membros da família, incluindo animais.", "answer": "", "obs": ""}, {"text": "Nomeia 4 brinquedos.", "answer": "", "obs": ""}, {"text": "Produz sons de animais, ou os nomeia pelo som", "answer": "", "obs": ""}, {"text": "Pede alimentos conhecidos pelo nome, quando mostrados.", "answer": "", "obs": ""}, {"text": "Faz perguntas variando a entonação da voz", "answer": "", "obs": ""}, {"text": "Nomeia 3 partes do corpo em uma boneca ou outra pessoa.", "answer": "", "obs": ""}, {"text": "Responde a perguntas de sim / não.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "2 a 3 anos": [{"text": "Combina substantivos ou adjetivos e substantivos em frases de 2 palavras.", "answer": "n", "obs": ""}, {"text": "Combina substantivo e verbo em frases de 2 palavras", "answer": "n", "obs": ""}, {"text": "Usa uma palavra para indicar que quer ir ao banheiro", "answer": "n", "obs": ""}, {"text": "Combina verbo ou substantivo com \"lá\" e \"aqui\" em frases de 2 palavras.", "answer": "n", "obs": ""}, {"text": "Combina 2 palavras para expressar posse.", "answer": "n", "obs": ""}, {"text": "Emprega \"não\" na fala", "answer": "n", "obs": "A negação dela é comportamental, jogando-se no chão"}, {"text": "Responde à pergunta \"O que .... está fazendo?\" para atividade habituais.", "answer": "n", "obs": ""}, {"text": "Responde a perguntas tipo \"Onde está objeto?\"", "answer": "n", "obs": ""}, {"text": "Nomeia sons ambientais familiares.", "answer": "n", "obs": ""}, {"text": "Dá mais de um objeto quando se usa a forma plural na solicitação.", "answer": "s", "obs": ""}, {"text": "Ao falar, refere-se a si próprio pelo nome.", "answer": "t", "obs": ""}, {"text": "Aponta para figuras de objetos comuns descritos pelo uso (até 10) (\"O que se usa pra comer? = colher\")", "answer": "t", "obs": ""}, {"text": "Mostra a idade pelos dedos.", "answer": "t", "obs": ""}, {"text": "Diz seu sexo quando solicitado.", "answer": "s", "obs": ""}, {"text": "Obedece à seqüência de duas ordens relacionadas.", "answer": "n", "obs": ""}, {"text": "Usa a forma do verbo no gerúndio.", "answer": "n", "obs": ""}, {"text": "Emprega formas regulares no plural.", "answer": "n", "obs": ""}, {"text": "Emprega algumas formas irregulares de verbos no passado de forma sistemática.", "answer": "s", "obs": ""}, {"text": "Faz perguntas do tipo \"O que é isso?\"", "answer": "s", "obs": ""}, {"text": "Controla o volume da voz 90% das vezes.", "answer": "", "obs": ""}, {"text": "Usa \"este / esta\" e \"aquele / aquela\" na fala.", "answer": "", "obs": ""}, {"text": "Emprega \"é\" e \"está\" em frases simples.", "answer": "", "obs": ""}, {"text": "Diz \"eu\", \"mim\", \"meu\" ao invés do próprio nome.", "answer": "", "obs": ""}, {"text": "Aponta objetos e diz que eles não são outras coisas", "answer": "", "obs": ""}, {"text": "Responde à pergunta \"Quem?\" dando um nome", "answer": "", "obs": ""}, {"text": "Emprega as formas possessivas dos substantivos.", "answer": "", "obs": ""}, {"text": "Usa artigos ao falar.", "answer": "", "obs": ""}, {"text": "Usa substantivos que indicam grupo ou categoria.", "answer": "", "obs": ""}, {"text": "Usa os verbos \"ser\", \"estar\" e \"ter\" no presente com poucos erros.", "answer": "", "obs": ""}, {"text": "Diz se os objetos estão abertos ou fechados.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "3 a 4 anos": [{"text": "Expressa diminutivos e aumentativos quando fala.", "answer": "", "obs": ""}, {"text": "Presta atenção por 5 minutos a uma estória lida", "answer": "", "obs": ""}, {"text": "Obedece à sequência de 2 ordens não relacionadas.", "answer": "", "obs": ""}, {"text": "Diz seu nome completo quando solicitado.", "answer": "", "obs": ""}, {"text": "Responde perguntas simples envolvendo \"Como\".", "answer": "", "obs": ""}, {"text": "Emprega verbos regulares, no passado.", "answer": "", "obs": ""}, {"text": "Relata experiências imediatas.", "answer": "", "obs": ""}, {"text": "Diz como são usados objetos comuns.", "answer": "", "obs": ""}, {"text": "Expressa ações futuras empregando os verbos \"ir\", \"ter\" e \"querer\".", "answer": "", "obs": ""}, {"text": "Utiliza adequadamente masculino e feminino na fala.", "answer": "", "obs": ""}, {"text": "Usa formas imperativas de verbos ao pedir favores.", "answer": "", "obs": ""}, {"text": "Conta 2 fatos na ordem de ocorrência.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "4 a 5 anos": [{"text": "Obedece a uma sequência envolvendo 3 ordens.", "answer": "", "obs": ""}, {"text": "Demonstra compreensão de verbos reflexivos, usando-os ocasionalmente (ex. ele se machucou).", "answer": "", "obs": ""}, {"text": "Consegue identificar objetos / figuras que formem par, sob solicitação.", "answer": "", "obs": ""}, {"text": "Emprega o futuro ao falar.", "answer": "", "obs": ""}, {"text": "Usa orações compostas por coordenação.", "answer": "", "obs": ""}, {"text": "Consegue identificar a parte de cima e de baixo de objetos, quando solicitado.", "answer": "", "obs": ""}, {"text": "Emprega ocasionalmente o condicional ao falar (poderia, pudesse, iria, seria, faria).", "answer": "", "obs": ""}, {"text": "Consegue identificar absurdos em figuras.", "answer": "", "obs": ""}, {"text": "Emprega as seguintes palavras: irmã(o), avó, avô.", "answer": "", "obs": ""}, {"text": "Completa frases com antônimos.", "answer": "", "obs": ""}, {"text": "Relata uma estória conhecida sem ajuda de figuras.", "answer": "", "obs": ""}, {"text": "Em uma figura, nomeia o objeto que não pertence a uma determinada categoria.", "answer": "", "obs": ""}, {"text": "Diz se duas palavras rimam ou não.", "answer": "", "obs": ""}, {"text": "Usa frases complexas, compostas por subordinação.", "answer": "", "obs": ""}, {"text": "Diz se um som é forte ou fraco.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "5 a 6 anos": [{"text": "Consegue indicar alguns, muitos e vários elementos.", "answer": "", "obs": ""}, {"text": "Diz seu endereço.", "answer": "", "obs": ""}, {"text": "Diz o número de seu telefone.", "answer": "", "obs": ""}, {"text": "Aponta para o conjunto que tem mais, menos ou poucos elementos.", "answer": "", "obs": ""}, {"text": "Conta piadas simples.", "answer": "", "obs": ""}, {"text": "Relata experiências diárias.", "answer": "", "obs": ""}, {"text": "Descreve um local ou movimento: através ou entre, longe de, de / desde..., para, por cima de, até.", "answer": "", "obs": ""}, {"text": "Responde à pergunta \"Porque\" com uma explicação.", "answer": "", "obs": ""}, {"text": "Ordena e conta uma estória de 2 a 5 episódios na sequência correta.", "answer": "", "obs": ""}, {"text": "Define palavras.", "answer": "", "obs": ""}, {"text": "Responde adequadamente a pergunta \"Qual o contrário de ...\".", "answer": "", "obs": ""}, {"text": "Responde a pergunta \"O que acontece se...\".", "answer": "", "obs": ""}, {"text": "Usa \"ontem\" e “amanhã’, corretamente”.", "answer": "", "obs": ""}, {"text": "Pergunta o significado de perguntas novas ou conhecidas.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}]}, "Cognição": {"0 a 1 anos": [{"text": "Remove um pano do rosto que obscureça sua visão.", "answer": "", "obs": ""}, {"text": "Procura com o olhar um objeto que foi tirado de seu campo visual.", "answer": "", "obs": ""}, {"text": "Remove um objeto de um recipiente colocando a mão dentro do mesmo", "answer": "", "obs": ""}, {"text": "Coloca um objeto em um recipiente imitando um adulto.", "answer": "", "obs": ""}, {"text": "Coloca um objeto em um recipiente quando recebe instruções.", "answer": "", "obs": ""}, {"text": "Balança um brinquedo que produz som, pendurado em um barbante.", "answer": "", "obs": ""}, {"text": "Coloca três objetos em um recipiente e o esvazia.", "answer": "", "obs": ""}, {"text": "Transfere um objeto de uma mão à outra para apanhar outro objeto.", "answer": "", "obs": ""}, {"text": "Deixa cair e apanha um brinquedo.", "answer": "", "obs": ""}, {"text": "Descobre um objeto escondido sob um recipiente.", "answer": "", "obs": ""}, {"text": "Empurra 3 blocos como se fosse um comboio.", "answer": "", "obs": ""}, {"text": "Remove um círculo de uma prancha, por imitação.", "answer": "", "obs": ""}, {"text": "Coloca um pino redondo em uma prancha de pinos, quando solicitado.", "answer": "", "obs": ""}, {"text": "Executa gestos simples quando requisitado.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "1 a 2 anos": [{"text": "Retira 6 objetos de um recipiente, um por vez.", "answer": "", "obs": ""}, {"text": "Aponta para uma parte do corpo.", "answer": "", "obs": ""}, {"text": "Empilha 3 blocos, dada a ordem.", "answer": "", "obs": ""}, {"text": "Emparelha objetos semelhantes.", "answer": "", "obs": ""}, {"text": "Faz rabiscos no papel.", "answer": "", "obs": ""}, {"text": "Aponta para si quando perguntam \"Cadê o Fulano?\"", "answer": "", "obs": ""}, {"text": "Coloca 5 pinos redondos, dada a ordem.", "answer": "", "obs": ""}, {"text": "Emparelha objetos com a figura do mesmo nome.", "answer": "", "obs": ""}, {"text": "Aponta para a figura nomeada.", "answer": "", "obs": ""}, {"text": "Vira as páginas de um livro (2/3 por vez) para encontrar a figura nomeada.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "2 a 3 anos": [{"text": "Encontra determinado livro quando solicitado.", "answer": "s", "obs": ""}, {"text": "Completa um quebra-cabeça de encaixe de 3 peças.", "answer": "t", "obs": ""}, {"text": "Nomeia 4 objetos comuns em figuras.", "answer": "s", "obs": ""}, {"text": "Desenha uma linha vertical imitando um adulto.", "answer": "t", "obs": ""}, {"text": "Desenha uma linha horizontal imitando um adulto.", "answer": "n", "obs": ""}, {"text": "Copia um círculo.", "answer": "s", "obs": ""}, {"text": "Emparelha objetos com a mesma textura.", "answer": "s", "obs": ""}, {"text": "Aponta o \"pequeno\" e o \"grande\" quando solicitado.", "answer": "s", "obs": ""}, {"text": "Desenha (+) imitando um adulto.", "answer": "", "obs": ""}, {"text": "Emparelha 3 cores.", "answer": "", "obs": ""}, {"text": "Coloca objetos dentro, em cima e em baixo de um recipiente, dada a ordem.", "answer": "", "obs": ""}, {"text": "Nomeia objetos quando ouve o barulho que fazem.", "answer": "", "obs": ""}, {"text": "Monta um brinquedo de encaixe de 4 peças.", "answer": "", "obs": ""}, {"text": "Nomeia ações em figuras (\"O que ... está fazendo?\").", "answer": "", "obs": ""}, {"text": "Emparelha forma geométrica com a figura da mesma.", "answer": "", "obs": ""}, {"text": "Empilha 5 ou mais argolas em uma vara na ordem.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "3 a 4 anos": [{"text": "Nomeia objetos como sendo grandes ou pequenos.", "answer": "", "obs": ""}, {"text": "Aponta para 10 partes do corpo quando requisitado.", "answer": "", "obs": ""}, {"text": "Aponta para menino e menina, dada a ordem.", "answer": "", "obs": ""}, {"text": "Diz se um objeto é pesado ou leve.", "answer": "", "obs": ""}, {"text": "Une 2 partes de uma figura para formar o todo.", "answer": "", "obs": ""}, {"text": "Descreve 2 eventos ou personagens de uma estória familiar ou programa de televisão.", "answer": "", "obs": ""}, {"text": "Repete brincadeiras (rimas ou canções) que envolvam movimentos coordenados.", "answer": "", "obs": ""}, {"text": "Emparelha 3 ou mais objetos.", "answer": "", "obs": ""}, {"text": "Aponta para objetos compridos ou curtos.", "answer": "", "obs": ""}, {"text": "Associa objetos correspondentes. Ex: meia/sapato.", "answer": "", "obs": ""}, {"text": "Conta até 3 imitando um adulto.", "answer": "", "obs": ""}, {"text": "Agrupa objetos em categorias.", "answer": "", "obs": ""}, {"text": "Traça um (V) em imitação.", "answer": "", "obs": ""}, {"text": "Traça uma linha diagonal dado o exemplo.", "answer": "", "obs": ""}, {"text": "Conta até 10 objetos, imitando um adulto.", "answer": "", "obs": ""}, {"text": "Constrói uma ponte com 3 blocos por imitação.", "answer": "", "obs": ""}, {"text": "Emparelha uma sequência ou padrão (tamanho, cor) de blocos ou contas.", "answer": "", "obs": ""}, {"text": "Copia uma série de (V) interligados.", "answer": "", "obs": ""}, {"text": "Acrescenta perna ou braço em um desenho incompleto da figura humana.", "answer": "", "obs": ""}, {"text": "Completa um quebra-cabeças de 6 peças.", "answer": "", "obs": ""}, {"text": "Indica se os objetos são iguais ou diferentes.", "answer": "", "obs": ""}, {"text": "Desenha um quadrado imitando um adulto.", "answer": "", "obs": ""}, {"text": "Nomeia 3 cores sendo requisitado.", "answer": "", "obs": ""}, {"text": "Nomeia 3 formas geométricas (quadrado, triângulo e círculo).", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "4 a 5 anos": [{"text": "Apanha de 1 a 5 objetos quando solicitado.", "answer": "", "obs": ""}, {"text": "Nomeia 5 texturas diferentes.", "answer": "", "obs": ""}, {"text": "Copia um triângulo ao ser requisitado.", "answer": "", "obs": ""}, {"text": "Recorda-se de 4 objetos que haviam sido vistos em uma figura.", "answer": "", "obs": ""}, {"text": "Diz o momento do dia associado a cada atividade.", "answer": "", "obs": ""}, {"text": "Repete rimas familiares.", "answer": "", "obs": ""}, {"text": "Diz se um objeto é mais pesado ou mais leve (objetos com diferença de 0,5 quilo).", "answer": "", "obs": ""}, {"text": "Diz o que está faltando quando um objeto é retirado de um grupo de 3 objetos.", "answer": "", "obs": ""}, {"text": "Nomeia 8 cores.", "answer": "", "obs": ""}, {"text": "Identifica o valor de 3 moedas.", "answer": "", "obs": ""}, {"text": "Emparelha símbolos (letras e números).", "answer": "", "obs": ""}, {"text": "Diz a cor de objetos nomeados.", "answer": "", "obs": ""}, {"text": "Relata 5 principais fatos de uma história contada 3x.", "answer": "", "obs": ""}, {"text": "Desenha figura humana (cabeça, tronco e 4 membros)", "answer": "", "obs": ""}, {"text": "Canta 5 estrofes de uma canção.", "answer": "", "obs": ""}, {"text": "Constrói uma pirâmide de 10 blocos por imitação.", "answer": "", "obs": ""}, {"text": "Nomeia objetos como sendo compridos ou curtos.", "answer": "", "obs": ""}, {"text": "Coloca objetos \"atrás\", \"ao lado\" ou \"junto\" a outros.", "answer": "", "obs": ""}, {"text": "Faz conjuntos iguais de 10 objetos, segundo modelo.", "answer": "", "obs": ""}, {"text": "Nomeia ou aponta para a parte ausente da figura", "answer": "", "obs": ""}, {"text": "Conta de 1 a 20.", "answer": "", "obs": ""}, {"text": "Identifica o objeto que está colocado no meio, em primeiro e em último lugar.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "5 a 6 anos": [{"text": "Conta até 20 objetos e responde adequadamente à pergunta: \"Quantos ... você contou?\"", "answer": "", "obs": ""}, {"text": "Nomeia 10 numerais.", "answer": "", "obs": ""}, {"text": "Identifica qual a sua esquerda e qual a sua direita", "answer": "", "obs": ""}, {"text": "Diz as vogais em ordem.", "answer": "", "obs": ""}, {"text": "Escreve seu nome com letras de forma", "answer": "", "obs": ""}, {"text": "Nomeia 5 letras do alfabeto.", "answer": "", "obs": ""}, {"text": "Ordena objetos em sequência de comprimento e largura.", "answer": "", "obs": ""}, {"text": "Nomeia as letras maiúsculas do alfabeto.", "answer": "", "obs": ""}, {"text": "Coloca numerais de 1 a 10 na sequência correta.", "answer": "", "obs": ""}, {"text": "Identifica a posição de objetos em 1º, 2º e 3º lugar.", "answer": "", "obs": ""}, {"text": "Nomeia as letras minúsculas do alfabeto.", "answer": "", "obs": ""}, {"text": "Emparelha letras maiúsculas com minúsculas.", "answer": "", "obs": ""}, {"text": "Aponta para numerais de 1 a 25.", "answer": "", "obs": ""}, {"text": "Copia um losango.", "answer": "", "obs": ""}, {"text": "Completa um labirinto simples.", "answer": "", "obs": ""}, {"text": "Diz os dias da semana na ordem.", "answer": "", "obs": ""}, {"text": "Soma e subtrai combinações de até 3 elementos.", "answer": "", "obs": ""}, {"text": "Diz o mês e o dia de seu aniversário.", "answer": "", "obs": ""}, {"text": "Lê 10 palavras impressas.", "answer": "", "obs": ""}, {"text": "Prediz o que vai ocorrer.", "answer": "", "obs": ""}, {"text": "Aponta para objetos inteiros e partidos ao meio.", "answer": "", "obs": ""}, {"text": "Conta de memória de 1 a 100 (pedir que pare no 40, e continue no 80, caso não erre até o 40).", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}]}, "Autocuidados": {"0 a 1 anos": [{"text": "Suga e deglute líquidos.", "answer": "", "obs": ""}, {"text": "Toma mingau / sopinha.", "answer": "", "obs": ""}, {"text": "Estende as mãos em direção a mamadeira, tentando pegá-la", "answer": "", "obs": ""}, {"text": "Come alimentos liquidificados dados pelos pais.", "answer": "", "obs": ""}, {"text": "Segura a mamadeira sem ajuda enquanto bebe.", "answer": "", "obs": ""}, {"text": "Leva a mamadeira até a boca ou a recusa, empurrando-a", "answer": "", "obs": ""}, {"text": "Come alimentos amassados dados pelos pais.", "answer": "", "obs": ""}, {"text": "Bebe em uma caneca, segurada pelos pais.", "answer": "", "obs": ""}, {"text": "Come alimentos semissólidos dados pelos pais.", "answer": "", "obs": ""}, {"text": "Alimenta-se sozinho usando os dedos.", "answer": "", "obs": ""}, {"text": "Segura a caneca com ambas as mãos e bebe.", "answer": "", "obs": ""}, {"text": "Leva a colher cheia de comida até a boca com ajuda.", "answer": "", "obs": ""}, {"text": "Estica braços e pernas ao ser vestido.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "1 a 2 anos": [{"text": "Come com colher de modo independente.", "answer": "", "obs": ""}, {"text": "Segura a caneca com uma só mão e bebe.", "answer": "", "obs": ""}, {"text": "Coloca a mão na água e dá tapinhas no rosto com as mãos molhadas, imitando alguém.", "answer": "", "obs": ""}, {"text": "Senta-se em um piniquinho ou sanitário infantil por 5 min", "answer": "", "obs": ""}, {"text": "Coloca um chapéu na cabeça e o remove.", "answer": "", "obs": ""}, {"text": "Tira as meias.", "answer": "", "obs": ""}, {"text": "Empurra os braços pelas mangas e os pés pelas pernas da calça.", "answer": "", "obs": ""}, {"text": "Tira os sapatos quando os cordões estiverem desamarrados", "answer": "", "obs": ""}, {"text": "Tira o casaco quando desabotoado.", "answer": "", "obs": ""}, {"text": "Tira a calça quando desabotoada.", "answer": "", "obs": ""}, {"text": "Puxa um fecho grande para cima e para baixo.", "answer": "", "obs": ""}, {"text": "Utiliza palavras ou gestos indicando necessidade de ir ao banheiro.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "2 a 3 anos": [{"text": "Alimenta-se sozinho usando colher ou caneca, derrubando um pouco de comida ou derramando pouco líquido.", "answer": "s", "obs": ""}, {"text": "Quando recebe uma toalha enxuga as mãos e o rosto com ajuda", "answer": "t", "obs": ""}, {"text": "Suga líquido do copo ou caneca usando canudinho.", "answer": "n", "obs": "O laudo indica que suja a fralda e tira para mostrar depois"}, {"text": "Dá garfadas.", "answer": "s", "obs": ""}, {"text": "Mastiga e engole apenas substâncias comestíveis.", "answer": "n", "obs": ""}, {"text": "Enxuga as mãos sem ajuda ao lhe darem uma toalha", "answer": "n", "obs": ""}, {"text": "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", "answer": "t", "obs": ""}, {"text": "Controla sua baba.", "answer": "t", "obs": ""}, {"text": "Urina ou defeca quando colocado no piniquinho pelo menos 3 vezes por semana.", "answer": "", "obs": ""}, {"text": "Calça os sapatos.", "answer": "", "obs": ""}, {"text": "Escova os dentes imitando um adulto.", "answer": "", "obs": ""}, {"text": "Retira roupas simples que foram desabotoadas.", "answer": "", "obs": ""}, {"text": "Usa o banheiro para defecar (falha apenas 1x por semana).", "answer": "", "obs": ""}, {"text": "Obtém água de uma torneira sem ajuda.", "answer": "", "obs": ""}, {"text": "Lava as mãos e o rosto com um sabonete.", "answer": "", "obs": ""}, {"text": "Avisa que quer ir ao banheiro durante o dia a tempo.", "answer": "", "obs": ""}, {"text": "Pendura o casaco em um gancho da sua altura.", "answer": "", "obs": ""}, {"text": "Permanece seco ao dormir durante o dia.", "answer": "", "obs": ""}, {"text": "Evita riscos, por ex: pontas em móveis e escadas sem corrimão.", "answer": "", "obs": ""}, {"text": "Usa guardanapo quando recomendado.", "answer": "", "obs": ""}, {"text": "Espeta o garfo na comida, levando-a a boca.", "answer": "", "obs": ""}, {"text": "Despeja líquido de uma peq. jarra para o copo sem ajuda.", "answer": "", "obs": ""}, {"text": "Desprende roupas presas com o feixe de pressão.", "answer": "", "obs": ""}, {"text": "Lava seus braços e pernas ao lhe darem banho.", "answer": "", "obs": ""}, {"text": "Coloca meias.", "answer": "", "obs": ""}, {"text": "Veste casaco, malha ou camisa.", "answer": "", "obs": ""}, {"text": "Identifica a parte dianteira da roupa.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "3 a 4 anos": [{"text": "Alimenta-se sozinho por toda a refeição.", "answer": "", "obs": ""}, {"text": "Veste-se só, precisando de ajuda apenas quanto há malhas ou camisetas com golas fechadas ou botões e fechos.", "answer": "", "obs": ""}, {"text": "Enxuga o nariz quando lembrado.", "answer": "", "obs": ""}, {"text": "Acorda seco 2 manhãs por semana", "answer": "", "obs": ""}, {"text": "Se menino, urina no sanitário, em pé", "answer": "", "obs": ""}, {"text": "Veste-se e despe-se sozinho, exceto quanto à botões e fechos em 75% das vezes.", "answer": "", "obs": ""}, {"text": "Fecha a roupa com fechos de pressão ou de gancho.", "answer": "", "obs": ""}, {"text": "Assoa o nariz quando lembrado.", "answer": "", "obs": ""}, {"text": "Evita perigos corriqueiros, por ex: caco de vidro.", "answer": "", "obs": ""}, {"text": "Pendura roupa no cabide e põe no armário quando pedem.", "answer": "", "obs": ""}, {"text": "Escova os dentes quando recebe instrução.", "answer": "", "obs": ""}, {"text": "Coloca luvas.", "answer": "", "obs": ""}, {"text": "Desabotoa botões grandes", "answer": "", "obs": ""}, {"text": "Abotoa botões grandes.", "answer": "", "obs": ""}, {"text": "Calça botas.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "4 a 5 anos": [{"text": "Limpa o que derramou por conta própria.", "answer": "", "obs": ""}, {"text": "Evita veneno e todas as substâncias prejudiciais.", "answer": "", "obs": ""}, {"text": "Desabotoa sua roupa.", "answer": "", "obs": ""}, {"text": "Abotoa sua roupa.", "answer": "", "obs": ""}, {"text": "Retira prato e talheres da mesa.", "answer": "", "obs": ""}, {"text": "Encaixa fecho em sua terminação.", "answer": "", "obs": ""}, {"text": "Lava as mãos e o rosto.", "answer": "", "obs": ""}, {"text": "Usa talher apropriado para alimentar-se.", "answer": "", "obs": ""}, {"text": "Acorda de noite para ir ao banheiro, ou acorda seco.", "answer": "", "obs": ""}, {"text": "Limpa e assua o nariz em 75% das vezes sem ser lembrado", "answer": "", "obs": ""}, {"text": "Toma banho só, precisando de ajuda apenas para lavar as costas, pescoço e orelhas.", "answer": "", "obs": ""}, {"text": "Usa faca para espalhar manteiga no pão.", "answer": "", "obs": ""}, {"text": "Aperta e afrouxa cintos ou fivelas.", "answer": "", "obs": ""}, {"text": "Veste-se sozinho, mas não dá laços.", "answer": "", "obs": ""}, {"text": "Serve-se à mesa enquanto seguram a travessa de comida.", "answer": "", "obs": ""}, {"text": "Ajuda a pôr a mesa corretamente quando recebe instruções.", "answer": "", "obs": ""}, {"text": "Escova os dentes.", "answer": "", "obs": ""}, {"text": "Vai ao banheiro a tempo, retira a roupa, usa papel higiênico, dá descarga e veste-se sem ajuda.", "answer": "", "obs": ""}, {"text": "Penteia ou escova cabelos.", "answer": "", "obs": ""}, {"text": "Pendura roupas em cabides.", "answer": "", "obs": ""}, {"text": "Anda pela vizinhança sem constante supervisão.", "answer": "", "obs": ""}, {"text": "Enfia cordões em sapatos.", "answer": "", "obs": ""}, {"text": "Amarra ou dá laços nos cordões dos sapatos.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "5 a 6 anos": [{"text": "É responsável por uma tarefa semanal e a executa ao ser lembrado", "answer": "", "obs": ""}, {"text": "Seleciona roupas apropriadas ao clima e ocasião.", "answer": "", "obs": ""}, {"text": "Pára no passeio, olha para ambos os lados, e atravessa a rua sem precisar ser lembrado.", "answer": "", "obs": ""}, {"text": "Serve-se à mesa e passa aos demais a panela de comida.", "answer": "", "obs": ""}, {"text": "Prepara sua própria caneca de café com leite.", "answer": "", "obs": ""}, {"text": "É responsável por uma tarefa diária em casa.", "answer": "", "obs": ""}, {"text": "Ajusta a temperatura da água para o banho.", "answer": "", "obs": ""}, {"text": "Prepara seu próprio lanche.", "answer": "", "obs": ""}, {"text": "Anda sozinho até a distância de 2 quadras de casa.", "answer": "", "obs": ""}, {"text": "Corta alimentos tenros com faca.", "answer": "", "obs": ""}, {"text": "Encontra o banheiro em local público, corretamente.", "answer": "", "obs": ""}, {"text": "Abre a embalagem de leite.", "answer": "", "obs": ""}, {"text": "Apanha uma bandeja com comida, levando-a e pondo sobre a mesa.", "answer": "", "obs": ""}, {"text": "Amarra os cordões em casacos com capuz.", "answer": "", "obs": ""}, {"text": "Aperta o cinto de segurança do automóvel.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}]}, "Desenvolvimento motor": {"0 a 1 anos": [{"text": "Alcança um objeto colocado à sua frente (15 a 20 cm.).", "answer": "", "obs": ""}, {"text": "Apanha um objeto colocado à sua frente (8 cm.).", "answer": "", "obs": ""}, {"text": "Estende os braços em direção a um objeto à sua frente e o apanha.", "answer": "", "obs": ""}, {"text": "Alcança um objeto preferido.", "answer": "", "obs": ""}, {"text": "Coloca objetos na boca.", "answer": "", "obs": ""}, {"text": "Eleva a cabeça e o tronco apoiando-se nos braços, ao estar deitado de barriga para baixo.", "answer": "", "obs": ""}, {"text": "Levanta a cabeça e o tronco apoiando-se em um só braço.", "answer": "", "obs": ""}, {"text": "Toca e explora objetos com a boca.", "answer": "", "obs": ""}, {"text": "Em DV (decúbito ventral, de bruços), vira de lado e mantém esta posição ½ das vezes.", "answer": "", "obs": ""}, {"text": "Em DV, vira de costas.", "answer": "", "obs": ""}, {"text": "Em DV, move-se para frente o equivalente à sua altura.", "answer": "", "obs": ""}, {"text": "Em DD (decúbito dorsal), rola para o lado.", "answer": "", "obs": ""}, {"text": "Em DD, vira de barriga para baixo.", "answer": "", "obs": ""}, {"text": "Faz esforço para sentar-se, segurando nos dedos do adulto.", "answer": "", "obs": ""}, {"text": "Vira a cabeça com facilidade quando o corpo está apoiado.", "answer": "", "obs": ""}, {"text": "Mantém-se sentado por 2 minutos.", "answer": "", "obs": ""}, {"text": "Solta um objeto para apanhar outro.", "answer": "", "obs": ""}, {"text": "Apanha e deixa cair um objeto propositalmente.", "answer": "", "obs": ""}, {"text": "Fica em pé com o máximo de apoio.", "answer": "", "obs": ""}, {"text": "Estando em pé com apoio, pula para cima e para baixo.", "answer": "", "obs": ""}, {"text": "Engatinha para apanhar um objeto (distante a sua altura).", "answer": "", "obs": ""}, {"text": "Senta-se apoiando-se sozinho.", "answer": "", "obs": ""}, {"text": "Estando sentado, vira de gatinhas.", "answer": "", "obs": ""}, {"text": "Estando em DV consegue sentar-se.", "answer": "", "obs": ""}, {"text": "Senta-se sem o apoio das mãos.", "answer": "", "obs": ""}, {"text": "Atira objetos ao acaso.", "answer": "", "obs": ""}, {"text": "Balança para frente e para trás quando de gatinhas.", "answer": "", "obs": ""}, {"text": "Transfere objetos de uma mão para outra quando sentado.", "answer": "", "obs": ""}, {"text": "Retém em uma das mãos 2 cubos de 2,5 cm.", "answer": "", "obs": ""}, {"text": "Fica de joelhos.", "answer": "", "obs": ""}, {"text": "Fica em pé, apoiando-se em algo.", "answer": "", "obs": ""}, {"text": "Usa preensão de pinça para pegar objetos.", "answer": "", "obs": ""}, {"text": "Engatinha.", "answer": "", "obs": ""}, {"text": "Estando de gatinhas, estende uma das mãos para o alto.", "answer": "", "obs": ""}, {"text": "Fica em pé com o mínimo de apoio.", "answer": "", "obs": ""}, {"text": "Lambe a comida ao redor da boca.", "answer": "", "obs": ""}, {"text": "Mantém-se em pé sozinho por um minuto.", "answer": "", "obs": ""}, {"text": "Derruba um objeto que está dentro de um recipiente.", "answer": "", "obs": ""}, {"text": "Vira várias páginas de um livro ao mesmo tempo.", "answer": "", "obs": ""}, {"text": "Escava com uma colher ou pá.", "answer": "", "obs": ""}, {"text": "Coloca pequenos objetos dentro do recipiente.", "answer": "", "obs": ""}, {"text": "Estando de pé, abaixa-se e senta.", "answer": "", "obs": ""}, {"text": "Bate palmas.", "answer": "", "obs": ""}, {"text": "Anda com um mínimo de apoio.", "answer": "", "obs": ""}, {"text": "Dá alguns passos sem apoio.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "1 a 2 anos": [{"text": "Sobe escadas engatinhando.", "answer": "", "obs": ""}, {"text": "Coloca-se em pé, estando sentado.", "answer": "", "obs": ""}, {"text": "Rola uma bola imitando um adulto.", "answer": "", "obs": ""}, {"text": "Sobe em uma cadeira de adulto, vira-se e senta.", "answer": "", "obs": ""}, {"text": "Coloca 4 aros em uma pequena estaca.", "answer": "", "obs": ""}, {"text": "Retira pinos de 2,5 cm de uma prancha ou tabuleiro.", "answer": "", "obs": ""}, {"text": "Encaixa pinos de 2,5 cm em uma prancha de encaixe.", "answer": "", "obs": ""}, {"text": "Constrói uma torre de 3 blocos.", "answer": "", "obs": ""}, {"text": "Faz traços no papel com lápis ou lápis de cera.", "answer": "", "obs": ""}, {"text": "Anda sozinho.", "answer": "", "obs": ""}, {"text": "Desce escadas sentado, colocando primeiro os pés.", "answer": "", "obs": ""}, {"text": "Senta-se em uma cadeirinha.", "answer": "", "obs": ""}, {"text": "Agacha-se e volta a ficar em pé.", "answer": "", "obs": ""}, {"text": "Empurra e puxa brinquedos ao andar.", "answer": "", "obs": ""}, {"text": "Usa cadeira ou cavalo de balanço.", "answer": "", "obs": ""}, {"text": "Sobe escadas com ajuda.", "answer": "", "obs": ""}, {"text": "Dobra o corpo sem cair para apanhar objetos no chão.", "answer": "", "obs": ""}, {"text": "Imita um movimento circular.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "2 a 3 anos": [{"text": "Enfia 4 contas grandes em um cordão em 2 minutos.", "answer": "s", "obs": ""}, {"text": "Vira trincos ou maçanetas em portas.", "answer": "s", "obs": ""}, {"text": "Salta no mesmo local com ambos os pés.", "answer": "s", "obs": ""}, {"text": "Anda de costas.", "answer": "s", "obs": ""}, {"text": "Desce escadas sem ajuda.", "answer": "s", "obs": ""}, {"text": "Atira uma bola a um adulto à 1 ½ de distância.", "answer": "t", "obs": "Falta intenção social de devolver"}, {"text": "Constrói uma torre de 5 a 6 blocos.", "answer": "s", "obs": ""}, {"text": "Vira páginas de um livro, uma por vez.", "answer": "s", "obs": ""}, {"text": "Desembrulha um pequeno objeto.", "answer": "s", "obs": ""}, {"text": "Dobra um papel ao meio, imitando um adulto.", "answer": "t", "obs": ""}, {"text": "Desmancha e reconstrói brinquedos de encaixe por pressão.", "answer": "s", "obs": ""}, {"text": "Desenrosca brinquedos que se encaixam por roscas.", "answer": "s", "obs": ""}, {"text": "Chuta uma bola grande que está imóvel.", "answer": "s", "obs": ""}, {"text": "Faz bolas de argila, barro ou massinha.", "answer": "s", "obs": ""}, {"text": "Segura o lápis entre o polegar e o indicador, apoiando-o sobre o dedo médio.", "answer": "", "obs": ""}, {"text": "Dá cambalhota para frente com ajuda.", "answer": "", "obs": ""}, {"text": "Dá marteladas para encaixar 5 pinos em seus orifícios.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "3 a 4 anos": [{"text": "Faz um quebra cabeça de 3 peças.", "answer": "", "obs": ""}, {"text": "Corta algo em pedaços com tesoura.", "answer": "", "obs": ""}, {"text": "Pula de uma altura de 20 cm", "answer": "", "obs": ""}, {"text": "Chuta uma bola grande quando enviada para si.", "answer": "", "obs": ""}, {"text": "Anda na ponta dos pés.", "answer": "", "obs": ""}, {"text": "Corre 10 passos coordenando e alternando o movimento dos braços e pés.", "answer": "", "obs": ""}, {"text": "Pedala com triciclo a distância de 1 metro e ½.", "answer": "", "obs": ""}, {"text": "Balança em um balanço quando este está em movimento.", "answer": "", "obs": ""}, {"text": "Sobe em um escorregador de 1,20m a 1,80m e escorrega.", "answer": "", "obs": ""}, {"text": "Dá cambalhotas para frente.", "answer": "", "obs": ""}, {"text": "Sobe escadas alternando os pés.", "answer": "", "obs": ""}, {"text": "Marcha (anda de forma ritmada).", "answer": "", "obs": ""}, {"text": "Apara a bola com ambas as mãos.", "answer": "", "obs": ""}, {"text": "Desenha figuras seguindo contornos ou pontilhados.", "answer": "", "obs": ""}, {"text": "Recorta ao longo de uma linha reta 20 cm, afastando-se pouco da linha.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "4 a 5 anos": [{"text": "Fica em um só pé sem apoio por 4 a 8 segundos.", "answer": "", "obs": ""}, {"text": "Muda de direção ao correr.", "answer": "", "obs": ""}, {"text": "Anda sobre uma viga ou tábua, mantendo o equilíbrio.", "answer": "", "obs": ""}, {"text": "Pula para frente 10 vezes sem cair.", "answer": "", "obs": ""}, {"text": "Salta sobre uma corda suspensa a 5 cm do solo.", "answer": "", "obs": ""}, {"text": "Pula de costas 6 vezes.", "answer": "", "obs": ""}, {"text": "Rebate e apanha uma bola grande.", "answer": "", "obs": ""}, {"text": "Une 2 a 3 pedaços de massa de modelar.", "answer": "", "obs": ""}, {"text": "Recorta em torno de linhas curvas.", "answer": "", "obs": ""}, {"text": "Encaixa objetos de rosca.", "answer": "", "obs": ""}, {"text": "Desce escadas alternando os pés.", "answer": "", "obs": ""}, {"text": "Pedala um triciclo fazendo curvas.", "answer": "", "obs": ""}, {"text": "Salta em um só pé 5 vezes consecutivas.", "answer": "", "obs": ""}, {"text": "Recorta um círculo em 5 cm.", "answer": "", "obs": ""}, {"text": "Desenha figuras simples facilmente identificáveis (por ex: casa).", "answer": "", "obs": ""}, {"text": "Recorta e cola formas simples.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}], "5 a 6 anos": [{"text": "Escreve letras de imprensa maiúsculas, isoladas e grandes em qualquer lugar do papel.", "answer": "", "obs": ""}, {"text": "Anda sobre uma tábua para trás, para frente e para os lados, mantendo o equilíbrio.", "answer": "", "obs": ""}, {"text": "Caminha saltitando.", "answer": "", "obs": ""}, {"text": "Balança em um balanço iniciando e mantendo o movimento.", "answer": "", "obs": ""}, {"text": "Estica os dedos tocando o polegar em cada um deles.", "answer": "", "obs": ""}, {"text": "Copia letras maiúsculas.", "answer": "", "obs": ""}, {"text": "Sobe em escadas de mão ou de escorregador de 3 m.", "answer": "", "obs": ""}, {"text": "Bate em um prego com martelo.", "answer": "", "obs": ""}, {"text": "Rebate a bola à medida que anda com direção.", "answer": "", "obs": ""}, {"text": "Consegue colorir sem sair da margem em 95% das vezes.", "answer": "", "obs": ""}, {"text": "Recorta figuras sem sair mais que 6 mm da margem.", "answer": "", "obs": ""}, {"text": "Usa apontador de lápis.", "answer": "", "obs": ""}, {"text": "Copia desenhos complexos (escola, navio).", "answer": "", "obs": ""}, {"text": "Rasga figuras simples de um papel.", "answer": "", "obs": ""}, {"text": "Dobra um papel quadrado 2x em diagonal por imitação.", "answer": "", "obs": ""}, {"text": "Apanha uma bola leve com uma só mão.", "answer": "", "obs": ""}, {"text": "Pula corda sozinho.", "answer": "", "obs": ""}, {"text": "Golpeia uma bola com um bastão ou pedaço de pau.", "answer": "", "obs": ""}, {"text": "Apanha um objeto no chão enquanto corre.", "answer": "", "obs": ""}, {"text": "Patina uma distância de 3 m, ou usa skate.", "answer": "", "obs": ""}, {"text": "Anda de bicicleta.", "answer": "", "obs": ""}, {"text": "Escorrega descendo um monte de areia ou terra.", "answer": "", "obs": ""}, {"text": "Anda ou brinca em piscina tendo água até a cintura.", "answer": "", "obs": ""}, {"text": "Conduz um patinete dando impulso com um só pé.", "answer": "", "obs": ""}, {"text": "Salta e gira em um só pé.", "answer": "", "obs": ""}, {"text": "Escreve seu nome com letras de forma em caderno pautado.", "answer": "", "obs": ""}, {"text": "Salta de uma altura de 30 cm. e cai na ponta dos pés.", "answer": "", "obs": ""}, {"text": "Pára em um só pé sem apoio com olhos fechados por 10 segundos.", "answer": "", "obs": ""}, {"text": "Dependura-se por 10 segundos em uma barra horizontal.", "answer": "", "obs": ""}, {"text": "Total de Acertos", "answer": "", "obs": ""}]}};
-
-        const container = document.getElementById('content');
-        const ageSelector = document.getElementById('age-selector');
-        
-        let isLoaded = false;
-        let formState = {};
-        let obsState = {};
-        let defaultFormState = {};
-        let defaultObsState = {};
-        
-        // Extract all age groups dynamically
-        let allAges = new Set();
-        for (const cat in data) {
-            for (const age in data[cat]) {
-                allAges.add(age);
-            }
-        }
-        const ageList = Array.from(allAges).sort();
-        let currentAgeGroup = ageList.includes("2 a 3 anos") ? "2 a 3 anos" : ageList[0];
-
-        // Populate select box
-        ageList.forEach(age => {
-            const option = document.createElement('option');
-            option.value = age;
-            option.textContent = age.toUpperCase();
-            if (age === currentAgeGroup) option.selected = true;
-            ageSelector.appendChild(option);
-        });
-
-        // Generate string keys and defaults
-        for (const category in data) {
-            for (const age in data[category]) {
-                data[category][age].forEach((itemObj, index) => {
-                    const key = `${category}|${age}|${index}`;
-                    if (itemObj.answer) defaultFormState[key] = itemObj.answer;
-                    if (itemObj.obs) defaultObsState[key] = itemObj.obs;
-                });
-            }
-        }
-
-        async function init() {
-            try {
-                const { data: dbData, error } = await supabaseClient.from('portage_data').select('*').eq('id', 1).single();
-                if (dbData) {
-                    // Directly use what is in the database, even if empty (meaning user cleared it)
-                    formState = dbData.form_state || {};
-                    obsState = dbData.observations || {};
-                } else {
-                    formState = { ...defaultFormState };
-                    obsState = { ...defaultObsState };
-                    await supabaseClient.from('portage_data').insert([{ id: 1, form_state: formState, observations: obsState }]);
-                }
-            } catch (err) {
-                console.error("Erro ao sincronizar com Supabase:", err);
-                formState = { ...defaultFormState };
-                obsState = { ...defaultObsState };
-            } finally {
-                isLoaded = true;
-                document.getElementById('loading-overlay').style.opacity = '0';
-                setTimeout(() => document.getElementById('loading-overlay').style.display = 'none', 300);
-                renderTabelas();
-            }
-        }
-
-        let saveTimeout;
-        const syncStatus = document.getElementById('sync-status');
-        
-        async function saveToSupabase() {
-            if (!isLoaded) return;
-            syncStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1 animate-pulse inline-block"></span><span class="text-blue-500">Salvando...</span>';
-            
-            const { error } = await supabaseClient.from('portage_data').update({
-                form_state: formState,
-                observations: obsState
-            }).eq('id', 1);
-            
-            if (error) {
-                console.error(error);
-                syncStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1 inline-block"></span><span class="text-red-600">Erro ao Salvar!</span>';
-            } else {
-                syncStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 inline-block"></span><span class="text-emerald-600">Nuvem atualizada</span>';
-            }
-        }
-
-        function debouncedSave() {
-            syncStatus.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1 inline-block"></span><span class="text-amber-500">Pendente...</span>';
-            clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(saveToSupabase, 1000);
-        }
-
-        function changeAgeGroup(age) {
-            currentAgeGroup = age;
-            renderTabelas();
-        }
-
-        function renderTabelas() {
-            container.innerHTML = '';
-            let totalItemsInAge = 0;
-            let answeredInAge = 0;
-            
-            for (const [category, ages] of Object.entries(data)) {
-                const items = ages[currentAgeGroup];
-                if (!items || items.length === 0) continue;
-
-                const styles = categoryStyles[category] || { titleBg: "bg-gray-50 border-gray-200 text-gray-900", emojiBg: "bg-gray-100 text-gray-600" };
-                const emoji = emojis[category] || "📋";
-                
-                let html = `
-                <div class="category-section">
-                    <div class="flex items-center space-x-3 p-3 rounded-lg border mb-4 ${styles.titleBg} transition-all duration-300">
-                        <span class="w-10 h-10 rounded-lg flex items-center justify-center text-xl shadow-sm ${styles.emojiBg}">${emoji}</span>
-                        <h2 class="text-base sm:text-lg font-bold uppercase tracking-wider">${category}</h2>
-                    </div>
-                    
-                    <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm mb-8">
-                        <table class="w-full text-xs text-left border-collapse">
-                            <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 font-semibold">
-                                <tr>
-                                    <th class="p-3 uppercase tracking-wider w-8 text-center border-r border-slate-200">#</th>
-                                    <th class="p-3 uppercase tracking-wider">Habilidade / Item de Avaliação</th>
-                                    <th class="p-2 w-12 sm:w-14 text-center border-x border-slate-200" title="Sim">S</th>
-                                    <th class="p-2 w-12 sm:w-14 text-center border-r border-slate-200" title="Não">N</th>
-                                    <th class="p-2 w-12 sm:w-14 text-center border-r border-slate-200" title="Talvez">T</th>
-                                    <th class="p-3 w-40 sm:w-60 text-center uppercase tracking-wider">Observações / Comentários</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-200 bg-white">
-                `;
-                
-                items.forEach((itemObj, index) => {
-                    totalItemsInAge++;
-                    const key = `${category}|${currentAgeGroup}|${index}`;
-                    const text = itemObj.text;
-                    
-                    const ans = formState[key] || '';
-                    const obs = obsState[key] || '';
-
-                    if (ans) answeredInAge++;
-
-                    const checkS = ans === 's' ? 'checked-s' : '';
-                    const checkN = ans === 'n' ? 'checked-n' : '';
-                    const checkT = ans === 't' ? 'checked-t' : '';
-                    
-                    const textS = ans === 's' ? 'S' : '';
-                    const textN = ans === 'n' ? 'N' : '';
-                    const textT = ans === 't' ? 'T' : '';
-
-                    html += `
-                    <tr class="hover:bg-slate-50/50 transition-colors duration-150">
-                        <td class="p-2 text-center text-slate-400 font-medium border-r border-slate-100 bg-slate-50/30 w-8 select-none">${index + 1}</td>
-                        <td class="p-3 text-slate-800 font-medium leading-relaxed pr-4">${text}</td>
-                        <td class="p-2.5 sm:p-1 text-center align-middle border-x border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 's', '${key}')">
-                            <div class="checkbox-box ${checkS}" data-item="${key}" data-val="s">${textS}</div>
-                        </td>
-                        <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 'n', '${key}')">
-                            <div class="checkbox-box ${checkN}" data-item="${key}" data-val="n">${textN}</div>
-                        </td>
-                        <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 't', '${key}')">
-                            <div class="checkbox-box ${checkT}" data-item="${key}" data-val="t">${textT}</div>
-                        </td>
-                        <td class="p-1 border-slate-100">
-                            <textarea rows="1" class="w-full bg-transparent border-0 focus:ring-0 focus:outline-none p-1.5 resize-none text-[11px] text-slate-700 placeholder-slate-300 print:placeholder-transparent" placeholder="Anotações..." oninput="updateObs('${key}', this.value)">${obs}</textarea>
-                        </td>
-                    </tr>`;
-                });
-                
-                html += `</tbody></table></div></div>`;
-                container.innerHTML += html;
-            }
-
-            document.querySelectorAll('textarea').forEach(textarea => {
-                const adjustHeight = () => {
-                    textarea.style.height = 'auto';
-                    textarea.style.height = textarea.scrollHeight + 'px';
-                };
-                textarea.addEventListener('input', adjustHeight);
-                if(textarea.value.trim() !== '') {
-                    setTimeout(adjustHeight, 10);
-                }
-            });
-
-            updateProgress(answeredInAge, totalItemsInAge);
-        }
-
-        function updateObs(key, val) {
-            obsState[key] = val;
-            debouncedSave();
-        }
-
-        function toggleCheck(cell, value, key) {
-            // CSS.escape to handle pipe | character in querySelector
-            const rowCheckboxes = document.querySelectorAll(`.checkbox-box[data-item="${CSS.escape(key)}"]`);
-            const targetBox = cell.querySelector('.checkbox-box');
-            const isAlreadyChecked = targetBox.classList.contains(`checked-${value}`);
-
-            rowCheckboxes.forEach(box => {
-                box.classList.remove('checked-s', 'checked-n', 'checked-t');
-                box.textContent = '';
-            });
-
-            if (!isAlreadyChecked) {
-                targetBox.classList.add(`checked-${value}`);
-                targetBox.textContent = value.toUpperCase();
-                formState[key] = value;
-            } else {
-                delete formState[key];
-            }
-            
-            recalcProgress();
-            debouncedSave();
-        }
-
-        function recalcProgress() {
-            let totalItemsInAge = 0;
-            let answeredInAge = 0;
-            for (const [category, ages] of Object.entries(data)) {
-                const items = ages[currentAgeGroup];
-                if (!items) continue;
-                items.forEach((itemObj, index) => {
-                    totalItemsInAge++;
-                    const key = `${category}|${currentAgeGroup}|${index}`;
-                    if (formState[key]) answeredInAge++;
-                });
-            }
-            updateProgress(answeredInAge, totalItemsInAge);
-        }
-
-        function updateProgress(answered, total) {
-            const percent = total > 0 ? Math.round((answered / total) * 100) : 0;
-            
-            document.getElementById('progress-bar').style.width = `${percent}%`;
-            document.getElementById('progress-percent').textContent = `${percent}%`;
-            document.getElementById('progress-count').textContent = `${answered} de ${total} itens (nesta faixa etária)`;
-        }
-
-        // --- Results Logic ---
-        function calculateResults() {
-            const results = {};
-            let totalAgeYears = 0;
-            let categoryCount = 0;
-
-            for (const [category, ages] of Object.entries(data)) {
-                let categoryAgeYears = 0;
-                
-                for (const [ageGroup, items] of Object.entries(ages)) {
-                    if (!items || items.length === 0) continue;
-                    
-                    let points = 0;
-                    const expected = items.length;
-                    
-                    items.forEach((_, index) => {
-                        const key = `${category}|${ageGroup}|${index}`;
-                        const ans = formState[key];
-                        if (ans === 's') points += 1;
-                        if (ans === 't') points += 0.5;
-                    });
-                    
-                    // Formula: (Points / Expected) * 1 year = age gained in this block
-                    categoryAgeYears += (points / expected);
-                }
-                
-                results[category] = categoryAgeYears;
-                totalAgeYears += categoryAgeYears;
-                categoryCount++;
-            }
-            
-            const overallAge = categoryCount > 0 ? (totalAgeYears / categoryCount) : 0;
-            return { details: results, overall: overallAge };
-        }
-
-        function formatAge(years) {
-            const wholeYears = Math.floor(years);
-            const months = Math.round((years - wholeYears) * 12);
-            if (wholeYears === 0 && months === 0) return "0 meses";
-            if (wholeYears === 0) return `${months} meses`;
-            if (months === 0) return `${wholeYears} ano${wholeYears > 1 ? 's' : ''}`;
-            return `${wholeYears} ano${wholeYears > 1 ? 's' : ''} e ${months} mês(es)`;
-        }
-
-        function showResultsModal() {
-            const results = calculateResults();
-            const modal = document.getElementById('results-modal');
-            const content = document.getElementById('results-content');
-            
-            let html = `
-                <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl text-center mb-6 shadow-sm">
-                    <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mb-1">Idade de Desenvolvimento Global</p>
-                    <h3 class="text-4xl font-black text-indigo-900">${formatAge(results.overall)}</h3>
-                    <p class="text-xs text-indigo-500 mt-2">Média de todas as áreas avaliadas.</p>
-                </div>
-                <div class="space-y-3">
-                    <h4 class="font-bold text-slate-700 uppercase text-xs tracking-wider border-b border-slate-100 pb-2">Resultados por Área</h4>
-            `;
-            
-            for (const [category, age] of Object.entries(results.details)) {
-                const styles = categoryStyles[category] || { emojiBg: "bg-gray-100 text-gray-600" };
-                const emoji = emojis[category] || "📋";
-                const percentFull = Math.min((age / 6) * 100, 100); // Visual bar out of 6 years
-                
-                html += `
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 hover:bg-slate-50 rounded-lg border border-transparent hover:border-slate-100 transition-colors">
-                    <div class="flex items-center space-x-3 mb-2 sm:mb-0">
-                        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-sm ${styles.emojiBg}">${emoji}</span>
-                        <span class="font-bold text-slate-700 text-sm">${category}</span>
-                    </div>
-                    <div class="flex flex-col sm:items-end w-full sm:w-1/2">
-                        <span class="font-bold text-slate-800 text-base">${formatAge(age)}</span>
-                        <div class="w-full bg-slate-100 rounded-full h-1.5 mt-1 hidden sm:block">
-                            <div class="bg-slate-400 h-1.5 rounded-full" style="width: ${percentFull}%"></div>
-                        </div>
-                    </div>
-                </div>
-                `;
-            }
-            html += `</div>`;
-            
-            content.innerHTML = html;
-            
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-            // Trigger reflow
-            void modal.offsetWidth;
-            modal.classList.remove('opacity-0');
-            modal.firstElementChild.classList.remove('scale-95');
-        }
-
-        function closeResultsModal() {
-            const modal = document.getElementById('results-modal');
-            modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }, 300);
-        }
-
-        // --- History Logic ---
-        function saveHistory() {
-            const title = prompt("Digite um nome para salvar esta avaliação (Ex: Avaliação Inicial - Maio/2026):");
-            if (!title) return;
-            
-            if (!formState._history) formState._history = [];
-            
-            const snapshot = {};
-            for (const key in formState) {
-                if (key !== '_history') {
-                    snapshot[key] = formState[key];
-                }
-            }
-            
-            const results = calculateResults();
-            
-            formState._history.push({
-                id: Date.now(),
-                date: new Date().toISOString(),
-                title: title,
-                answers: snapshot,
-                results: results
-            });
-            
-            saveToSupabase();
-            alert("Histórico salvo com sucesso! Você pode ver a evolução na tela de Resumo Clínico.");
-        }
-
-        function showHistoryModal() {
-            const modal = document.getElementById('history-modal');
-            const content = document.getElementById('history-content');
-            
-            const history = formState._history || [];
-            
-            if (history.length === 0) {
-                content.innerHTML = `<div class="text-center text-slate-500 py-8">Nenhum histórico salvo ainda.<br>Clique em "Salvar no Histórico" dentro de "Ver Resultados" para registrar sua avaliação atual.</div>`;
-            } else {
-                let html = '<div class="space-y-3">';
-                history.slice().reverse().forEach(h => {
-                    const dateObj = new Date(h.date);
-                    const formattedDate = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-                    
-                    html += `
-                    <div class="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-                        <div>
-                            <h4 class="font-bold text-slate-800">${h.title}</h4>
-                            <p class="text-xs text-slate-500 mt-1">Salvo em: ${formattedDate}</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full border border-indigo-200">Global: ${formatAge(h.results?.overall || 0)}</span>
-                        </div>
-                    </div>`;
-                });
-                html += '</div>';
-                content.innerHTML = html;
-            }
-            
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-            void modal.offsetWidth;
-            modal.classList.remove('opacity-0');
-            modal.firstElementChild.classList.remove('scale-95');
-        }
-
-        function closeHistoryModal() {
-            const modal = document.getElementById('history-modal');
-            modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }, 300);
-        }
-
-        function clearForm() {
-            if (confirm("Deseja realmente limpar todas as marcações da faixa etária atual? Tudo será apagado na nuvem também.")) {
-                for (const key in formState) {
-                    if (key.includes(`|${currentAgeGroup}|`)) delete formState[key];
-                }
-                for (const key in obsState) {
-                    if (key.includes(`|${currentAgeGroup}|`)) delete obsState[key];
-                }
-                renderTabelas();
-                debouncedSave();
-            }
-        }
-
-        // Start App
-        init();
-
-    </script>
 
     <!-- Bottom Navigation Bar (PWA) -->
     <nav class="no-print fixed bottom-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-[100] pb-safe" style="padding-bottom: env(safe-area-inset-bottom);">
         <div class="max-w-md mx-auto flex justify-around items-center h-16 px-2">
-            <a href="index.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-indigo-600">
+            <a href="portage.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-indigo-600">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="text-[10px] font-semibold">Diário</span>
+            </a>
+            <a href="resumo.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-slate-500">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                <span class="text-[10px] font-semibold">Resumo</span>
+            </a>
+            <a href="portage.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-slate-500">
                 <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                 <span class="text-[10px] font-semibold">Portage</span>
             </a>
             <a href="spm.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-slate-500">
                 <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                 <span class="text-[10px] font-semibold">SPM</span>
-            </a>
-            <a href="resumo.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-slate-500">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
-                <span class="text-[10px] font-semibold">Resumo</span>
-            </a>
-            <a href="diario.html" class="flex flex-col items-center justify-center w-full h-full hover:bg-slate-50 transition-colors text-slate-500">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                <span class="text-[10px] font-semibold">Diário</span>
             </a>
         </div>
     </nav>
