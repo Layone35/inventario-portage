@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário Portage (2 a 3 anos) - Registro de Avaliação</title>
+    <!-- Google Fonts para Tipografia Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS JIT CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Estilos específicos para impressão e paginação */
+        @media print {
+            body {
+                background-color: white !important;
+                color: #111827 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-container {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+            /* Forçar quebra de página antes de cada categoria principal */
+            .category-section {
+                page-break-before: always;
+            }
+            .category-section:first-of-type {
+                page-break-before: avoid; /* Não quebrar antes da primeira */
+            }
+            /* Evitar que uma linha de tabela seja cortada ao meio */
+            tr {
+                page-break-inside: avoid !important;
+            }
+            /* Repetir o cabeçalho da tabela em cada página */
+            thead {
+                display: table-header-group !important;
+            }
+            /* Margens padrão da página */
+            @page {
+                size: A4;
+                margin: 15mm 12mm 15mm 12mm;
+            }
+            /* Esconder placeholders de input e manter apenas o texto digitado */
+            input::placeholder {
+                color: transparent !important;
+            }
+            input {
+                border-bottom: 1px solid #9ca3af !important;
+            }
+        }
+
+        /* Estilização das caixas de marcação para clique na tela */
+        .checkbox-cell {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .checkbox-cell:hover {
+            background-color: #f3f4f6;
+        }
+        .checkbox-cell:active {
+            background-color: #e5e7eb;
+        }
+        .checkbox-box {
+            width: 1.35rem;
+            height: 1.35rem;
+            border: 1.5px solid #4b5563;
+            border-radius: 0.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #1f2937;
+            transition: all 0.15s ease;
+        }
+        .checkbox-box.checked-s {
+            background-color: #10b981;
+            border-color: #059669;
+            color: white;
+        }
+        .checkbox-box.checked-n {
+            background-color: #ef4444;
+            border-color: #dc2626;
+            color: white;
+        }
+        .checkbox-box.checked-t {
+            background-color: #f59e0b;
+            border-color: #d97706;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 sm:p-8 font-sans antialiased">
+
+    <div class="print-container max-w-5xl mx-auto bg-white p-6 sm:p-10 shadow-xl border border-slate-200 rounded-2xl relative">
+        
+        <!-- Cabeçalho Principal -->
+        <div class="text-center mb-8 border-b border-slate-100 pb-6">
+            <h1 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight">Inventário Portage</h1>
+            <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mt-1">Guia de Avaliação e Registro (2 a 3 Anos)</p>
+            <p class="text-slate-400 text-xs mt-2">Extraído integralmente do documento clínico "Questionário TO 3 Anos.pdf"</p>
+        </div>
+
+        <!-- Ficha de Identificação do Paciente -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8 bg-slate-50 p-6 rounded-xl border border-slate-150 text-sm">
+            <div class="flex items-center space-x-2">
+                <span class="font-bold text-slate-600 w-28 shrink-0">Paciente:</span>
+                <span class="text-slate-800 font-semibold border-b border-dashed border-slate-300 pb-0.5 w-full">ESTER BERNARDINO PEREIRA</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="font-bold text-slate-600 w-28 shrink-0">Data de Nasc.:</span>
+                <span class="text-slate-800 font-semibold border-b border-dashed border-slate-300 pb-0.5 w-full">13/08/2023</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="font-bold text-slate-600 w-28 shrink-0">Avaliador(a):</span>
+                <input type="text" class="bg-transparent border-b border-slate-300 focus:border-indigo-500 focus:outline-none pb-0.5 w-full text-slate-800 font-medium placeholder-slate-400" placeholder="Nome do profissional...">
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="font-bold text-slate-600 w-28 shrink-0">Data de Avaliação:</span>
+                <input type="text" class="bg-transparent border-b border-slate-300 focus:border-indigo-500 focus:outline-none pb-0.5 w-full text-slate-800 font-medium placeholder-slate-400" placeholder="DD/MM/AAAA">
+            </div>
+        </div>
+
+        <!-- Legenda e Painel de Progresso Interativo -->
+        <div class="flex flex-col lg:flex-row justify-between items-stretch lg:items-center bg-slate-50 p-5 border border-slate-200 rounded-xl text-sm mb-8 gap-4">
+            <div>
+                <span class="font-bold text-slate-700 block mb-2 lg:mb-1">Legenda de Avaliação:</span>
+                <div class="flex flex-wrap gap-4 text-xs">
+                    <span class="flex items-center"><div class="checkbox-box checked-s w-4 h-4 mr-1.5 shadow-sm">S</div> <strong>SIM</strong> (Realiza)</span>
+                    <span class="flex items-center"><div class="checkbox-box checked-n w-4 h-4 mr-1.5 shadow-sm">N</div> <strong>NÃO</strong> (Não realiza)</span>
+                    <span class="flex items-center"><div class="checkbox-box checked-t w-4 h-4 mr-1.5 shadow-sm">T</div> <strong>TALVEZ</strong> (Em aquisição)</span>
+                </div>
+            </div>
+            <div class="no-print flex flex-col justify-center bg-white border border-slate-200 px-4 py-3 rounded-lg shadow-sm min-w-[200px]">
+                <div class="flex justify-between items-center mb-1 text-xs font-semibold text-slate-600">
+                    <span>Progresso Geral:</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-1 text-right" id="progress-count">0 de 78 itens avaliados</div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Dinâmico (Tabelas) -->
+        <div id="content" class="space-y-12"></div>
+
+        <!-- Rodapé do Documento -->
+        <div class="text-center text-xs text-slate-400 mt-12 border-t border-slate-100 pt-6">
+            Documento gerado com base <strong>exclusiva e integral</strong> no PDF "Questionário TO 3 Anos.pdf".
+        </div>
+    </div>
+
+    <!-- Barra de Ações Flutuante (Somente Tela) -->
+    <div class="no-print fixed bottom-6 right-6 flex items-center space-x-3 bg-white p-3 rounded-full shadow-2xl border border-slate-100 z-50">
+        <button onclick="clearForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-full text-xs font-semibold transition-all flex items-center space-x-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            <span>Limpar</span>
+        </button>
+        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-indigo-100 hover:shadow-indigo-200 transition-all flex items-center space-x-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            <span>Imprimir / PDF</span>
+        </button>
+    </div>
+
+    <script>
+        // Mapeamento explícito de cores para que o JIT do Tailwind compile perfeitamente os estilos
+        const categoryStyles = {
+            "Socialização": {
+                titleBg: "bg-blue-50 border-blue-200 text-blue-900",
+                emojiBg: "bg-blue-100 text-blue-600"
+            },
+            "Linguagem": {
+                titleBg: "bg-purple-50 border-purple-200 text-purple-900",
+                emojiBg: "bg-purple-100 text-purple-600"
+            },
+            "Cognição": {
+                titleBg: "bg-amber-50 border-amber-200 text-amber-900",
+                emojiBg: "bg-amber-100 text-amber-600"
+            },
+            "Autocuidados": {
+                titleBg: "bg-teal-50 border-teal-200 text-teal-900",
+                emojiBg: "bg-teal-100 text-teal-600"
+            },
+            "Desenvolvimento motor": {
+                titleBg: "bg-rose-50 border-rose-200 text-rose-900",
+                emojiBg: "bg-rose-100 text-rose-600"
+            }
+        };
+
+        const emojis = { 
+            "Socialização": "🤝", 
+            "Linguagem": "🗣️", 
+            "Cognição": "🧠", 
+            "Autocuidados": "🛁", 
+            "Desenvolvimento motor": "🏃♂️" 
+        };
+        
+        // Base de dados contendo apenas as perguntas da faixa de 2 a 3 anos
+        const data = {
+            "Socialização": {
+                "2 a 3 anos": [
+                    "Brinca com 2 ou 3 crianças da sua idade.", "Compartilha um objeto ou alimento com outra criança.", "Cumprimenta colegas ou adultos quando lembrado.", "Avisa que quer ir ao banheiro durante o dia a tempo.", "Diz seu sexo quando solicitado.", "Pendura o casaco em um gancho da sua altura.", "Obedece sequência de duas ordens relacionadas.", "Obedece às ordens dos pais pelo menos das vezes.", "Busca/leva um objeto ou pessoa, quando solicitado.", "Presta atenção a história ou música por 5 a 10 min.", "Diz por favor ou obrigado quando lembrado.", "Espera a sua vez.", "Cumpre regras de um jogo com ajuda.", "Permanece em seu próprio quintal ou jardim.", "Relata experiências imediatas.", "Contribui para a conversa de donuts.", "Repete rimas, canções ou dança para os outros.", "Faz uma tarefa sozinha por 20 a 30 minutos.", "Pede desculpas sem ser lembrado 75 das vezes.", "Pede permissão para usar objetos dos outros em 75 das vezes.", "Demonstra entender sentimentos, expressando-os.", "Responde perguntas simples envolvendo como.", "Nomeia 3 cores sendo requisitado.", "Diz como são usados objetos comuns.", "Expressa ações futuras empregando os verbos ir, ter e querer.", "Utiliza adequadamente masculino e feminino na fala.", "Emprega formas regulares no passado.", "Vira trincos ou maçanetas em portas.", "Salta no mesmo local com ambos os pés.", "Anda de costas.", "Desce escadas sem ajuda.", "Atira uma bola a um adulto a 1 metro de distância.", "Constrói uma torre de 5 a 6 blocos."
+                ]
+            }, 
+            "Linguagem": {
+                "2 a 3 anos": [
+                    "Combina substantivos ou adjetivos e substantivos in frases de 2 palavras.", "Combina substantivo e verbo em frases de 2 palavras.", "Usa uma palavra para indicar que quer ir ao banheiro.", "Combina verbo ou substantivo com \"lá\" e \"aqui\" em frases de 2 palavras.", "Combina 2 palavras para expressar posse.", "Emprega \"não\" na fala.", "Responde perguntas de sim e não.", "Nomeia 3 partes do corpo em uma boneca ou outra pessoa.", "Nomeia 4 objetos comuns em figuras.", "Suga líquido do copo ou caneca usando canudinho.", "Desenha uma linha vertical imitando um adulto.", "Desenha uma linha horizontal imitando um adulto.", "Copia um círculo.", "Emparelha objetos com a mesma textura.", "Aponta o pequeno e o grande quando solicitado.", "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", "Responde a perguntas tipo \"O que está fazendo?\" para atividades habituais.", "Empilha 3 blocos, dada a ordem.", "Coloca objetos dentro, em cima e em baixo de um recipiente, dada a ordem."
+                ]
+            }, 
+            "Cognição": {
+                "2 a 3 anos": [
+                    "Completa um quebra-cabeça de encaixe de 3 peças.", "Imita um adulto em uma tarefa simples.", "Usa preensão de pinça para pegar objetos.", "Desenha um círculo imitando um adulto.", "Aponta o pequeno e o grande quando solicitado.", "Empilha 3 cores.", "Encaixa pinos de 2,5 cm em uma prancha de encaixe.", "Constrói uma torre de 3 blocos."
+                ]
+            }, 
+            "Autocuidados": {
+                "2 a 3 anos": [
+                    "Alimenta-se sozinho usando colher ou caneca, derrubando pouco alimento.", "Enxuga as mãos sem ajuda ao lhe darem uma toalha.", "Avisa que quer ir ao banheiro, mesmo sendo tarde demais.", "Controla sua baba.", "Urina ou defeca quando colocado no piniquinho pelo menos 3 vezes por semana.", "Enxuga o nariz quando lembrado.", "Veste-se e despe-se sozinho, exceto quanto a botões e fechos em 75 das vezes.", "Lava as mãos e o rosto com sabonete."
+                ]
+            }, 
+            "Desenvolvimento motor": {
+                "2 a 3 anos": [
+                    "Enfia 4 contas grandes em um cordão em 2 minutos.", "Vira trincos ou maçanetas em portas.", "Salta no mesmo local com ambos os pés.", "Anda de costas.", "Desce escadas sem ajuda.", "Atira uma bola a um adulto a 1 metro de distância.", "Constrói uma torre de 5 a 6 blocos.", "Faz bolas de argila, barro ou massinha.", "Segura o lápis entre o polegar e o indicador, apoiando-o sobre o dedo médio.", "Dá cambalhota para frente com ajuda."
+                ]
+            }
+        };
+
+        const container = document.getElementById('content');
+        let totalItems = 0;
+        let itemIndex = 0;
+
+        // Contar total de itens (agora será apenas os da faixa de 2 a 3 anos)
+        for (const category in data) {
+            for (const age in data[category]) {
+                totalItems += data[category][age].length;
+            }
+        }
+        
+        // Inicializa o texto dinamicamente para evitar ficar com um número fixo errado
+        document.getElementById('progress-count').textContent = `0 de ${totalItems} itens avaliados`;
+
+        // Renderizar tabelas
+        for (const [category, ages] of Object.entries(data)) {
+            const styles = categoryStyles[category] || { titleBg: "bg-slate-100 text-slate-900 border-slate-200", emojiBg: "bg-slate-200 text-slate-600" };
+            const emoji = emojis[category] || "📌";
+            
+            let html = `
+            <div class="category-section">
+                <!-- Cabeçalho da Categoria -->
+                <div class="flex items-center space-x-3 p-3 rounded-lg border mb-4 ${styles.titleBg} transition-all duration-300">
+                    <span class="w-10 h-10 rounded-lg flex items-center justify-center text-xl shadow-sm ${styles.emojiBg}">${emoji}</span>
+                    <h2 class="text-base sm:text-lg font-bold uppercase tracking-wider">${category}</h2>
+                </div>
+                
+                <!-- Tabela de Habilidades -->
+                <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm mb-8">
+                    <table class="w-full text-xs text-left border-collapse">
+                        <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 font-semibold">
+                            <tr>
+                                <th class="p-3 uppercase tracking-wider w-8 text-center border-r border-slate-200">#</th>
+                                <th class="p-3 uppercase tracking-wider">Habilidade / Item de Avaliação</th>
+                                <th class="p-2 w-12 sm:w-14 text-center border-x border-slate-200" title="Sim">S</th>
+                                <th class="p-2 w-12 sm:w-14 text-center border-r border-slate-200" title="Não">N</th>
+                                <th class="p-2 w-12 sm:w-14 text-center border-r border-slate-200" title="Talvez">T</th>
+                                <th class="p-3 w-40 sm:w-60 text-center uppercase tracking-wider">Observações / Comentários</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-white">
+            `;
+            
+            for (const [age, items] of Object.entries(ages)) {
+                // Linha divisória de Faixa Etária (evita o bug de rowspan ao quebrar páginas)
+                html += `
+                <tr class="bg-slate-50 font-bold border-y border-slate-200 print:bg-slate-100">
+                    <td colspan="6" class="p-2.5 text-slate-700 text-[11px] uppercase tracking-wider pl-4">
+                        Faixa Etária: <span class="text-indigo-600 font-extrabold">${age}</span>
+                    </td>
+                </tr>
+                `;
+                
+                items.forEach((item) => {
+                    itemIndex++;
+                    html += `
+                    <tr class="hover:bg-slate-50/50 transition-colors duration-150">
+                        <!-- Número do item -->
+                        <td class="p-2 text-center text-slate-400 font-medium border-r border-slate-100 bg-slate-50/30 w-8 select-none">${itemIndex}</td>
+                        
+                        <!-- Texto da habilidade -->
+                        <td class="p-3 text-slate-800 font-medium leading-relaxed pr-4">${item}</td>
+                        
+                        <!-- Checkboxes Interativos -->
+                        <td class="p-2.5 sm:p-1 text-center align-middle border-x border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 's', ${itemIndex})">
+                            <div class="checkbox-box" data-item="${itemIndex}" data-val="s"></div>
+                        </td>
+                        <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 'n', ${itemIndex})">
+                            <div class="checkbox-box" data-item="${itemIndex}" data-val="n"></div>
+                        </td>
+                        <td class="p-2.5 sm:p-1 text-center align-middle border-r border-slate-100 checkbox-cell select-none" onclick="toggleCheck(this, 't', ${itemIndex})">
+                            <div class="checkbox-box" data-item="${itemIndex}" data-val="t"></div>
+                        </td>
+                        
+                        <!-- Coluna de Observações -->
+                        <td class="p-1 border-slate-100">
+                            <textarea rows="1" class="w-full bg-transparent border-0 focus:ring-0 focus:outline-none p-1.5 resize-none text-[11px] text-slate-700 placeholder-slate-300 print:placeholder-transparent" placeholder="Anotações..."></textarea>
+                        </td>
+                    </tr>`;
+                });
+            }
+            html += `</tbody></table></div></div>`;
+            container.innerHTML += html;
+        }
+
+        // Auto-expandir as caixas de observações se o usuário digitar texto
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+            // Ajustar altura inicial se houver texto
+            textarea.style.height = 'auto';
+        });
+
+        // Estado do formulário
+        const formState = {};
+
+        function toggleCheck(cell, value, itemNum) {
+            // Pegar todos os checkboxes da mesma linha (mesmo itemNum)
+            const rowCheckboxes = document.querySelectorAll(`.checkbox-box[data-item="${itemNum}"]`);
+            const targetBox = cell.querySelector('.checkbox-box');
+            
+            const isAlreadyChecked = targetBox.classList.contains(`checked-${value}`);
+
+            // Resetar todos os checkboxes desta linha
+            rowCheckboxes.forEach(box => {
+                box.classList.remove('checked-s', 'checked-n', 'checked-t');
+                box.textContent = '';
+            });
+
+            if (!isAlreadyChecked) {
+                // Marcar o selecionado
+                targetBox.classList.add(`checked-${value}`);
+                targetBox.textContent = value.toUpperCase();
+                formState[itemNum] = value;
+            } else {
+                // Desmarcar se clicou no mesmo
+                delete formState[itemNum];
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(formState).length;
+            const percent = Math.round((answeredCount / totalItems) * 100);
+            
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-count').textContent = `${answeredCount} de ${totalItems} itens avaliados`;
+        }
+
+        function clearForm() {
+            if (confirm("Deseja realmente limpar todas as marcações?")) {
+                const boxes = document.querySelectorAll('.checkbox-box');
+                boxes.forEach(box => {
+                    box.classList.remove('checked-s', 'checked-n', 'checked-t');
+                    box.textContent = '';
+                });
+                
+                document.querySelectorAll('textarea').forEach(t => {
+                    t.value = '';
+                    t.style.height = 'auto';
+                });
+                
+                // Limpar estado
+                for (const key in formState) {
+                    delete formState[key];
+                }
+                
+                updateProgress();
+            }
+        }
+    </script>
+</body>
+</html>
