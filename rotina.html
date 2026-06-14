@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4f46e5">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Rotina e Agenda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -279,7 +279,33 @@
                     if (!obsState.absences) obsState.absences = [];
                     if (!obsState.checklist_template) obsState.checklist_template = ['Fez xixi no vaso', 'Fez cocô no vaso', 'Tomou vitamina'];
                     if (!obsState.checklist_data) obsState.checklist_data = {};
-                    if (!obsState.customSchedule) obsState.customSchedule = JSON.parse(JSON.stringify(defaultSchedule)); // deep clone
+                    
+                    if (!obsState.scheduleTemplate) {
+                        obsState.scheduleTemplate = {};
+                        const source = obsState.customSchedule || defaultSchedule;
+                        for (let d = 1; d <= 5; d++) {
+                            obsState.scheduleTemplate[d] = [];
+                            if (source[d]) {
+                                source[d].forEach(ev => {
+                                    let hm = ev.time.split(':');
+                                    let h = parseInt(hm[0], 10);
+                                    let m = parseInt(hm[1], 10);
+                                    let endM = m + 45;
+                                    let endH = h;
+                                    if (endM >= 60) { endH++; endM -= 60; }
+                                    let endStr = endH.toString().padStart(2, '0') + ':' + endM.toString().padStart(2, '0');
+                                    obsState.scheduleTemplate[d].push({
+                                        id: 'ev_' + Date.now() + Math.random().toString(36).substr(2, 9),
+                                        startTime: ev.time,
+                                        endTime: endStr,
+                                        title: ev.title,
+                                        type: ev.type
+                                    });
+                                });
+                            }
+                        }
+                    }
+                    if (!obsState.scheduleOverrides) obsState.scheduleOverrides = {};
                 }
                 
                 updateSleepUI(obsState.sleep[todayKey]);
