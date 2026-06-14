@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Clínico - Ester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <style>
+        @media print {
+            body { background-color: white !important; color: #111827 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .no-print { display: none !important; }
+            .print-container { box-shadow: none !important; border: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            @page { size: A4; margin: 15mm 12mm; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white shadow-md no-print">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center h-14 space-x-4 sm:space-x-8">
+                <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-100 hover:bg-indigo-500 hover:text-white transition-colors">Inventário Portage</a>
+                <a href="spm.html" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-100 hover:bg-indigo-500 hover:text-white transition-colors">Avaliação SPM</a>
+                <a href="resumo.html" class="px-3 py-2 rounded-md text-sm font-bold bg-indigo-800 text-white shadow-inner">Resumo Clínico</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="print-container max-w-5xl mx-auto mt-4 mb-20 space-y-6">
+
+        <!-- Header -->
+        <div class="bg-white p-6 sm:p-8 shadow-sm border border-slate-200 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-5">
+                <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-3xl font-black shadow-inner">E</div>
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Ester Bernardino Pereira</h1>
+                    <p class="text-slate-500 font-medium">Nascida em 13/08/2023</p>
+                </div>
+            </div>
+            <div class="bg-rose-50 border border-rose-100 px-6 py-4 rounded-xl text-center shadow-sm w-full md:w-auto">
+                <p class="text-xs font-bold text-rose-500 uppercase tracking-widest mb-1">Diagnóstico Oficial</p>
+                <h2 class="text-xl font-black text-rose-700">TEA (CID F84.0)</h2>
+            </div>
+        </div>
+
+        <!-- Recomendações e Reforçadores -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                    <div class="p-2 bg-blue-100 text-blue-600 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg></div>
+                    <h3 class="text-lg font-bold text-slate-800">Recomendações Terapêuticas</h3>
+                </div>
+                <ul class="space-y-3 text-sm font-medium text-slate-600">
+                    <li class="flex justify-between items-center bg-slate-50 p-2 rounded-md border border-slate-100">
+                        <span>Psicologia ABA</span> <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold">10h semanais</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-slate-50 p-2 rounded-md border border-slate-100">
+                        <span>Fonoaudiologia</span> <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold">2h semanais</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-slate-50 p-2 rounded-md border border-slate-100">
+                        <span>TO (Integração Sensorial)</span> <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold">2h semanais</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-slate-50 p-2 rounded-md border border-slate-100">
+                        <span>Musicoterapia</span> <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold">2h semanais</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-amber-50 border border-amber-200 p-2 rounded-md text-amber-800">
+                        <span>Adaptação Escolar</span> <span class="font-bold text-xs">Auxiliar de sala exclusiva</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                    <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></div>
+                    <h3 class="text-lg font-bold text-slate-800">Reforçadores & Interesses</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center gap-2 font-semibold text-slate-700">
+                        🎵 Músicas e Vídeos
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center gap-2 font-semibold text-slate-700">
+                        🧩 Blocos de Encaixe
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center gap-2 font-semibold text-slate-700">
+                        📺 Televisão
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center gap-2 font-semibold text-slate-700">
+                        🏃 Correr / Movimento
+                    </div>
+                    <div class="col-span-2 bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center gap-2 font-semibold text-slate-700">
+                        🌟 Boa coordenação visomotora
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Perfil Clínico ABA -->
+        <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
+                <div class="p-2 bg-purple-100 text-purple-600 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg></div>
+                <h3 class="text-xl font-bold text-slate-800">Perfil Comportamental e Sensorial (Destaques)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-rose-50/50 p-5 rounded-xl border border-rose-100">
+                    <h4 class="font-bold text-rose-800 mb-2 flex items-center gap-2">💬 Linguagem e Comunicação</h4>
+                    <ul class="list-disc list-inside text-sm text-rose-900/80 space-y-1.5">
+                        <li>Atraso severo no desenvolvimento verbal.</li>
+                        <li>Ecolalia imediata, mas com baixa iniciativa verbal.</li>
+                        <li>Choro e gritos usados como expressão de desejos.</li>
+                        <li>Dificuldade em seguir comandos sem pista gestual.</li>
+                    </ul>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-100">
+                    <h4 class="font-bold text-amber-800 mb-2 flex items-center gap-2">🤝 Socialização</h4>
+                    <ul class="list-disc list-inside text-sm text-amber-900/80 space-y-1.5">
+                        <li>Tendência ao isolamento e brincar solitário.</li>
+                        <li>Dificuldade no contato visual e troca de turnos.</li>
+                        <li>Não responde prontamente pelo nome.</li>
+                        <li>Ausência de noção de perigo.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-sky-50/50 p-5 rounded-xl border border-sky-100">
+                    <h4 class="font-bold text-sky-800 mb-2 flex items-center gap-2">🧠 Comportamento</h4>
+                    <ul class="list-disc list-inside text-sm text-sky-900/80 space-y-1.5">
+                        <li>Inflexibilidade à mudança e quebra de rotina.</li>
+                        <li>Birras e jogar-se ao chão diante de frustração.</li>
+                        <li>Movimentos estereotipados motores (flapping).</li>
+                        <li>Marcha na ponta dos pés.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-orange-50/50 p-5 rounded-xl border border-orange-100">
+                    <h4 class="font-bold text-orange-800 mb-2 flex items-center gap-2">🖐️ Sensorial e AVds</h4>
+                    <ul class="list-disc list-inside text-sm text-orange-900/80 space-y-1.5">
+                        <li>Hipersensibilidade tátil (corte de unha, lavar cabelo, cócegas).</li>
+                        <li>Escala móveis e foge em busca de estímulo.</li>
+                        <li>Retenção de urina/fezes sem a fralda.</li>
+                        <li>Reatividade extrema a intervenções invasivas.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 text-center">Desempenho por Área - Portage (%)</h3>
+                <div class="relative h-64 w-full">
+                    <canvas id="portageChart"></canvas>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-4 text-center">Dados da Avaliação Neuropsicológica (Mai/2026).</p>
+            </div>
+
+            <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 text-center">Idade de Desenvolvimento - Bayley (meses)</h3>
+                <div class="relative h-64 w-full">
+                    <canvas id="bayleyChart"></canvas>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-4 text-center">A linha pontilhada representa a Idade Cronológica atual da Ester.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const pCtx = document.getElementById('portageChart').getContext('2d');
+        new Chart(pCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Linguagem', 'Cognição', 'Social', 'Autocuidado', 'Motor'],
+                datasets: [{
+                    label: '% Alcançado',
+                    data: [6, 37, 62, 69, 87],
+                    backgroundColor: [
+                        'rgba(244, 63, 94, 0.7)',  // Rose
+                        'rgba(245, 158, 11, 0.7)', // Amber
+                        'rgba(14, 165, 233, 0.7)', // Sky
+                        'rgba(168, 85, 247, 0.7)', // Purple
+                        'rgba(16, 185, 129, 0.7)'  // Emerald
+                    ],
+                    borderColor: [
+                        'rgba(244, 63, 94, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(14, 165, 233, 1)',
+                        'rgba(168, 85, 247, 1)',
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, max: 100, ticks: { callback: function(val) { return val + '%'; } } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        const bCtx = document.getElementById('bayleyChart').getContext('2d');
+        const chronAge = 32; // Assuming ~32 months for the line
+
+        new Chart(bCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Com. Receptiva', 'Com. Expressiva', 'Motor Grosso', 'Cognitivo', 'Motor Fino'],
+                datasets: [{
+                    label: 'Idade de Desenvolv. (Meses)',
+                    data: [17, 18, 18, 22, 28],
+                    backgroundColor: 'rgba(99, 102, 241, 0.7)', // Indigo
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: chronAge,
+                                yMax: chronAge,
+                                borderColor: 'rgba(239, 68, 68, 0.8)', // Red dashed line
+                                borderWidth: 2,
+                                borderDash: [5, 5],
+                                label: {
+                                    content: 'Idade Cronológica',
+                                    enabled: true,
+                                    position: 'end'
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 35, title: { display: true, text: 'Meses' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
