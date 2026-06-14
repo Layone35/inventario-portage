@@ -147,8 +147,33 @@
             <div class="p-6 space-y-6" id="results-content">
                 <!-- Injected via JS -->
             </div>
-            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="saveHistory()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                    Salvar no Histórico
+                </button>
                 <button onclick="closeResultsModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History List Modal -->
+    <div id="history-modal" class="no-print fixed inset-0 bg-slate-900/60 z-[100] hidden items-center justify-center backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 border border-slate-200">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800">Histórico de Avaliações</h2>
+                    <p class="text-xs text-slate-500 mt-1">Fotos do seu progresso ao longo do tempo</p>
+                </div>
+                <button onclick="closeHistoryModal()" class="text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4" id="history-content">
+                <!-- Injected via JS -->
+            </div>
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button onclick="closeHistoryModal()" class="bg-slate-600 hover:bg-slate-700 text-white font-bold py-2.5 px-6 rounded-lg shadow-sm transition-colors">Fechar</button>
             </div>
         </div>
     </div>
@@ -158,6 +183,10 @@
             <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-1 inline-block"></span>
             <span>Nuvem atualizada</span>
         </div>
+        <button onclick="showHistoryModal()" class="bg-purple-100 hover:bg-purple-200 text-purple-700 px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="hidden sm:inline">Histórico</span>
+        </button>
         <button onclick="showResultsModal()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center space-x-1 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -529,6 +558,80 @@
 
         function closeResultsModal() {
             const modal = document.getElementById('results-modal');
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        // --- History Logic ---
+        function saveHistory() {
+            const title = prompt("Digite um nome para salvar esta avaliação (Ex: Avaliação Inicial - Maio/2026):");
+            if (!title) return;
+            
+            if (!formState._history) formState._history = [];
+            
+            const snapshot = {};
+            for (const key in formState) {
+                if (key !== '_history') {
+                    snapshot[key] = formState[key];
+                }
+            }
+            
+            const results = calculateResults();
+            
+            formState._history.push({
+                id: Date.now(),
+                date: new Date().toISOString(),
+                title: title,
+                answers: snapshot,
+                results: results
+            });
+            
+            saveToSupabase();
+            alert("Histórico salvo com sucesso! Você pode ver a evolução na tela de Resumo Clínico.");
+        }
+
+        function showHistoryModal() {
+            const modal = document.getElementById('history-modal');
+            const content = document.getElementById('history-content');
+            
+            const history = formState._history || [];
+            
+            if (history.length === 0) {
+                content.innerHTML = `<div class="text-center text-slate-500 py-8">Nenhum histórico salvo ainda.<br>Clique em "Salvar no Histórico" dentro de "Ver Resultados" para registrar sua avaliação atual.</div>`;
+            } else {
+                let html = '<div class="space-y-3">';
+                history.slice().reverse().forEach(h => {
+                    const dateObj = new Date(h.date);
+                    const formattedDate = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+                    
+                    html += `
+                    <div class="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-800">${h.title}</h4>
+                            <p class="text-xs text-slate-500 mt-1">Salvo em: ${formattedDate}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full border border-indigo-200">Global: ${formatAge(h.results?.overall || 0)}</span>
+                        </div>
+                    </div>`;
+                });
+                html += '</div>';
+                content.innerHTML = html;
+            }
+            
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.firstElementChild.classList.remove('scale-95');
+        }
+
+        function closeHistoryModal() {
+            const modal = document.getElementById('history-modal');
             modal.classList.add('opacity-0');
             modal.firstElementChild.classList.add('scale-95');
             setTimeout(() => {

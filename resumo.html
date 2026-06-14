@@ -187,8 +187,19 @@
             </div>
         </div>
 
+        <!-- Gráfico de Evolução Temporal (Supabase) -->
+        <div class="bg-white p-6 shadow-sm border border-slate-200 rounded-2xl" id="evolution-container">
+            <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 text-center">Linha do Tempo (Evolução Portage)</h3>
+            <div id="evolution-loading" class="text-center text-slate-400 py-10">Carregando histórico da nuvem...</div>
+            <div id="evolution-empty" class="text-center text-slate-400 py-10 hidden">Nenhum histórico salvo ainda. Vá no Inventário Portage e salve sua primeira avaliação no histórico!</div>
+            <div class="relative h-72 w-full hidden" id="evolution-chart-wrapper">
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </div>
+
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const pCtx = document.getElementById('portageChart').getContext('2d');
         new Chart(pCtx, {
@@ -198,20 +209,8 @@
                 datasets: [{
                     label: '% Alcançado',
                     data: [6, 37, 62, 69, 87],
-                    backgroundColor: [
-                        'rgba(244, 63, 94, 0.7)',  // Rose
-                        'rgba(245, 158, 11, 0.7)', // Amber
-                        'rgba(14, 165, 233, 0.7)', // Sky
-                        'rgba(168, 85, 247, 0.7)', // Purple
-                        'rgba(16, 185, 129, 0.7)'  // Emerald
-                    ],
-                    borderColor: [
-                        'rgba(244, 63, 94, 1)',
-                        'rgba(245, 158, 11, 1)',
-                        'rgba(14, 165, 233, 1)',
-                        'rgba(168, 85, 247, 1)',
-                        'rgba(16, 185, 129, 1)'
-                    ],
+                    backgroundColor: ['rgba(244, 63, 94, 0.7)', 'rgba(245, 158, 11, 0.7)', 'rgba(14, 165, 233, 0.7)', 'rgba(168, 85, 247, 0.7)', 'rgba(16, 185, 129, 0.7)'],
+                    borderColor: ['rgba(244, 63, 94, 1)', 'rgba(245, 158, 11, 1)', 'rgba(14, 165, 233, 1)', 'rgba(168, 85, 247, 1)', 'rgba(16, 185, 129, 1)'],
                     borderWidth: 2,
                     borderRadius: 6
                 }]
@@ -228,7 +227,7 @@
         });
 
         const bCtx = document.getElementById('bayleyChart').getContext('2d');
-        const chronAge = 32; // Assuming ~32 months for the line
+        const chronAge = 32;
 
         new Chart(bCtx, {
             type: 'bar',
@@ -237,7 +236,7 @@
                 datasets: [{
                     label: 'Idade de Desenvolv. (Meses)',
                     data: [17, 18, 18, 22, 28],
-                    backgroundColor: 'rgba(99, 102, 241, 0.7)', // Indigo
+                    backgroundColor: 'rgba(99, 102, 241, 0.7)',
                     borderColor: 'rgba(79, 70, 229, 1)',
                     borderWidth: 2,
                     borderRadius: 6
@@ -254,7 +253,7 @@
                                 type: 'line',
                                 yMin: chronAge,
                                 yMax: chronAge,
-                                borderColor: 'rgba(239, 68, 68, 0.8)', // Red dashed line
+                                borderColor: 'rgba(239, 68, 68, 0.8)',
                                 borderWidth: 2,
                                 borderDash: [5, 5],
                                 label: {
@@ -272,6 +271,70 @@
                 }
             }
         });
+
+        // --- Supabase Evolution Logic ---
+        const SUPABASE_URL = 'https://ftsrjkngineekilrarrd.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0c3Jqa25naW5lZWtpbHJhcnJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjExMjcsImV4cCI6MjA5MTY5NzEyN30.aEAeumrSj8Jc5NmvgpZrqfTCD-hYhdl3_rom5yZRX3k';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function loadEvolution() {
+            try {
+                const { data, error } = await supabaseClient.from('portage_data').select('form_state').eq('id', 1).single();
+                document.getElementById('evolution-loading').classList.add('hidden');
+                
+                if (error || !data || !data.form_state || !data.form_state._history || data.form_state._history.length === 0) {
+                    document.getElementById('evolution-empty').classList.remove('hidden');
+                    return;
+                }
+
+                const history = data.form_state._history;
+                
+                // Sort by date ascending
+                history.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                const labels = history.map(h => h.title || new Date(h.date).toLocaleDateString('pt-BR', {month: 'short', year: 'numeric'}));
+                
+                // Extrair a Idade Global (overall) de cada snapshot
+                const dataPoints = history.map(h => {
+                    if (h.results && h.results.overall) return h.results.overall;
+                    return 0;
+                });
+
+                document.getElementById('evolution-chart-wrapper').classList.remove('hidden');
+
+                const eCtx = document.getElementById('evolutionChart').getContext('2d');
+                new Chart(eCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Idade de Desenvolvimento Global (meses)',
+                            data: dataPoints,
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderWidth: 3,
+                            pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                            pointRadius: 5,
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: true, position: 'top' } },
+                        scales: {
+                            y: { beginAtZero: true, max: 72, title: { display: true, text: 'Meses' } }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('evolution-loading').innerText = "Erro ao carregar dados.";
+            }
+        }
+
+        loadEvolution();
     </script>
 </body>
 </html>
